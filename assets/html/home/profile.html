@@ -24,11 +24,11 @@
 					</md-input-container>
 				</div>
 				<div layout-gt-sm="row" layout="column" flex offset-gt-sm="5" offset="0" style="width: 90%;">
-					<md-input-container flex="30" class="md-block" style="width: 100%;">
+					<md-input-container flex="30" class="md-block">
 						<label>City</label>
 						<input ng-model="ctrl.test.city" ng-change="ctrl.active = true">
 					</md-input-container>
-					<md-input-container flex="30" offset-gt-sm="5" offset="0" class="md-block" style="width: 100%;">
+					<md-input-container flex="30" offset-gt-sm="5" offset="0" class="md-block">
 						<label>State</label>
 						<md-select ng-model="ctrl.test.state" ng-change="ctrl.active = true">
 							<md-option ng-repeat="state in ctrl.states" value="{{state}}">
@@ -36,7 +36,7 @@
 							</md-option>
 						</md-select>
 					</md-input-container>
-					<md-input-container flex="30" offset-gt-sm="5" offset="0" class="md-block" style="width: 100%;">
+					<md-input-container flex="30" offset-gt-sm="5" offset="0" class="md-block">
 						<label>Postal Code</label>
 						<input name="postalCode" ng-model="ctrl.test.zip" placeholder="12345"
 							   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5" ng-change="ctrl.active = true">
