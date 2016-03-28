@@ -1,18 +1,48 @@
 <div class="profile">
-	<md-card class="content" style="position:relative">
-		<div style="border-top: 2px solid #000;width: 50%;position: absolute;top: 25%;margin: 0 25% 0 25%;"></div>
+	<md-card class="content">
 		<md-list-item layout="column">
 			<img ng-src="{{ ctrl.test.image }}" class="profile-avatar md-avatar" style="height:120px;width:120px;margin-top:30px;"/>
 			<div class="md-list-item-text" layout="column" layout-align="start start" style="width:100%;margin-top: 30px;">
-				<md-input-container flex style="width: 20%;">
-					<label>Name</label>
-					<input ng-model="ctrl.test.name">
-				</md-input-container>
-				<md-input-container flex style="width: 20%;">
-					<label>Email</label>
-					<input ng-model="ctrl.test.email">
-				</md-input-container>
+				<div layout-gt-sm="row" layout="column" flex style="width: 100%;">
+					<md-input-container class="md-block" flex style="width: 100%;">
+						<label>Name</label>
+						<input ng-model="ctrl.test.name" ng-change="ctrl.active = true">
+					</md-input-container>
+					<md-input-container class="md-block" flex style="width: 100%;">
+						<label>Email</label>
+						<input ng-model="ctrl.test.email" ng-change="ctrl.active = true">
+					</md-input-container>
+				</div>
+				<div layout-gt-sm="row" layout="column" flex style="width: 100%;">
+					<md-input-container class="md-block" flex style="width: 100%;">
+						<label>Address</label>
+						<input ng-model="ctrl.test.address1" placeholder="Address" ng-change="ctrl.active = true">
+					</md-input-container>
+					<md-input-container class="md-block" flex style="width: 100%;">
+						<input ng-model="ctrl.test.address2" placeholder="Address 2" ng-change="ctrl.active = true">
+					</md-input-container>
+				</div>
+				<div layout-gt-sm="row" layout="column" flex style="width: 100%;">
+					<md-input-container flex="33" class="md-block" style="width: 100%;">
+						<label>City</label>
+						<input ng-model="ctrl.test.city" ng-change="ctrl.active = true">
+					</md-input-container>
+					<md-input-container flex="33" class="md-block" style="width: 100%;">
+						<label>State</label>
+						<md-select ng-model="ctrl.test.state" ng-change="ctrl.active = true">
+							<md-option ng-repeat="state in ctrl.states" value="{{state}}">
+								{{state}}
+							</md-option>
+						</md-select>
+					</md-input-container>
+					<md-input-container flex="33" class="md-block" style="width: 100%;">
+						<label>Postal Code</label>
+						<input name="postalCode" ng-model="ctrl.test.zip" placeholder="12345"
+							   required ng-pattern="/^[0-9]{5}$/" md-maxlength="5" ng-change="ctrl.active = true">
+					</md-input-container>
+				</div>
 			</div>
 		</md-list-item>
+		<md-button layout-align="center center" class="md-raised footer md-margin" ng-class="{ 'active' : ctrl.active }" ng-click="ctrl.active = false">Save</md-button>
 	</md-card>
 </div>

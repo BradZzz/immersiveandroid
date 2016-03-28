@@ -12,11 +12,18 @@
 /* Button Colors */
 @red-trans:   rgba(176,28,48,.3);
 @green-trans:   rgba(37,148,107,.3);
+@green-dull-trans:   rgba(22,71,22,.3);
+@blue-sky-trans:   rgb(64,150,238,.3);
 
+@white-full:   rgba(255,255,255,.8);
 @red-full:   rgba(207,23,84,.8);
 @green-full:   rgba(29,207,23,.8);
+@green-dull-full:   rgba(22,71,22,.8);
 @blue-full:   rgba(77,166,196,.8);
+@blue-sky-full:   rgba(64,150,238,.8);
+@blue-navy-full:   rgba(37,128,207,.8);
 @grey-full:   rgba(225,232,235,.8);
+@black-full:   rgba(0,0,0,.8);
 
 /* Hues Using */
 @hue-5:   #082742;
@@ -84,6 +91,21 @@ html, body {
     }
 }
 
+button.md-raised {
+    color : @black-full;
+    &:hover {
+        .gradient(@grey-full,@grey-full);
+    }
+    .gradient(@white-full,@grey-full);
+    &.active {
+        .gradient(@blue-sky-full,@blue-navy-full) !important;
+        color : @white-full !important;
+        &:hover {
+            .gradient(@blue-navy-full,@blue-navy-full) !important;
+        }
+    }
+}
+
 .center-horizontal {
     text-align: center;
     margin: 0 auto;
@@ -110,6 +132,14 @@ html, body {
         }
         .dbl-wrapper .dbl-icon {
             margin-top: 10px;
+        }
+    }
+    .profile {
+        .content {
+            height : 94vh !important;
+            .footer.md-raised {
+                margin: 5px auto 10px auto !important;
+            }
         }
     }
     .stock {
@@ -143,7 +173,9 @@ html, body {
 }
 
 .header {
-    color: white;
+    md-content.top-nav {
+        color: white !important;
+    }
     .nav-icons .nav-home {
         text-align: right;
         max-width: 60px;
@@ -189,7 +221,21 @@ html, body {
 }
 
 .profile {
-    .profile-avatar {
-        border: 1px solid @grey-full;
+    .content {
+        position : relative;
+        height : 79vh;
+        .profile-avatar {
+            border : 2px solid @black-full;
+        }
     }
+    .footer {
+        &.md-raised {
+            margin: 5px auto 50px auto;
+        }
+        position : relative;
+    }
+}
+
+span.icon:hover, md-icon.icon:hover {
+    opacity : .5;
 }

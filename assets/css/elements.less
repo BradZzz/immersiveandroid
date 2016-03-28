@@ -208,3 +208,10 @@
   -webkit-filter: @type;
   filter: @type;
 }
+.gradient(@color1: rgb(64,150,238,.8), @color2: rgba(37,128,207,.8)) {
+    background: @color1;
+    background: -moz-linear-gradient(top,  @color1 0%, @color2 100%);
+    background: -webkit-linear-gradient(top,  @color1 0%,@color2 100%);
+    background: linear-gradient(to bottom,  @color1 0%,@color2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color1', endColorstr='@color2',GradientType=0 );
+}
