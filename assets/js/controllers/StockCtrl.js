@@ -3,7 +3,7 @@ angular.module('ambrosia').controller('StockCtrl',
 function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes)
 {
 
-    $rootScope.loading = true;
+    $rootScope.loading = true
 
     $scope.ctrl = {
         period : 'd',

@@ -34,6 +34,11 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
       templateUrl: "/assets/html/home/stock.html",
       controller: "StockCtrl"
     })
+    .state('profile', {
+      url: "/profile",
+      templateUrl: "/assets/html/home/profile.html",
+      controller: "ProfileCtrl"
+    })
 
   $locationProvider.html5Mode(true)
 }])
@@ -43,27 +48,6 @@ app.run(
 function ($rootScope) {
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     console.log("state", toState, toParams, fromState, fromParams)
-    /*if (!$rootScope.auth) {
-      $location.path('/login')
-    } else {
-      $http({
-        url: '/api/v1/user/validate',
-        method: "GET",
-        params: $rootScope.auth,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(function(res) {
-        if ('access' in toState && res.data.role < toState.access) {
-          flash.error = "Cannot access elevated content"
-          $state.go(fromState.name)
-        }
-      }, function(err){
-        flash.error = "Error creating user"
-          console.log(res)
-          $location.path('/login')
-      })
-    }*/
   })
 }]);
 

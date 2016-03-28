@@ -28,7 +28,7 @@ function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
     test : seUser.user,
     nav : [
         { icon : 'ion-android-home', text : 'Home', click : function(){console.log("clicked home")} },
-        { icon : 'ion-folder', text : 'Profile', click : function(){console.log("clicked profile")} },
+        { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){console.log("clicked analytics")} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
         { icon : 'ion-android-exit', text : 'Logout', click : function(){console.log("clicked logout")} },

@@ -123,6 +123,9 @@ body {
   max-width: 60px;
   margin-right: 80px;
 }
+.header .profile-avatar {
+  border: 1px solid rgba(225, 232, 235, 0.8);
+}
 .main .dbl-wrapper {
   align-items: center;
   font-size: 18px;
@@ -150,4 +153,7 @@ body {
   position: absolute;
   bottom: -15%;
   left: 30%;
+}
+.profile .profile-avatar {
+  border: 1px solid rgba(225, 232, 235, 0.8);
 }

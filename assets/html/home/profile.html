@@ -1,0 +1,18 @@
+<div class="profile">
+	<md-card class="content" style="position:relative">
+		<div style="border-top: 2px solid #000;width: 50%;position: absolute;top: 25%;margin: 0 25% 0 25%;"></div>
+		<md-list-item layout="column">
+			<img ng-src="{{ ctrl.test.image }}" class="profile-avatar md-avatar" style="height:120px;width:120px;margin-top:30px;"/>
+			<div class="md-list-item-text" layout="column" layout-align="start start" style="width:100%;margin-top: 30px;">
+				<md-input-container flex style="width: 20%;">
+					<label>Name</label>
+					<input ng-model="ctrl.test.name">
+				</md-input-container>
+				<md-input-container flex style="width: 20%;">
+					<label>Email</label>
+					<input ng-model="ctrl.test.email">
+				</md-input-container>
+			</div>
+		</md-list-item>
+	</md-card>
+</div>

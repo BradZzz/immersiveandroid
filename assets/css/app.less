@@ -16,6 +16,7 @@
 @red-full:   rgba(207,23,84,.8);
 @green-full:   rgba(29,207,23,.8);
 @blue-full:   rgba(77,166,196,.8);
+@grey-full:   rgba(225,232,235,.8);
 
 /* Hues Using */
 @hue-5:   #082742;
@@ -148,6 +149,9 @@ html, body {
         max-width: 60px;
         margin-right: 80px;
     }
+    .profile-avatar {
+        border: 1px solid @grey-full;
+    }
 }
 
 .main {
@@ -181,5 +185,11 @@ html, body {
                 left: 30%;
             }
         }
+    }
+}
+
+.profile {
+    .profile-avatar {
+        border: 1px solid @grey-full;
     }
 }
