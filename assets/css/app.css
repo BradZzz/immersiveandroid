@@ -212,7 +212,7 @@ button.md-raised.active:hover {
 }
 .profile .content {
   position: relative;
-  height: 79vh;
+  height: 88vh;
 }
 .profile .content .profile-avatar {
   border: 2px solid rgba(0, 0, 0, 0.8);
