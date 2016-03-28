@@ -142,6 +142,9 @@ button.md-raised.active:hover {
   .profile .content {
     height: 94vh !important;
   }
+  .profile .content md-input-container.md-block {
+    padding-bottom: 10px !important;
+  }
   .profile .content .footer.md-raised {
     margin: 5px auto 10px auto !important;
   }
