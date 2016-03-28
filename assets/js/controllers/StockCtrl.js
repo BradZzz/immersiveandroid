@@ -19,7 +19,11 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes
 
             this.cost = (this.ask * this.invested).toFixed(2)
 
-            this.company.stockUserDetails.invested.value = this.invested + this.company.stockUserDetails.invested.cache
+            if ( this.invested > 0 ) {
+              this.company.stockUserDetails.invested.value = 1 + this.company.stockUserDetails.invested.cache
+            } else {
+              this.company.stockUserDetails.invested.value = this.company.stockUserDetails.invested.cache
+            }
 
             this.company.stockUserDetails.adj.cache = this.company.stockUserDetails.adj.calc(
                 this.company.stockUserDetails.transaction.cache , this.company.stockUserDetails.invested.value
