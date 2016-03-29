@@ -74,7 +74,7 @@ function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
         if ($scope.loginRegister.test.background + offset > this.backgrounds.length - 1 ) {
             $scope.loginRegister.test.background = 0
         } else if ($scope.loginRegister.test.background + offset < 0 ) {
-            $scope.loginRegister.test.background = $scope.backgrounds.length - 1
+            $scope.loginRegister.test.background = this.backgrounds.length - 1
         } else {
             $scope.loginRegister.test.background += offset
         }

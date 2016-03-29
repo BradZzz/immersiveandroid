@@ -53,6 +53,31 @@ module.exports = function (app) {
     }
   })
 
+  app.post('/updateUser', hopAuth, function(req, res) {
+      var params = req.query || req.body
+      var user = JSON.parse(JSON.stringify(params.user))
+      var updatedUser = { $set: JSON.parse(user) }
+
+      console.log(updatedUser)
+
+      User.findOneAndUpdate({ email : JSON.parse(user).email }, updatedUser, {upsert:true,new:true}, function(err, user){
+        if (err) {
+          console.log(err)
+          return res.status(500).json({ err : err })
+        } else {
+          return res.status(200).json({ user : user })
+        }
+      })
+  });
+
+  function hopAuth(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        return res.status(400).json("Bad Request");
+    }
+  }
+
   passport.use(new LocalStrategy(function(username, password, done) {
     process.nextTick(function() {
       User.findOne({

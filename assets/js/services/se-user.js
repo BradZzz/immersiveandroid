@@ -6,7 +6,7 @@ function ($http, Flash)
   self.logName = 'seUser'
 
   self.unknown_user = {
-      image : 'assets/img/test/test_logged_out.png',
+      photo : 'assets/img/test/test_logged_out.png',
       name : 'Logged Out',
       email : '',
       gender : '',
@@ -19,7 +19,7 @@ function ($http, Flash)
   }
 
   self.user = {
-      image : 'assets/img/test/test_user.png',
+      photo : 'assets/img/test/test_user.png',
       name : 'Geoff Test',
       email : 'geoffrey.test@gmail.com',
       gender : 'M',
@@ -50,12 +50,14 @@ function ($http, Flash)
          console.log('Success!')
          console.log(res)
          self.loggedIn = true
-         callback()
+         self.user = res.data.user
+         callback(res)
        }, function(err){
          console.log('Error!')
          console.log(err)
          self.loggedIn = false
          Flash.create('danger', err.data.err)
+         callback(err)
        })
     }
 
@@ -78,12 +80,14 @@ function ($http, Flash)
        console.log('Success!')
        console.log(res)
        self.loggedIn = true
-       callback()
+       self.user = res.data.user
+       callback(res)
      }, function(err){
        console.log('Error!')
        console.log(err)
        self.loggedIn = false
        Flash.create('danger', err.data.err)
+       callback(err)
      })
   }
 
@@ -94,8 +98,34 @@ function ($http, Flash)
     }).then(function (response) {
       console.log(response)
       self.loggedIn = false
-      callback()
+      callback(response)
     })
+  }
+
+  self.update = function (user, callback) {
+       console.log('updating')
+
+       $http({
+         url: '/updateUser',
+         method: "POST",
+         params: {
+             user : user
+         },
+         headers: {
+           'Content-Type': 'application/json'
+         }
+       }).then(function(res) {
+         console.log('Success!')
+         console.log(res)
+         Flash.create('success', 'User Updated')
+         self.user = res.data.user
+         callback(res)
+       }, function(err){
+         console.log('Error!')
+         console.log(err)
+         Flash.create('danger', err.data.err)
+         callback(err)
+       })
   }
 
   self.loggedIn = false

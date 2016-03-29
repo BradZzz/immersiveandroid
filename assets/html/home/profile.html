@@ -1,7 +1,7 @@
 <div class="profile">
 	<md-card class="content">
 		<md-list-item layout="column" class="md-margin md-padding">
-			<img ng-src="{{ ctrl.test.image }}" class="profile-avatar md-avatar" style="height:120px;width:120px;margin-top:30px;"/>
+			<img ng-src="{{ ctrl.test.photo }}" class="profile-avatar md-avatar" style="height:120px;width:120px;margin-top:30px;"/>
 			<div class="md-list-item-text" layout="column" layout-align="start start" style="width:100%;margin-top: 30px;">
 				<div layout-gt-sm="row" layout="column" flex style="width: 100%;">
 					<md-input-container class="md-block" flex-gt-sm="40" flex="100" offset-gt-sm="5" offset="0">
@@ -44,6 +44,7 @@
 				</div>
 			</div>
 		</md-list-item>
-		<md-button layout-align="center center" class="md-raised footer md-margin" ng-class="{ 'active' : ctrl.active }" ng-click="ctrl.active = false">Save</md-button>
+		<md-button layout-align="center center" class="md-raised footer md-margin" ng-class="{ 'active' : ctrl.active }"
+				   ng-click="ctrl.saveClicked(ctrl.test);">Save</md-button>
 	</md-card>
 </div>
