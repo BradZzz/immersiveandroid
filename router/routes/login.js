@@ -41,7 +41,7 @@ module.exports = function (app) {
             }
             req.login(person, function(err) {
               if (err) { return next(err) }
-              return res.status(200).json({ user: person.clientUser(), status: 'Registration successful!' })
+              return res.status(200).json({ user: new User(person).clientUser(), status: 'Registration successful!' })
             })
           })
         } else {
@@ -77,7 +77,7 @@ module.exports = function (app) {
   })
 
   app.get('/loginSucceed', function(req, res, next) {
-    return res.status(200).json({ user: req.user.clientUser(), status: 'Registration successful!' })
+    return res.status(200).json({ user: new User(req.user).clientUser(), status: 'Registration successful!' })
   })
 
   passport.serializeUser(function(user, done) {

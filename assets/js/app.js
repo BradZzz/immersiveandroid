@@ -6,6 +6,7 @@ var modules = [
   'ui.router',
   'angular-loading-bar',
   'ui.bootstrap',
+  'ngFlash',
 ]
 
 var role = {

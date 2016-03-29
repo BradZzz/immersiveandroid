@@ -1,6 +1,6 @@
 angular.module('ambrosia').service('seUser',
-['$http',
-function ($http)
+['$http', 'Flash',
+function ($http, Flash)
 {
   var self = this
   self.logName = 'seUser'
@@ -55,6 +55,7 @@ function ($http)
          console.log('Error!')
          console.log(err)
          self.loggedIn = false
+         Flash.create('danger', err.data.err)
        })
     }
 
@@ -82,6 +83,7 @@ function ($http)
        console.log('Error!')
        console.log(err)
        self.loggedIn = false
+       Flash.create('danger', err.data.err)
      })
   }
 

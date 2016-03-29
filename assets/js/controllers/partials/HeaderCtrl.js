@@ -3,6 +3,44 @@ angular.module('ambrosia').controller('HeaderCtrl',
 function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
 {
 
+  //var id = Flash.create('success', message)
+  // First argument (string) is the type of the flash alert.
+  // Second argument (string) is the message displays in the flash alert (HTML is ok).
+  // Third argument (number, optional) is the duration of showing the flash. 0 to not automatically hide flash
+  // (user needs to click the cross on top-right corner).
+  // Fourth argument (object, optional) is the custom class and id to be added for the flash message created.
+  // Fifth argument (boolean, optional) is the visibility of close button for this flash.
+  // Returns the unique id of flash message that can be used to call Flash.dismiss(id); to dismiss the flash message.
+
+  $scope.loginRegister = {
+    isLoggingIn : true,
+    loggedIn : seUser.loggedIn,
+    logForm : { username : '', password : '', active : false },
+    test : seUser.getUser(),
+    register : function () {
+        console.log(this)
+        if (this.isLoggingIn) {
+            this.isLoggingIn = false
+        } else {
+            console.log(arguments)
+            seUser.register.apply(this, arguments)
+        }
+    },
+    login : function () {
+        console.log(this)
+        if (!this.isLoggingIn) {
+            this.isLoggingIn = true
+        } else {
+            console.log(arguments)
+            seUser.login.apply(this, arguments)
+        }
+    },
+    refresh : function () {
+        $scope.loginRegister.test = seUser.getUser()
+        $scope.loginRegister.loggedIn = seUser.loggedIn
+    },
+  }
+
   $scope.ctrl = {
     simulateQuery : false,
     isDisabled : false,
@@ -25,31 +63,20 @@ function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
     newState : function (state) {
       alert("Sorry! You'll need to create a Constituion for " + state + " first!");
     },
-    loggedIn : seUser.loggedIn,
-    logForm : { username : '', password : '', active : false },
-    test : seUser.getUser(),
-
-    register : seUser.register,
-    login : seUser.login,
-    refresh : function () {
-        console.log('refresh')
-        $scope.ctrl.test = seUser.getUser()
-        $scope.ctrl.loggedIn = seUser.loggedIn
-    },
     nav : [
         { icon : 'ion-android-home', text : 'Home', click : function(){$state.go('home')} },
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){console.log("clicked analytics")} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
-        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout($scope.ctrl.refresh)} },
+        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout($scope.loginRegister.refresh)} },
     ],
     incBackground : function (offset) {
-        if (this.test.background + offset > this.backgrounds.length - 1 ) {
-            this.test.background = 0
-        } else if (this.test.background + offset < 0 ) {
-            this.test.background = this.backgrounds.length - 1
+        if ($scope.loginRegister.test.background + offset > this.backgrounds.length - 1 ) {
+            $scope.loginRegister.test.background = 0
+        } else if ($scope.loginRegister.test.background + offset < 0 ) {
+            $scope.loginRegister.test.background = $scope.backgrounds.length - 1
         } else {
-            this.test.background += offset
+            $scope.loginRegister.test.background += offset
         }
     },
     backgrounds : ['assets/img/backgrounds/wall_1.png','assets/img/backgrounds/wall_2.png',

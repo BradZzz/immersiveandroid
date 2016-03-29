@@ -1,5 +1,5 @@
 <div class="header">
-	<md-content flex layout-padding class="top-nav" style="background-image: url('{{ ctrl.backgrounds[ctrl.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
+	<md-content flex layout-padding class="top-nav" style="background-image: url('{{ ctrl.backgrounds[loginRegister.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
 		<div class="md-primary" layout-gt-sm="row" layout="column">
 			<div flex-gt-sm="25" flex="100" flex-order-gt-sm="1" flex-order="1" class="selectable nav-icons" layout="row" layout-align="center center">
 				<span flex-gt-sm="50" flex="10" class="icon ion-android-home selectable nav-home" ui-sref="home"></span>
@@ -40,12 +40,12 @@
 		</div>
 	</md-content>
 	<md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left">
-		<md-toolbar layout="column" class="md-tall" style="background-image: url('{{ ctrl.backgrounds[ctrl.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
+		<md-toolbar layout="column" class="md-tall" style="background-image: url('{{ ctrl.backgrounds[loginRegister.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
 			<md-list-item layout="row">
-				<img ng-src="{{ ctrl.test.image }}" class="md-avatar profile-avatar" style="height:60px;width:60px;margin-top:30px;"/>
+				<img ng-src="{{ loginRegister.test.image }}" class="md-avatar profile-avatar" style="height:60px;width:60px;margin-top:30px;"/>
 				<div class="md-list-item-text" layout="column" style="margin-top: 30px;">
-					<span>{{ ctrl.test.name }}</span>
-					<span style="font-size: small;">{{ ctrl.test.email }}</span>
+					<span>{{ loginRegister.test.name }}</span>
+					<span style="font-size: small;">{{ loginRegister.test.email }}</span>
 				</div>
 			</md-list-item>
 			<div layout-gt-sm="row" layout="row" style="text-align:center" class="md-margin">
@@ -54,25 +54,23 @@
 			</div>
 		</md-toolbar>
 		<md-content ng-controller="LeftCtrl" layout-padding style="min-height:100vh;">
-			<div ng-if="!ctrl.loggedIn" layout="column" style="width: 80%;" offset="10">
+			<div ng-if="!loginRegister.loggedIn" layout="column" style="width: 80%;" offset="10">
 				<md-input-container class="md-block">
 					<label>Email</label>
-					<input ng-model="ctrl.logForm.username" ng-change="ctrl.logForm.active = true">
+					<input ng-model="loginRegister.logForm.username" ng-change="loginRegister.logForm.active = true">
 				</md-input-container>
 				<md-input-container class="md-block">
 					<label>Password</label>
-					<input type="password" ng-model="ctrl.logForm.password" ng-change="ctrl.logForm.active = true">
+					<input type="password" ng-model="loginRegister.logForm.password" ng-change="loginRegister.logForm.active = true">
 				</md-input-container>
-
-				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-raised md-margin"
-						   ng-class="{ 'active' : ctrl.logForm.active }"
-						   ng-click="ctrl.register(ctrl.logForm.username, ctrl.logForm.password, 'local', ctrl.refresh); ctrl.logForm.active = false">Register</md-button>
-
-				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-raised md-margin"
-						   ng-class="{ 'active' : ctrl.logForm.active }"
-						   ng-click="ctrl.login(ctrl.logForm.username, ctrl.logForm.password, 'local', ctrl.refresh); ctrl.logForm.active = false">Login</md-button>
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin"
+						   ng-class="{ 'active' : ctrl.logForm.active, 'md-raised' : loginRegister.isLoggingIn, 'color blue-sky': !loginRegister.isLoggingIn }"
+						   ng-click="loginRegister.login(loginRegister.logForm.username, loginRegister.logForm.password, 'local', loginRegister.refresh); ctrl.logForm.active = false">Login</md-button>
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin"
+						   ng-class="{ 'active' : ctrl.logForm.active, 'md-raised' : !loginRegister.isLoggingIn, 'color blue-sky': loginRegister.isLoggingIn }"
+						   ng-click="loginRegister.register(loginRegister.logForm.username, loginRegister.logForm.password, 'local', loginRegister.refresh); ctrl.logForm.active = false">Register</md-button>
 			</div>
-			<md-list-item ng-if="ctrl.loggedIn" ng-repeat="tab in ctrl.nav" ng-click="tab.click()" class="selectable">
+			<md-list-item ng-if="loginRegister.loggedIn" ng-repeat="tab in ctrl.nav" ng-click="tab.click()" class="selectable">
 				<md-icon class="md-secondary icon" ng-class="tab.icon" style="position:relative;margin-top: 22px;"></md-icon>
 				<span>{{ tab.text }}</span>
 			</md-list-item>

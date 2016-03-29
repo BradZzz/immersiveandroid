@@ -66,6 +66,9 @@ body {
 .color.blue {
   color: rgba(77, 166, 196, 0.8) !important;
 }
+.color.blue-sky {
+  color: rgba(64, 150, 238, 0.8) !important;
+}
 button.md-raised {
   color: rgba(0, 0, 0, 0.8);
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgba(225, 232, 235, 0.8)), color-stop(1, #FFF));
@@ -170,6 +173,11 @@ button.md-raised.active:hover {
     max-height: 38px;
     min-height: 38px;
   }
+}
+.flash-bar {
+  z-index: 100;
+  position: absolute;
+  width: 100%;
 }
 .loading-bar {
   margin: 30vh auto 0 auto;
