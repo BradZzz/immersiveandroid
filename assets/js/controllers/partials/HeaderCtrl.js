@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('HeaderCtrl',
-['$scope', '$state', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seUser',
-function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
+['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seUser', 'seTheme',
+function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUser, seTheme)
 {
 
   //var id = Flash.create('success', message)
@@ -36,8 +36,10 @@ function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
         }
     },
     refresh : function () {
-        $scope.loginRegister.test = seUser.getUser()
-        $scope.loginRegister.loggedIn = seUser.loggedIn
+        $rootScope.safeApply(function () {
+            $scope.loginRegister.test = seUser.getUser()
+            $scope.loginRegister.loggedIn = seUser.loggedIn
+        })
     },
   }
 
@@ -79,11 +81,17 @@ function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
             $scope.loginRegister.test.background += offset
         }
     },
-    backgrounds : ['assets/img/backgrounds/wall_1.png','assets/img/backgrounds/wall_2.png',
-        'assets/img/backgrounds/wall_3.png','assets/img/backgrounds/wall_4.png','assets/img/backgrounds/wall_5.png',
-        'assets/img/backgrounds/wall_6.png','assets/img/backgrounds/wall_7.png','assets/img/backgrounds/wall_8.png',
-        'assets/img/backgrounds/wall_9.png','assets/img/backgrounds/wall_10.png','assets/img/backgrounds/wall_11.png']
+    backgrounds : seTheme.backgrounds,
   }
+
+  $scope.$on('update', function () {
+    $scope.loginRegister.refresh()
+  })
+
+  //This runs once when the user refreshes the browser
+  seUser.recover(function(data){
+      $scope.loginRegister.refresh()
+  })
 
   seQuotes.getTestList().then(function(response){
       var tickers = _.map(response, function(num){ return num })

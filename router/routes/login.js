@@ -19,6 +19,11 @@ module.exports = function (app) {
     return res.status(200).json('Successfully logged out!')
   })
 
+  app.get('/recover', hopAuth, function(req, res){
+    return res.status(200).json({ user : req.user })
+  })
+
+
   app.post('/register', function(req, res) {
     var body = req.body
     var instance = new User();

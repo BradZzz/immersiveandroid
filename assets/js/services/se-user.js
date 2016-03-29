@@ -1,6 +1,6 @@
 angular.module('ambrosia').service('seUser',
-['$http', 'Flash',
-function ($http, Flash)
+['$http', '$rootScope', 'Flash',
+function ($http, $rootScope, Flash)
 {
   var self = this
   self.logName = 'seUser'
@@ -18,7 +18,7 @@ function ($http, Flash)
       background : 7,
   }
 
-  self.user = {
+  /*self.user = {
       photo : 'assets/img/test/test_user.png',
       name : 'Geoff Test',
       email : 'geoffrey.test@gmail.com',
@@ -29,7 +29,7 @@ function ($http, Flash)
       state : 'CA',
       zip : 90210,
       background : 7,
-  }
+  }*/
 
   self.register = function (username, password, type, callback) {
 
@@ -62,9 +62,6 @@ function ($http, Flash)
     }
 
   self.login = function (username, password, type, callback) {
-
-     console.log('logging in...')
-
      $http({
        url: '/login',
        method: "POST",
@@ -95,10 +92,28 @@ function ($http, Flash)
     $http({
       url: '/logout',
       method: 'GET',
-    }).then(function (response) {
-      console.log(response)
+    }).then(function (res) {
+      console.log(res)
       self.loggedIn = false
-      callback(response)
+      callback(res)
+    })
+  }
+
+  self.recover = function (callback) {
+    $http({
+      url: '/recover',
+      method: 'GET',
+    }).then(function (res) {
+      console.log('Success!')
+      console.log(res)
+      self.loggedIn = true
+      self.user = res.data.user
+      callback(res)
+    }, function(err){
+      console.log('Error!')
+      console.log(err)
+      self.loggedIn = false
+      callback(err)
     })
   }
 
@@ -118,7 +133,9 @@ function ($http, Flash)
          console.log('Success!')
          console.log(res)
          Flash.create('success', 'User Updated')
+         self.loggedIn = true
          self.user = res.data.user
+         $rootScope.$broadcast('update')
          callback(res)
        }, function(err){
          console.log('Error!')
