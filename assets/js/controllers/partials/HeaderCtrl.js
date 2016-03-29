@@ -41,7 +41,7 @@ function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){console.log("clicked analytics")} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
-        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout(); $scope.ctrl.refresh();} },
+        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout($scope.ctrl.refresh)} },
     ],
     incBackground : function (offset) {
         if (this.test.background + offset > this.backgrounds.length - 1 ) {

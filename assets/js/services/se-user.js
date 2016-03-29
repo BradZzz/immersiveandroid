@@ -85,13 +85,14 @@ function ($http)
      })
   }
 
-  self.logout = function () {
+  self.logout = function (callback) {
     $http({
       url: '/logout',
       method: 'GET',
     }).then(function (response) {
       console.log(response)
       self.loggedIn = false
+      callback()
     })
   }
 
