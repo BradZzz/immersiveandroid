@@ -25,13 +25,23 @@ function ($scope, $state, $timeout, $mdSidenav, $log, seQuotes, seUser)
     newState : function (state) {
       alert("Sorry! You'll need to create a Constituion for " + state + " first!");
     },
-    test : seUser.user,
+    loggedIn : seUser.loggedIn,
+    logForm : { username : '', password : '', active : false },
+    test : seUser.getUser(),
+
+    register : seUser.register,
+    login : seUser.login,
+    refresh : function () {
+        console.log('refresh')
+        $scope.ctrl.test = seUser.getUser()
+        $scope.ctrl.loggedIn = seUser.loggedIn
+    },
     nav : [
         { icon : 'ion-android-home', text : 'Home', click : function(){$state.go('home')} },
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){console.log("clicked analytics")} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
-        { icon : 'ion-android-exit', text : 'Logout', click : function(){console.log("clicked logout")} },
+        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout(); $scope.ctrl.refresh();} },
     ],
     incBackground : function (offset) {
         if (this.test.background + offset > this.backgrounds.length - 1 ) {

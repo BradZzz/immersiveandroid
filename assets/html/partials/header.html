@@ -54,7 +54,25 @@
 			</div>
 		</md-toolbar>
 		<md-content ng-controller="LeftCtrl" layout-padding style="min-height:100vh;">
-			<md-list-item ng-repeat="tab in ctrl.nav" ng-click="tab.click()" class="selectable">
+			<div ng-if="!ctrl.loggedIn" layout="column" style="width: 80%;" offset="10">
+				<md-input-container class="md-block">
+					<label>Email</label>
+					<input ng-model="ctrl.logForm.username" ng-change="ctrl.logForm.active = true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Password</label>
+					<input type="password" ng-model="ctrl.logForm.password" ng-change="ctrl.logForm.active = true">
+				</md-input-container>
+
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-raised md-margin"
+						   ng-class="{ 'active' : ctrl.logForm.active }"
+						   ng-click="ctrl.register(ctrl.logForm.username, ctrl.logForm.password, 'local', ctrl.refresh); ctrl.logForm.active = false">Register</md-button>
+
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-raised md-margin"
+						   ng-class="{ 'active' : ctrl.logForm.active }"
+						   ng-click="ctrl.login(ctrl.logForm.username, ctrl.logForm.password, 'local', ctrl.refresh); ctrl.logForm.active = false">Login</md-button>
+			</div>
+			<md-list-item ng-if="ctrl.loggedIn" ng-repeat="tab in ctrl.nav" ng-click="tab.click()" class="selectable">
 				<md-icon class="md-secondary icon" ng-class="tab.icon" style="position:relative;margin-top: 22px;"></md-icon>
 				<span>{{ tab.text }}</span>
 			</md-list-item>
