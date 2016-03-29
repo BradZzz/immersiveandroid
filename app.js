@@ -6,6 +6,7 @@ var errorhandler  = require('errorhandler')
 var express       = require('express')
 var exphbs        = require('express-handlebars')
 var session       = require('express-session')
+var dbStore       = require('connect-mongo')(session)
 var path          = require('path')
 var logger        = require('morgan')
 var mongoose      = require('mongoose')
@@ -59,7 +60,13 @@ app.use(require('cookie-parser')())
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.use(session({secret: 'keyboard cat'}))
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    //Save sessions only if they have been modified
+    saveUninitialized : false,
+    store: new dbStore({mongooseConnection: mongoose.connection})
+}))
 app.use(passport.initialize())
 app.use(passport.session())
 
