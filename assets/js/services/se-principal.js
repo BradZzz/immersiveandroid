@@ -43,24 +43,18 @@ function ($q, $http, $rootScope, Flash)
       }
       //Check if the identity is in the service
       if (angular.isDefined(_identity)) {
-        console.log('isdefined',_identity)
         deferred.resolve(_identity)
       //Check to see if the identity is in the local storage
       } else if (storageIndex in localStorage) {
-        console.log('storage')
         _identity = angular.fromJson(localStorage.getItem(storageIndex))
         self.authenticate(_identity)
         deferred.resolve(_identity)
       //Check to see if the identity is in the server session
       } else {
-        console.log('recover')
         $http({
           url: '/recover',
           method: 'GET',
         }).then(function (res) {
-
-          console.log('got data!!!!',res)
-
           var data = res.data.user
           _identity = data
           _authenticated = true
