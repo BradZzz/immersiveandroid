@@ -2,6 +2,7 @@ angular.module('ambrosia').controller('MainCtrl',
 ['$scope', '$rootScope', '$q', 'seQuotes', 'seStatic',
  function ($scope, $rootScope, $q, seQuotes, seStatic)
 {
+    console.log('MainCtrl')
     $rootScope.loading = true;
 
     $scope.ctrl = {

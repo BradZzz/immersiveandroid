@@ -35,6 +35,10 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUs
             seUser.login.apply(this, arguments)
         }
     },
+    logout : function () {
+        $scope.loginRegister.refresh()
+        $state.go('home')
+    },
     refresh : function () {
         $rootScope.safeApply(function () {
             $scope.loginRegister.test = seUser.getUser()
@@ -70,7 +74,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUs
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){console.log("clicked analytics")} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
-        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout($scope.loginRegister.refresh)} },
+        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout($scope.loginRegister.logout)} },
     ],
     incBackground : function (offset) {
         if ($scope.loginRegister.test.background + offset > this.backgrounds.length - 1 ) {

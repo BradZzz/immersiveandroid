@@ -4,10 +4,10 @@
 
 			<md-list-item layout-gt-sm="row" layout="column" style="width: 50%;height: 300px;">
 				<img offset="20" ng-src="{{ ctrl.user.photo }}" class="profile-avatar md-avatar" style="height:120px;width:120px;margin-top:30px;"/>
-				<div flex="40" offset="10" class="md-margin center-vertical-parent" layout="row" style="height:100%;width:50%;text-align:center;background-image: url('{{ ctrl.backgrounds[ctrl.user.background] }}');
-					background-size: 100%;background-repeat: no-repeat;">
-					<span flex-gt-sm="50" flex="10" class="icon ion-arrow-left-b selectable center-vertical" ng-click="ctrl.incBackground(-1)"></span>
-					<span flex-gt-sm="50" flex="10" class="icon ion-arrow-right-b selectable center-vertical" ng-click="ctrl.incBackground(1)"></span>
+				<div flex="40" offset="10" class="md-margin center-vertical-parent" layout="row" style="height:100%;width:50%;text-align:center;
+					background-image: url('{{ ctrl.backgrounds[ctrl.user.background] }}'); background-size: 100%;background-repeat: no-repeat;">
+					<span flex-gt-sm="50" flex="10" class="icon ion-arrow-left-b selectable center-vertical" ng-click="ctrl.active = true; ctrl.incBackground(-1)"></span>
+					<span flex-gt-sm="50" flex="10" class="icon ion-arrow-right-b selectable center-vertical" ng-click="ctrl.active = true; ctrl.incBackground(1)"></span>
 				</div>
 			</md-list-item>
 

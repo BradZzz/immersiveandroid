@@ -48,10 +48,6 @@
 					<span style="font-size: small;">{{ loginRegister.test.email }}</span>
 				</div>
 			</md-list-item>
-			<div layout-gt-sm="row" layout="row" style="text-align:center" class="md-margin">
-				<md-icon flex class="md-secondary icon ion-arrow-left-b selectable" ng-click="ctrl.incBackground(-1)"></md-icon>
-				<md-icon flex class="md-secondary icon ion-arrow-right-b selectable" ng-click="ctrl.incBackground(1)"></md-icon>
-			</div>
 		</md-toolbar>
 		<md-content ng-controller="LeftCtrl" layout-padding style="min-height:100vh;">
 			<div ng-if="!loginRegister.loggedIn" layout="column" style="width: 80%;" offset="10">
