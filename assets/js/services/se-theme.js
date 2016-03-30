@@ -10,7 +10,8 @@ function ($http)
       'assets/img/backgrounds/wall_6.png','assets/img/backgrounds/wall_7.png','assets/img/backgrounds/wall_8.png',
       'assets/img/backgrounds/wall_9.png','assets/img/backgrounds/wall_10.png','assets/img/backgrounds/wall_11.png',
       'assets/img/backgrounds/wall_12.png','assets/img/backgrounds/wall_13.png','assets/img/backgrounds/wall_14.png',
-      'assets/img/backgrounds/wall_15.png','assets/img/backgrounds/wall_16.png','assets/img/backgrounds/wall_17.png']
+      'assets/img/backgrounds/wall_15.png','assets/img/backgrounds/wall_16.png','assets/img/backgrounds/wall_17.png',
+      'assets/img/backgrounds/wall_18.png']
 
   self.print = function (response) {
     console.log(self.logName + " response: ", response)
