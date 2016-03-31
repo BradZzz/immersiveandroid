@@ -1,110 +1,106 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" id="ng-app" lang="en" ng-app="ambrosia">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Ambrosia</title>
+  <title>Ambrosia</title>
 
-    <meta name="author"    content="DotDashDot">
-    <meta name="copyright" content="DotDashDot 2015">
-    <meta name="robots"    content="index,follow">
+  <meta name="author"    content="DotDashDot">
+  <meta name="copyright" content="DotDashDot 2015">
+  <meta name="robots"    content="index,follow">
 
-    <meta name="viewport"  content="user-scalable=no, width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable"       content="yes">
-    <meta name="application-name"             content="Ambrosia">
+  <meta name="viewport"  content="user-scalable=no, width=device-width, minimum-scale=1.0, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable"       content="yes">
+  <meta name="application-name"             content="Ambrosia">
 
-    <meta name="description"      content="Stock trading app for the next generation">
-    <meta name="keywords"         content="stock, social, trade, money">
-    <meta name="fragment"         content="!">
+  <meta name="description"      content="Stock trading app for the next generation">
+  <meta name="keywords"         content="stock, social, trade, money">
+  <meta name="fragment"         content="!">
 
-    <meta property="og:title"     content="Ambrosia">
-    <meta property="og:site_name" content="Ambrosia">
-    <meta property="og:type"      content="website">
-    <meta itemprop="name"         content="Ambrosia">
+  <meta property="og:title"     content="Ambrosia">
+  <meta property="og:site_name" content="Ambrosia">
+  <meta property="og:type"      content="website">
+  <meta itemprop="name"         content="Ambrosia">
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/icons/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/icons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/icons/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/icons/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/icons/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/icons/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/icons/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/icons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/assets/img/icons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/assets/img/icons/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/assets/img/icons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="/assets/img/icons/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="/assets/img/icons/manifest.json">
-    <link rel="mask-icon" href="/assets/img/icons/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="/assets/img/icons/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-TileImage" content="/assets/img/icons/mstile-144x144.png">
-    <meta name="msapplication-config" content="/assets/img/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/icons/apple-icon-180x180.png">
+  <link rel="shortcut icon" type="image/png" sizes="192x192" href="/assets/img/icons/android-icon-192x192.png">
+  <link rel="shortcut icon" type="image/png" sizes="32x32" href="/assets/img/icons/favicon-32x32.png">
+  <link rel="shortcut icon" type="image/png" sizes="96x96" href="/assets/img/icons/favicon-96x96.png">
+  <link rel="shortcut icon" type="image/png" sizes="16x16" href="/assets/img/icons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/img/icons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/assets/img/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
 
-    <base href="/">
+  <base href="/">
 
-    <!-- build:css /build/css/app.min.css -->
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <link rel="stylesheet" href="/assets/third-party/ionicons/css/ionicons.css">
-    <link rel="stylesheet" href="/assets/third-party/normalize.css/normalize.css">
-    <link rel="stylesheet" href="/assets/third-party/angular-loading-bar/build/loading-bar.css">
-    <link rel="stylesheet" href="/assets/third-party/angular-material/angular-material.css">
-    <link rel="stylesheet" href="/assets/third-party/angular-flash-alert/dist/angular-flash.css">
-    <!-- endbuild -->
-  </head>
+  <!-- DONT FUCKING USE THE MINIFIED STYLE SHEETS!!! -->
+  <!-- build:css /build/css/app.min.css -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+  <link rel="stylesheet" href="/assets/third-party/ionicons/css/ionicons.css">
+  <link rel="stylesheet" href="/assets/third-party/normalize.css/normalize.css">
+  <link rel="stylesheet" href="/assets/third-party/angular-loading-bar/build/loading-bar.css">
+  <link rel="stylesheet" href="/assets/third-party/angular-material/angular-material.css">
+  <!-- endbuild -->
+</head>
 
-  <body ng-controller="RootCtrl">
+<body ng-controller="RootCtrl">
 
-    <!-- angular view content injected here -->
-    <flash-message class="flash-bar" duration="5000" show-close="true" on-dismiss="$root.flashCallback(flash);"></flash-message>
-    <div id="navbar" ng-controller="HeaderCtrl"><div ng-include src="'assets/html/partials/header.html'"></div></div>
-    <div class="loading-bar" ng-class="{'show' : $root.loading, 'remove' : !$root.loading}" layout="row" layout-sm="column" layout-align="space-around">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
-    <div id='content' ui-view ng-class="{'show' : !$root.loading, 'hide' : $root.loading}"></div>
-    <div ng-include src="'assets/html/misc/includes.html'"></div>
+<!-- angular view content injected here -->
+<div id="navbar" ng-controller="HeaderCtrl"><div ng-include src="'assets/html/partials/header.html'"></div></div>
+<div class="loading-bar" ng-class="{'show' : $root.loading, 'remove' : !$root.loading}" layout="row" layout-sm="column" layout-align="space-around">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<div id='content' ui-view ng-class="{'show' : !$root.loading, 'hide' : $root.loading}"></div>
+<div ng-include src="'assets/html/misc/includes.html'"></div>
 
-    <!-- build:js /build/js/app.min.js -->
-    <script src="/assets/third-party/angular/angular.min.js"></script>
+<!-- build:js /build/js/app.min.js -->
+<script src="/assets/third-party/angular/angular.min.js"></script>
+<script src="/assets/third-party/jquery/dist/jquery.min.js"></script>
 
-    <script src="/assets/third-party/angular-animate/angular-animate.min.js"></script>
-    <script src="/assets/third-party/angular-aria/angular-aria.js"></script>
-    <script src="/assets/third-party/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <script src="/assets/third-party/angular-flash-alert/dist/angular-flash.js"></script>
-    <script src="/assets/third-party/angular-loading-bar/build/loading-bar.min.js"></script>
-    <script src="/assets/third-party/angular-material/angular-material.js"></script>
-    <script src="/assets/third-party/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="/assets/third-party/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="/assets/third-party/angular-animate/angular-animate.min.js"></script>
+<script src="/assets/third-party/angular-loading-bar/build/loading-bar.min.js"></script>
+<script src="/assets/third-party/angular-material/angular-material.js"></script>
+<script src="/assets/third-party/angular-aria/angular-aria.js"></script>
+<script src="/assets/third-party/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="/assets/third-party/angular-flash-alert/dist/angular-flash.js"></script>
 
-    <script src="/assets/third-party/chance/dist/chance.min.js"></script>
-    <script src="/assets/third-party/jquery/dist/jquery.min.js"></script>
-    <script src="/assets/third-party/moment/moment.js"></script>
-    <script src="/assets/third-party/highcharts/highstock.js"></script>
-    <script src="/assets/third-party/highcharts/highcharts-more.js"></script>
-    <script src="/assets/third-party/highcharts/modules/exporting.js"></script>
-    <script src="/assets/third-party/ng-file-upload/ng-file-upload.js"></script>
-    <script src="/assets/third-party/ng-file-upload-shim/ng-file-upload.js"></script>
-    <script src="/assets/third-party/aws-sdk/dist/aws-sdk.js"></script>
-    <script src="/assets/third-party/underscore/underscore.js"></script>
+<script src="/assets/third-party/chance/dist/chance.min.js"></script>
+<script src="/assets/third-party/moment/moment.js"></script>
+<script src="/assets/third-party/underscore/underscore.js"></script>
+<script src="/assets/third-party/highcharts/highstock.js"></script>
+<script src="/assets/third-party/highcharts/highcharts-more.js"></script>
+<script src="/assets/third-party/highcharts/modules/exporting.js"></script>
+<script src="/assets/third-party/ng-file-upload/ng-file-upload.js"></script>
+<script src="/assets/third-party/ng-file-upload-shim/ng-file-upload.js"></script>
+<script src="/assets/third-party/aws-sdk/dist/aws-sdk.js"></script>
 
-    <script src="/assets/js/app.js"></script>
-    <script src="/assets/js/controllers/RootCtrl.js"></script>
-    <script src="/assets/js/controllers/MainCtrl.js"></script>
-    <script src="/assets/js/controllers/StockCtrl.js"></script>
-    <script src="/assets/js/controllers/ProfileCtrl.js"></script>
-    <script src="/assets/js/controllers/partials/HeaderCtrl.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/controllers/RootCtrl.js"></script>
+<script src="/assets/js/controllers/MainCtrl.js"></script>
+<script src="/assets/js/controllers/StockCtrl.js"></script>
+<script src="/assets/js/controllers/ProfileCtrl.js"></script>
+<script src="/assets/js/controllers/partials/HeaderCtrl.js"></script>
 
-    <script src="/assets/js/directives/se-upload.js"></script>
+<script src="/assets/js/directives/se-upload.js"></script>
 
-    <script src="/assets/js/services/se-authorization.js"></script>
-    <script src="/assets/js/services/se-principal.js"></script>
-    <script src="/assets/js/services/se-quotes.js"></script>
-    <script src="/assets/js/services/se-static.js"></script>
-    <script src="/assets/js/services/se-theme.js"></script>
-    <script src="/assets/js/services/se-user.js"></script>
-    <!-- endbuild -->
-  </body>
+<script src="/assets/js/services/se-authorization.js"></script>
+<script src="/assets/js/services/se-principal.js"></script>
+<script src="/assets/js/services/se-quotes.js"></script>
+<script src="/assets/js/services/se-static.js"></script>
+<script src="/assets/js/services/se-theme.js"></script>
+<script src="/assets/js/services/se-user.js"></script>
+<!-- endbuild -->
+</body>
 </html>
