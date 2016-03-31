@@ -7,27 +7,8 @@ var _               = require('underscore')
 var LocalStrategy   = require('passport-local').Strategy
 var User            = require('../../models/user')
 var passport        = require('passport')
-var Upload          = require('s3-uploader')
 var crypto          = require("crypto")
 var moment          = require('moment')
-
-client = new Upload(process.env.AWS_BUCKET_ROOT, {
-    aws: {
-      path: 'ambrosia/',
-      region: process.env.AWS_BUCKET_REGION,
-      acl: 'public-read',
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    },
-    cleanup: {
-      versions: true,
-      original: false
-    },
-    original: {
-      awsImageAcl: 'private',
-      awsImageMaxAge: 31536000
-    }
-})
 
 var cache = {}
 
