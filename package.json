@@ -63,6 +63,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "postinstall": "./node_modules/bower/bin/bower install && gulp build"
+    "postinstall": "./node_modules/bower/bin/bower install && gulp clean && gulp build"
   }
 }
