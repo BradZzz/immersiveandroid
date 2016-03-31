@@ -18,7 +18,10 @@
     "validator-js": "~3.41.2",
     "highcharts": "^4.2.3",
     "chance": "^1.0.0",
-    "angular-flash-alert": "^2.2.6"
+    "angular-flash-alert": "^2.2.6",
+    "ng-file-upload-shim": "^12.0.4",
+    "ng-file-upload": "^12.0.4",
+    "aws-sdk": "aws-sdk-js#^2.2.48"
   },
   "resolutions": {
     "angular": "~1.4.2"

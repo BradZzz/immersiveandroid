@@ -5,8 +5,10 @@ function ($rootScope, $state, sePrincipal)
   return {
     authorize: function() {
       return sePrincipal.identity()
-        .then(function() {
+        .then(function(data) {
           var isAuthenticated = sePrincipal.isAuthenticated()
+          console.log(data)
+          console.log($rootScope.toState.data)
           if ('data' in $rootScope.toState && 'role' in $rootScope.toState.data && !sePrincipal.isInRole($rootScope.toState.data.role)) {
             console.log('bad')
             if (isAuthenticated) {

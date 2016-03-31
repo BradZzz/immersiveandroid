@@ -11,6 +11,7 @@ function ($q, $http, $rootScope, Flash)
       return angular.isDefined(_identity);
     },
     isAuthenticated: function() {
+      console.log(_identity)
       return _authenticated;
     },
     isInRole: function(role) {
@@ -42,10 +43,14 @@ function ($q, $http, $rootScope, Flash)
         _identity = undefined
       }
       //Check if the identity is in the service
-      if (angular.isDefined(_identity)) {
+      if (angular.isDefined(_identity) && _identity != null) {
+        console.log('isDefined')
+        console.log(_identity)
         deferred.resolve(_identity)
       //Check to see if the identity is in the local storage
       } else if (storageIndex in localStorage) {
+        console.log('storageIndex')
+        console.log(_identity)
         _identity = angular.fromJson(localStorage.getItem(storageIndex))
         self.authenticate(_identity)
         deferred.resolve(_identity)
@@ -58,6 +63,8 @@ function ($q, $http, $rootScope, Flash)
           var data = res.data.user
           _identity = data
           _authenticated = true
+          console.log('http')
+          console.log(_identity)
           deferred.resolve(_identity)
         }, function(err){
           _identity = null

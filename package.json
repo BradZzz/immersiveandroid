@@ -10,6 +10,7 @@
     "compression": "^1.6.1",
     "connect-mongo": "^1.1.0",
     "cookie-parser": "^1.4.1",
+    "crypto": "0.0.3",
     "dotenv": "^2.0.0",
     "errorhandler": "^1.4.3",
     "event-stream": "^3.3.2",
@@ -56,6 +57,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "q": "^1.4.1",
+    "s3-uploader": "^1.1.0",
     "underscore": "^1.8.3",
     "yahoo-finance": "^0.2.12"
   },

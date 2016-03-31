@@ -7,6 +7,7 @@ var modules = [
   'angular-loading-bar',
   'ui.bootstrap',
   'ngFlash',
+  'ngFileUpload',
 ]
 
 var role = {

@@ -45,7 +45,6 @@ userSchema.methods.clientUser = function() {
     var returned = JSON.parse(JSON.stringify(this))
     delete returned['token']
     delete returned['pass']
-    delete returned['_id']
     return returned
 };
 

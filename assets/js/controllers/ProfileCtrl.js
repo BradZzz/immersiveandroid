@@ -1,20 +1,23 @@
 angular.module('ambrosia').controller('ProfileCtrl',
-['$scope', '$rootScope', '$state', 'seUser', 'seTheme',
-function ($scope, $rootScope, $state, seUser, seTheme)
+['$scope', '$http', '$rootScope', '$state', '$timeout', 'seUser', 'seTheme', 'Upload',
+function ($scope, $http, $rootScope, $state, $timeout, seUser, seTheme, Upload)
 {
 
     $rootScope.loading = true
     $rootScope.loading = false
 
-    console.log(seUser.getUser())
-
     $scope.ctrl = {
         active : false,
         user : seUser.getUser(),
+        imageUploaded : function(filePath) {
+            $scope.ctrl.user.photo = filePath + '?' + new Date().getTime()
+            $scope.ctrl.saveClicked($scope.ctrl.user)
+        },
         saveClicked : function(user) {
           seUser.update(user, function(resp){
-            console.log(resp)
+            $scope.ctrl.user = seUser.getUser()
             $scope.ctrl.active = false;
+            console.log($scope.ctrl.user)
           })
         },
         incBackground : function (offset) {
@@ -31,8 +34,6 @@ function ($scope, $rootScope, $state, seUser, seTheme)
             'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH',
             'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
     }
-
-
 
     //This runs once when the user refreshes the browser
     seUser.recover(function(data){

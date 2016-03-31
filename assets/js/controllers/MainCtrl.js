@@ -3,7 +3,8 @@ angular.module('ambrosia').controller('MainCtrl',
  function ($scope, $rootScope, $q, seQuotes, seStatic)
 {
     console.log('MainCtrl')
-    $rootScope.loading = true;
+
+    $rootScope.loading = true
 
     $scope.ctrl = {
         size : 25,
