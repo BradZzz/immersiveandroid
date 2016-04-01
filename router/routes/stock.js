@@ -19,6 +19,8 @@ var nasdaq = fs.createReadStream("./stock_csv/nasdaq.csv")
 var nyse = fs.createReadStream("./stock_csv/nyse.csv")
 var asx = fs.createReadStream("./stock_csv/asx.csv")
 
+var buyFee = 4.95
+
 var cache = {}
 
 module.exports = function (app) {
@@ -75,7 +77,6 @@ module.exports = function (app) {
       } else {
           var exchangeNASDAQ = getStockStream(nasdaq, "nasdaq")
           var exchangeNYSE = getStockStream(nyse, "nyse")
-
           var exchanges = [exchangeNASDAQ, exchangeNYSE]
 
           Q.all(exchanges).then(function(gResp){
@@ -94,9 +95,8 @@ module.exports = function (app) {
                         text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
                     })
                 }
-                console.log('here2')
                 return { ticker: tick, invested : chance.integer({min: 1, max: 250}),
-                    comments : comments, buyFee : chance.integer({min: 1, max: 100}).toFixed(2) }
+                    comments : comments, buyFee : buyFee }
               })
 
               return res.status(200).json(list)
