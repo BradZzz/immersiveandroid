@@ -54,6 +54,10 @@ module.exports = function (app) {
   })
 
   function recurseFinancials (title, url) {
+
+    var table = ".yfnc_tabledata1"
+    var datas = "tr td table tr"
+
     var deferred = Q.defer()
     request(url, function(error, response, html){
       // First we'll check to make sure no errors occurred when making the request
@@ -105,7 +109,7 @@ module.exports = function (app) {
           })
           console.log("<--------- Formatted Results ---------------->")
           console.log(formattedTableDat)
-          deferred.resolve({title: title, data: FormattedTableDat})
+          deferred.resolve({title: title, data: formattedTableDat})
       }
     })
     return deferred.promise
@@ -115,66 +119,25 @@ module.exports = function (app) {
       console.log(req.query)
       if ('sym' in req.query) {
 
-          var url = "http://finance.yahoo.com/q/bs?s=" + req.query.sym + "&annual"
-          var url = "http://finance.yahoo.com/q/bs?is=" + req.query.sym + "&annual"
-          var url = "http://finance.yahoo.com/q/bs?cf=" + req.query.sym + "&annual"
+          var income = "http://finance.yahoo.com/q/bs?s=" + req.query.sym + "&annual"
+          var balance = "http://finance.yahoo.com/q/is?s=" + req.query.sym + "&annual"
+          var cash = "http://finance.yahoo.com/q/cf?s=" + req.query.sym + "&annual"
 
-          var table = ".yfnc_tabledata1"
-          var datas = "tr td table tr"
+          var financials = [
+            recurseFinancials('Income Sheet', income),
+            recurseFinancials('Balance Sheet', balance),
+            recurseFinancials('Cash Flow', cash)
+          ]
 
-          request(url, function(error, response, html){
-              // First we'll check to make sure no errors occurred when making the request
-              if(!error){
-                  // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-                  var $ = cheerio.load(html);
-                  var query = table + ' ' + datas
-                  var formattedTableDat = {}
-                  var row = []
-
-                  $(query).filter(function(){
-                    var data = $(this)
-                    _.each(data.children(), function(data1) {
-                        _.each(data1.children, function(data2) {
-                            if ('data' in data2) {
-                                var found = data2.data.replace(/^\s+|\s+$/g,'')
-                                if (found) {
-                                    row.push(found)
-                                    //console.log(found)
-                                }
-                            }
-                            _.each(data2.children, function(data3) {
-                                if ('data' in data3) {
-                                    var found = data3.data.replace(/^\s+|\s+$/g,'')
-                                    if (found) {
-                                        row.push(found)
-                                        //console.log(found)
-                                    }
-                                }
-                                _.each(data3.children, function(data4) {
-                                    if ('data' in data4) {
-                                        var found = data4.data.replace(/^\s+|\s+$/g,'')
-                                        if (found) {
-                                            row.push(found)
-                                            //console.log(found)
-                                        }
-                                    }
-                                })
-                            })
-                        })
-                    })
-                    if (row.length > 1) {
-                        var index = String(row[0])
-                        var rowD = JSON.parse(JSON.stringify(row))
-                        rowD.splice(0,1)
-                        formattedTableDat[index] = rowD
-                        row = []
-                    }
-                  })
-                  console.log("<--------- Formatted Results ---------------->")
-                  console.log(formattedTableDat)
-                  return res.status(200).json(formattedTableDat)
-              }
+          Q.all(financials).then(function(gResp){
+              console.log("finished")
+              cache.list = gResp
+              return res.status(200).json(gResp)
+          }, function (err){
+              console.log("error")
+              console.log(err)
           })
+
       } else {
           return res.status(400).json("Bad Request")
       }
