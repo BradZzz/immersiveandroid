@@ -14,6 +14,8 @@ var finance = require('yahoo-finance')
 var moment = require('moment')
 var Chance = require('chance'), chance = new Chance();
 var _ = require('underscore')
+var request = require('request');
+var cheerio = require('cheerio');
 
 var nasdaq = fs.createReadStream("./stock_csv/nasdaq.csv")
 var nyse = fs.createReadStream("./stock_csv/nyse.csv")
@@ -50,6 +52,133 @@ module.exports = function (app) {
         return res.status(400).json("Bad Request")
     }
   })
+
+  function recurseFinancials (title, url) {
+    var deferred = Q.defer()
+    request(url, function(error, response, html){
+      // First we'll check to make sure no errors occurred when making the request
+      if(!error){
+          // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+          var $ = cheerio.load(html);
+          var query = table + ' ' + datas
+          var formattedTableDat = {}
+          var row = []
+
+          $(query).filter(function(){
+            var data = $(this)
+            _.each(data.children(), function(data1) {
+                _.each(data1.children, function(data2) {
+                    if ('data' in data2) {
+                        var found = data2.data.replace(/^\s+|\s+$/g,'')
+                        if (found) {
+                            row.push(found)
+                            //console.log(found)
+                        }
+                    }
+                    _.each(data2.children, function(data3) {
+                        if ('data' in data3) {
+                            var found = data3.data.replace(/^\s+|\s+$/g,'')
+                            if (found) {
+                                row.push(found)
+                                //console.log(found)
+                            }
+                        }
+                        _.each(data3.children, function(data4) {
+                            if ('data' in data4) {
+                                var found = data4.data.replace(/^\s+|\s+$/g,'')
+                                if (found) {
+                                    row.push(found)
+                                    //console.log(found)
+                                }
+                            }
+                        })
+                    })
+                })
+            })
+            if (row.length > 1) {
+                var index = String(row[0])
+                var rowD = JSON.parse(JSON.stringify(row))
+                rowD.splice(0,1)
+                formattedTableDat[index] = rowD
+                row = []
+            }
+          })
+          console.log("<--------- Formatted Results ---------------->")
+          console.log(formattedTableDat)
+          deferred.resolve({title: title, data: FormattedTableDat})
+      }
+    })
+    return deferred.promise
+  }
+
+  app.get('/stock/financials', function (req, res){
+      console.log(req.query)
+      if ('sym' in req.query) {
+
+          var url = "http://finance.yahoo.com/q/bs?s=" + req.query.sym + "&annual"
+          var url = "http://finance.yahoo.com/q/bs?is=" + req.query.sym + "&annual"
+          var url = "http://finance.yahoo.com/q/bs?cf=" + req.query.sym + "&annual"
+
+          var table = ".yfnc_tabledata1"
+          var datas = "tr td table tr"
+
+          request(url, function(error, response, html){
+              // First we'll check to make sure no errors occurred when making the request
+              if(!error){
+                  // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+                  var $ = cheerio.load(html);
+                  var query = table + ' ' + datas
+                  var formattedTableDat = {}
+                  var row = []
+
+                  $(query).filter(function(){
+                    var data = $(this)
+                    _.each(data.children(), function(data1) {
+                        _.each(data1.children, function(data2) {
+                            if ('data' in data2) {
+                                var found = data2.data.replace(/^\s+|\s+$/g,'')
+                                if (found) {
+                                    row.push(found)
+                                    //console.log(found)
+                                }
+                            }
+                            _.each(data2.children, function(data3) {
+                                if ('data' in data3) {
+                                    var found = data3.data.replace(/^\s+|\s+$/g,'')
+                                    if (found) {
+                                        row.push(found)
+                                        //console.log(found)
+                                    }
+                                }
+                                _.each(data3.children, function(data4) {
+                                    if ('data' in data4) {
+                                        var found = data4.data.replace(/^\s+|\s+$/g,'')
+                                        if (found) {
+                                            row.push(found)
+                                            //console.log(found)
+                                        }
+                                    }
+                                })
+                            })
+                        })
+                    })
+                    if (row.length > 1) {
+                        var index = String(row[0])
+                        var rowD = JSON.parse(JSON.stringify(row))
+                        rowD.splice(0,1)
+                        formattedTableDat[index] = rowD
+                        row = []
+                    }
+                  })
+                  console.log("<--------- Formatted Results ---------------->")
+                  console.log(formattedTableDat)
+                  return res.status(200).json(formattedTableDat)
+              }
+          })
+      } else {
+          return res.status(400).json("Bad Request")
+      }
+    })
 
   app.get('/stock/list', function(req, res) {
     if ('list' in cache) {
