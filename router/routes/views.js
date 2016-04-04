@@ -30,7 +30,7 @@ module.exports = function (app) {
     var ext = path.extname(req.path).substring(1).toLowerCase()
 
     if (ext in blacklist) {
-      res.sendStatus(404)
+      res.status(404)
     } else {
       var subdomain = req.subdomains[0]
       if (subdomain === 'www') subdomain = undefined
