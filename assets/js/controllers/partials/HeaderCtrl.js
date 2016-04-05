@@ -66,8 +66,9 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
     isDisabled : false,
     states : [],
     querySearch : function (query) {
+        query = query.toLowerCase()
         if (query) {
-            return _.filter($scope.ctrl.states, function(tick){ return tick.value.substring(0, query.length) == query }).splice(0, 15)
+            return _.filter($scope.ctrl.states, function(tick){ return tick.display.toLowerCase().indexOf(query) > -1 }).splice(0, 10)
         } else {
             return []
         }
@@ -115,15 +116,16 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
   //})
 
   seQuotes.getTestList().then(function(response){
-      var tickers = _.map(response, function(num){ return num })
-      $scope.ctrl.states = _.map( _.sortBy( tickers, function( tick ){ return tick }) , function (tick) {
+      console.log('test list response: ', response)
+      //var tickers = _.map(response, function(num){ return num.ticker + ' (' + num.name + ')' })
+      //console.log('tickers: ', tickers)
+      $scope.ctrl.states = _.map( _.sortBy( response, function( tick ){ return tick }) , function (tick) {
          return {
            value: tick.ticker.toLowerCase(),
-           display: tick.ticker
+           display: tick.name + ' (' + tick.ticker + ')',
          }
       })
-
-      console.log(tickers.length)
+      console.log('states: ', $scope.ctrl.states)
   })
 
   $scope.toggleRight = buildToggler('left')

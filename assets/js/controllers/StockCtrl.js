@@ -62,9 +62,10 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes
         $scope.ctrl.tickerAbbrv = $stateParams.ticker
 
         seQuotes.getCompany($scope.ctrl.tickerAbbrv).then(function(company){
+           console.log(company)
            $scope.ctrl.ask = company.ask
            $scope.ctrl.company = {
-            name : company.name,
+            name : company.name || company.meta.name,
             abbr : company.symbol,
             stockDetails : [
                 { key : 'Ask', value : company.ask },

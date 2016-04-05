@@ -60,7 +60,7 @@ function ($http, $q)
           self.print(response)
           self.cache.getTestList = response.data
           console.log(self.cache.getTestList)
-          return response.data
+          return self.cache.getTestList
         })
       }
     }

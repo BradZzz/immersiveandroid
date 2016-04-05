@@ -14,12 +14,12 @@ var finance = require('yahoo-finance')
 var moment = require('moment')
 var Chance = require('chance'), chance = new Chance();
 var _ = require('underscore')
-var request = require('request');
-var cheerio = require('cheerio');
+var request = require('request')
+var cheerio = require('cheerio')
+var mongoose = require('mongoose')
 
-var nasdaq = fs.createReadStream("./stock_csv/nasdaq.csv")
-var nyse = fs.createReadStream("./stock_csv/nyse.csv")
-var asx = fs.createReadStream("./stock_csv/asx.csv")
+var financeLib = require('../../lib/financials')
+var Financial = require('../../models/financial')
 
 var buyFee = 4.95
 
@@ -143,71 +143,91 @@ module.exports = function (app) {
       }
     })
 
-  app.get('/stock/list', function(req, res) {
+  //This function is dangerous. Don't uncomment unless you know what it does
+  /*app.get('/stock/list/update', function(req, res) {
+    financeLib.updateList().then(function(data){
+      Financial.remove({}, function(err, result) {
+        if (err && err.errmsg != 'ns not found') {
+          console.log(err)
+          return res.status(500).json(err)
+        } else {
+          Financial.insertMany(data, function(err, docs) {
+            if (err) {
+              console.log(err)
+              return res.status(500).json(err)
+            } else {
+              return res.status(200).json(docs)
+            }
+          })
+        }
+      })
+    }, function (err){
+      console.log("error")
+      console.log(err)
+      return res.status(500).json(err)
+    })
+  })*/
+
+  function getTheList() {
+    var deferred = Q.defer()
     if ('list' in cache) {
-        return res.status(200).json(cache.list)
+      deferred.resolve(cache.list)
     } else {
-        var exchangeNASDAQ = getStockStream(nasdaq, "nasdaq")
-        var exchangeNYSE = getStockStream(nyse, "nyse")
-
-        var exchanges = [exchangeNASDAQ, exchangeNYSE]
-
-        Q.all(exchanges).then(function(gResp){
-            console.log("finished")
-            cache.list = gResp
-            return res.status(200).json(gResp)
-        }, function (err){
-            console.log("error")
-            console.log(err)
-        })
+      Financial.find({}, function(err, stock) {
+        console.log('returned the list!')
+        cache.list = stock
+        deferred.resolve(cache.list)
+      })
     }
-  });
+    return deferred.promise
+  }
+
+  app.get('/stock/list', function(req, res) {
+    getTheList().then(function(data){
+      return res.status(200).json(data)
+    })
+  })
 
   app.get('/stock/testList', function(req, res) {
       if ('testList' in cache) {
           return res.status(200).json(cache.testList)
       } else {
-          var exchangeNASDAQ = getStockStream(nasdaq, "nasdaq")
-          var exchangeNYSE = getStockStream(nyse, "nyse")
-          var exchanges = [exchangeNASDAQ, exchangeNYSE]
-
-          Q.all(exchanges).then(function(gResp){
-              console.log("testlist")
-
-              var list = {}
-              var tickers = _.union(gResp[0].data, gResp[1].data)
-              var listSize = tickers.length
-
-              cache.testList = _.map(tickers, function(tick) {
-                var maxLength = chance.integer({min: 1, max: 10})
-                var comments = []
-                while (comments.length < maxLength) {
-                    comments.push({
-                        user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
-                        text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
-                    })
-                }
-                return { ticker: tick, invested : chance.integer({min: 1, max: 250}),
-                    comments : comments, buyFee : buyFee }
+        getTheList().then(function(data){
+          console.log('back in test list')
+          var tickers = data
+          var listSize = tickers.length
+          console.log('length: ' + listSize)
+          cache.testList = _.map(tickers, function(tick) {
+            var maxLength = chance.integer({min: 1, max: 10})
+            var comments = []
+            while (comments.length < maxLength) {
+              comments.push({
+                user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
+                text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
               })
-
-              return res.status(200).json(list)
-
-          }, function (err){
-              console.log("error")
-              console.log(err)
+            }
+            return { ticker: tick.symbol, name: tick.name, invested : chance.integer({min: 1, max: 250}),
+                comments : comments, buyFee : buyFee }
           })
+          return res.status(200).json(cache.testList)
+        })
       }
-    });
+  })
 
   app.get('/stock/snapshot', function(req, res) {
     if ('sym' in req.query) {
-      finance.snapshot({
-        symbol: req.query.sym
-      }, function (err, snapshot) {
-        console.log(err)
-        console.log(snapshot)
-        return res.status(200).json(snapshot)
+
+      Financial.findOne({
+        'symbol': req.query.sym.toUpperCase(),
+      }, function(err, dbTick) {
+        finance.snapshot({
+          symbol: req.query.sym
+        }, function (err, snapshot) {
+          console.log(err)
+          console.log(snapshot)
+          snapshot.meta = dbTick || {}
+          return res.status(200).json(snapshot)
+        })
       })
     } else {
       return res.status(400).json("Bad Request")

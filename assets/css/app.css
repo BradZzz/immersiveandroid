@@ -228,7 +228,7 @@ button.md-raised.active:hover {
 }
 .stock .content {
   height: 75vh;
-  min-height: 640px;
+  min-height: 600px;
 }
 .stock .large {
   border: 1px solid #000;
@@ -251,7 +251,7 @@ button.md-raised.active:hover {
 .profile .content {
   position: relative;
   height: 88vh;
-  min-height: 640px;
+  min-height: 600px;
 }
 .profile .content .profile-avatar {
   border: 2px solid rgba(0, 0, 0, 0.8);
