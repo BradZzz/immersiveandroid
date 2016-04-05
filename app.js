@@ -35,11 +35,11 @@ var templateConfig = {
   extname: '.html',
 }
 
-if (app.get('prod')) {
+//if (app.get('prod')) {
   templateConfig.partialsDir = path.join(__dirname, 'dist')
-} else {
-  templateConfig.partialsDir = __dirname
-}
+//} else {
+//  templateConfig.partialsDir = __dirname
+//}
 
 app.engine('html', exphbs(templateConfig))
 app.set('view engine', 'html')
