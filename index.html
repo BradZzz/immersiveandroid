@@ -46,17 +46,19 @@
 
   <!-- DONT FUCKING USE THE MINIFIED STYLE SHEETS!!! -->
   <!-- build:css /build/css/app.min.css -->
-  <link rel="stylesheet" href="/assets/css/app.css">
-  <link rel="stylesheet" href="/assets/third-party/ionicons/css/ionicons.css">
-  <link rel="stylesheet" href="/assets/third-party/normalize.css/normalize.css">
-  <link rel="stylesheet" href="/assets/third-party/angular-loading-bar/build/loading-bar.css">
-  <link rel="stylesheet" href="/assets/third-party/angular-material/angular-material.css">
-  <!-- endbuild -->
+<link rel="stylesheet" href="/assets/css/app.css">
+<link rel="stylesheet" href="/assets/third-party/ionicons/css/ionicons.css">
+<link rel="stylesheet" href="/assets/third-party/normalize.css/normalize.css">
+<link rel="stylesheet" href="/assets/third-party/angular-loading-bar/build/loading-bar.css">
+<link rel="stylesheet" href="/assets/third-party/angular-material/angular-material.css">
+<link rel="stylesheet" href="/assets/third-party/angular-flash-alert/dist/angular-flash.css">
+<!-- endbuild -->
 </head>
 
 <body ng-controller="RootCtrl">
 
 <!-- angular view content injected here -->
+<flash-message duration="5000" show-close="true" on-dismiss="$root.flashCallback(flash)" class="flash-bar"></flash-message>
 <div id="navbar" ng-controller="HeaderCtrl"><div ng-include src="'assets/html/partials/header.html'"></div></div>
 <div class="loading-bar" ng-class="{'show' : $root.loading, 'remove' : !$root.loading}" layout="row" layout-sm="column" layout-align="space-around">
   <md-progress-circular md-mode="indeterminate"></md-progress-circular>

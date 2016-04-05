@@ -25,7 +25,6 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise("/")
 
-
   $stateProvider.state('site', {
     'abstract': true,
     template: '<ui-view/>',
@@ -37,6 +36,10 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     parent: 'site',
     templateUrl: "/assets/html/home/main.html",
     controller: "MainCtrl",
+  }).state('login', {
+    url: "/login",
+    templateUrl: "/assets/html/home/login.html",
+    controller: "HeaderCtrl",
   }).state('stock', {
     url: "/stockui?ticker",
     parent: 'site',

@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" ng-if="loginRegister.loggedIn">
 	<md-content flex layout-padding class="top-nav" style="background-image: url('{{ ctrl.backgrounds[loginRegister.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
 		<div class="md-primary" layout-gt-sm="row" layout="column">
 			<div flex-gt-sm="25" flex="100" flex-order-gt-sm="1" flex-order="1" class="selectable nav-icons" layout="row" layout-align="center center">
@@ -61,10 +61,10 @@
 				</md-input-container>
 				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin"
 						   ng-class="{ 'active' : ctrl.logForm.active, 'md-raised' : loginRegister.isLoggingIn, 'color blue-sky': !loginRegister.isLoggingIn }"
-						   ng-click="loginRegister.login(loginRegister.logForm.username, loginRegister.logForm.password, 'local', loginRegister.refresh); ctrl.logForm.active = false">Login</md-button>
+						   ng-click="loginRegister.login(loginRegister.logForm.username, loginRegister.logForm.password, 'local'); ctrl.logForm.active = false">Login</md-button>
 				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin"
 						   ng-class="{ 'active' : ctrl.logForm.active, 'md-raised' : !loginRegister.isLoggingIn, 'color blue-sky': loginRegister.isLoggingIn }"
-						   ng-click="loginRegister.register(loginRegister.logForm.username, loginRegister.logForm.password, 'local', loginRegister.refresh); ctrl.logForm.active = false">Register</md-button>
+						   ng-click="loginRegister.register(loginRegister.logForm.username, loginRegister.logForm.password, 'local'); ctrl.logForm.active = false">Register</md-button>
 			</div>
 			<md-list-item ng-if="loginRegister.loggedIn" ng-repeat="tab in ctrl.nav" ng-click="tab.click()" class="selectable">
 				<md-icon class="md-secondary icon" ng-class="tab.icon" style="position:relative;margin-top: 22px;"></md-icon>

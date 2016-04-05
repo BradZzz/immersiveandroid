@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('HeaderCtrl',
-['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seUser', 'seTheme',
-function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUser, seTheme)
+['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seTheme', 'sePrincipal', 'seAuthorization',
+function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTheme, sePrincipal, seAuthorization)
 {
 
   //var id = Flash.create('success', message)
@@ -14,16 +14,16 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUs
 
   $scope.loginRegister = {
     isLoggingIn : true,
-    loggedIn : seUser.loggedIn,
+    loggedIn : sePrincipal.isAuthenticated(),
     logForm : { username : '', password : '', active : false },
-    test : seUser.getUser(),
+    test : {},
     register : function () {
         console.log(this)
         if (this.isLoggingIn) {
             this.isLoggingIn = false
         } else {
             console.log(arguments)
-            seUser.register.apply(this, arguments)
+            sePrincipal.register.apply(this, arguments).then($scope.loginRegister.refresh())
         }
     },
     login : function () {
@@ -32,17 +32,31 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUs
             this.isLoggingIn = true
         } else {
             console.log(arguments)
-            seUser.login.apply(this, arguments)
+            sePrincipal.login.apply(this, arguments).then($scope.loginRegister.refresh())
         }
+    },
+    loginSpecial : function () {
+        sePrincipal.login.apply(this, arguments).then( function(data) {
+            console.log(data)
+            $state.go('home')
+        }, function (err) {
+            console.log(err)
+        })
     },
     logout : function () {
         $scope.loginRegister.refresh()
-        $state.go('home')
+        sePrincipal.logout()
+        $state.go('login')
     },
     refresh : function () {
         $rootScope.safeApply(function () {
-            $scope.loginRegister.test = seUser.getUser()
-            $scope.loginRegister.loggedIn = seUser.loggedIn
+            sePrincipal.identity().then(function(data){
+              console.log(data)
+              $scope.loginRegister.test = data
+            })
+            //$scope.loginRegister.test = sePrincipal.identity()
+            $scope.loginRegister.loggedIn = sePrincipal.isAuthenticated()
+            console.log('User:', $scope.loginRegister.test)
         })
     },
   }
@@ -74,7 +88,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUs
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){console.log("clicked analytics")} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
-        { icon : 'ion-android-exit', text : 'Logout', click : function(){seUser.logout($scope.loginRegister.logout)} },
+        { icon : 'ion-android-exit', text : 'Logout', click : function(){ $scope.loginRegister.logout() } },
     ],
     incBackground : function (offset) {
         if ($scope.loginRegister.test.background + offset > this.backgrounds.length - 1 ) {
@@ -88,14 +102,17 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUs
     backgrounds : seTheme.backgrounds,
   }
 
+  $scope.loginRegister.refresh()
+
   $scope.$on('update', function () {
+    console.log('update!')
     $scope.loginRegister.refresh()
   })
 
   //This runs once when the user refreshes the browser
-  seUser.recover(function(data){
-      $scope.loginRegister.refresh()
-  })
+  //seUser.recover(function(data){
+  //    $scope.loginRegister.refresh()
+  //})
 
   seQuotes.getTestList().then(function(response){
       var tickers = _.map(response, function(num){ return num })
@@ -119,29 +136,29 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seUs
     return function debounced() {
       var context = $scope,
           args = Array.prototype.slice.call(arguments);
-      $timeout.cancel(timer);
+      $timeout.cancel(timer)
       timer = $timeout(function() {
-        timer = undefined;
-        func.apply(context, args);
-      }, wait || 10);
-    };
+        timer = undefined
+        func.apply(context, args)
+      }, wait || 10)
+    }
   }
   function buildDelayedToggler(navID) {
     return debounce(function() {
       $mdSidenav(navID)
         .toggle()
         .then(function () {
-          $log.debug("toggle " + navID + " is done");
-        });
-    }, 200);
+          $log.debug("toggle " + navID + " is done")
+        })
+    }, 200)
   }
   function buildToggler(navID) {
     return function() {
       $mdSidenav(navID)
         .toggle()
         .then(function () {
-          $log.debug("toggle " + navID + " is done");
-        });
+          $log.debug("toggle " + navID + " is done")
+        })
     }
   }
 }]).controller('LeftCtrl',
@@ -150,7 +167,7 @@ function ($scope, $timeout, $mdSidenav, $log) {
     $scope.close = function () {
       $mdSidenav('left').close()
         .then(function () {
-          $log.debug("close left is done");
-        });
-    };
-}]);
+          $log.debug("close left is done")
+        })
+    }
+}])
