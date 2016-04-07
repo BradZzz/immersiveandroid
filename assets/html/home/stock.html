@@ -1,40 +1,18 @@
 <div class="stock">
 	<md-card class="content">
-		<md-content style="margin: 10px 20px 0 20px;">
+		<div style="margin: 10px 20px 0 20px;" layout="row" layout-align="space-between center">
 			<h3>{{ ctrl.company.name }} ({{ ctrl.company.abbr }})</h3>
-			<div layout-gt-sm="row" layout="column" style="margin: 10px 0;">
-				<span ng-repeat="(key, detail) in ctrl.company.stockUserDetails" style="margin-right: 30px;position:relative;">
-					<b>{{ detail.key }}</b> {{ detail.value }}
-					<md-icon hide show-gt-sm flex class="md-secondary icon ion-help-circled selectable" style="top: -11px; position: absolute; right: -25px;" ng-click="$root.alert(detail.desc)"></md-icon>
-				</span>
-			</div>
-			<div layout="column">
-				<div>
-					<span style="margin-bottom:5px;"><b>Current:</b> <span style="font-style: italic;font-weight: 400;">Shares</span> {{ ctrl.invested }}
-						/ <span style="font-style: italic;font-weight: 400;">Cost</span> ${{ ctrl.cost }}</span>
-					<md-button ng-click="ctrl.invested = 0;ctrl.invest(0);" style="min-width: 24px; height: 18px; background: rgba(232,232,0,.3); border: 1px solid #000;">
-						<md-icon flex class="md-secondary icon ion-refresh" style="vertical-align: top;"></md-icon>
-					</md-button>
-				</div>
-				<div layout="row">
-					<div class="tiny-wrapper" flex layout-gt-sm="column" layout="row" style="max-width: 32px; margin-right:10px;">
-						<md-button ng-click="ctrl.actions.plus = true" class="tiny background green">+</md-button>
-						<md-button ng-click="ctrl.actions.plus = false" class="tiny background red">-</md-button>
-					</div>
-					<md-button class="background large" ng-click="ctrl.invest(.25)" ng-class="{ 'green' : ctrl.actions.plus, 'red' : !ctrl.actions.plus  }">.25</md-button>
-					<md-button class="background large" ng-click="ctrl.invest(.5)" ng-class="{ 'green' : ctrl.actions.plus, 'red' : !ctrl.actions.plus  }">.50</md-button>
-					<md-button class="background large" ng-click="ctrl.invest(1)" ng-class="{ 'green' : ctrl.actions.plus, 'red' : !ctrl.actions.plus  }">1</md-button>
-				</div>
-			</div>
-			<div layout-gt-sm="row" layout="column" style="margin:10px 0">
-				<span ng-repeat="detail in ctrl.company.stockDetails" style="margin-right: 30px;">
-					<div style="font-size: small;"><b>{{ detail.key }}:</b> {{ detail.value }}</div>
-				</span>
-			</div>
-			<div id="container" style="min-width: 310px; height: 315px; margin: 0 auto"></div>
+			<md-button ng-click="ctrl.chartTab = !ctrl.chartTab;" style="min-width: 24px; height: 18px; background: rgba(232,232,0,.3); border: 1px solid #000;">
+				<md-icon flex class="md-secondary icon ion-chevron-right" style="vertical-align: top;"></md-icon>
+			</md-button>
+		</div>
+		<md-content style="margin: 10px 20px 0 20px;" class="md-padding">
+			<div ng-if="ctrl.chartTab" ng-include src="'assets/html/partials/stock-chart.html'"></div> 
+			<div ng-if="!ctrl.chartTab" ng-include src="'assets/html/partials/stock-info.html'"></div>
+			<div ng-class="{'remove': !ctrl.chartTab}" id="container" style="min-width: 310px; height: 315px; margin: 0 auto"></div>
 		</md-content>
 	</md-card>
-	<md-card>
+	<md-card ng-class="{'remove': !ctrl.chartTab}">
 		<h4 ng-show="!ctrl.actions.commentEx" style="text-align:center">Comments</h4>
 		<md-icon ng-click="ctrl.actions.commentEx = !ctrl.actions.commentEx" class="md-secondary icon selectable"
 				 ng-class="{'ion-chevron-down':!ctrl.actions.commentEx,'ion-chevron-up':ctrl.actions.commentEx}" style="position:relative; margin-top: 10px;"></md-icon>

@@ -3,9 +3,25 @@ angular.module('ambrosia').controller('StockCtrl',
 function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes)
 {
 
+    /*
+
+    Total Current Assets
+    Total Assets
+    Total Current Liabilities
+    Total Liabilities
+    Total Stockholder Equity
+    Net Tangible Assets
+    Cash And Cash Equivalents
+    Short/Current Long Term Debt
+    Research Development
+    Selling General and Administrative
+
+    */
+
     $rootScope.loading = true
 
     $scope.ctrl = {
+        chartTab : true,
         period : 'd',
         ask : 0,
         invested : 0,
@@ -62,9 +78,16 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes
         $scope.ctrl.tickerAbbrv = $stateParams.ticker
 
         seQuotes.getCompany($scope.ctrl.tickerAbbrv).then(function(company){
-           console.log(company)
            $scope.ctrl.ask = company.ask
+           var newMeta = {}
+           _.each(company,function(value,key){
+            if (key !== 'meta') {
+                newMeta[key] = value
+            }
+           })
            $scope.ctrl.company = {
+            meta : company.meta,
+            snapshot : newMeta,
             name : company.name || company.meta.name,
             abbr : company.symbol,
             stockDetails : [
@@ -73,6 +96,10 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes
                 { key : 'Day High', value : company.daysHigh }
             ],
            }
+           console.log($scope.ctrl.company)
+           seQuotes.getCompanyLedger($scope.ctrl.tickerAbbrv).then(function(company2){
+             $scope.ctrl.company.info = company2
+           })
            seQuotes.getTestList().then(function(list){
               console.log('finished')
               console.log(list)

@@ -1,0 +1,27 @@
+<div class="stock" layout="row">
+	<div flex="40" layout="column">
+		<h4>Meta</h4>
+		<table style="width:100%; font-size: 12px;">
+			<tr ng-repeat="(key, data) in ctrl.company.meta">
+				<td style="width: 150px"><b>{{ key }}</b></td>
+				<td style="width: 90px">{{ data }}</td>
+			</tr>
+		</table>
+		<h4>Snapshot</h4>
+		<table style="width:100%; font-size: 12px;">
+			<tr ng-repeat="(key, data) in ctrl.company.snapshot">
+				<td style="width: 150px"><b>{{ key }}</b></td>
+				<td style="width: 90px">{{ data }}</td>
+			</tr>
+		</table>
+	</div>
+	<div flex="60" layout="column">
+		<h4>Financials</h4>
+		<table style="width:100%; font-size: 12px;">
+			<tr ng-repeat="(key, data) in ctrl.company.info" ng-if="!_.contains(data, null)">
+				<td style="width: 150px"><b>{{ key }}</b></td>
+				<td ng-repeat="info in data" style="width: 90px">{{ info }}</td>
+			</tr>
+		</table>
+	</div>
+</div>

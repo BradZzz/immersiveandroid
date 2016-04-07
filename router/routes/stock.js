@@ -131,8 +131,39 @@ module.exports = function (app) {
 
           Q.all(financials).then(function(gResp){
               console.log("finished")
-              cache.list = gResp
-              return res.status(200).json(gResp)
+
+              var returnPiece = {}
+
+              _.each(gResp, function(lNode){
+                //var returnPiece = {}
+                _.each(lNode.data, function(value, key){
+                    var list = []
+                    var currKey = key
+                    if (value.length === 1) {
+                        returnPiece['**' + currKey] = []
+                        currKey = '*' + value[0]
+                    } else if (value.length === 4) {
+                        returnPiece['**' + currKey] = []
+                        currKey = '*' + value.splice(0,1)
+                        if (currKey !== "Period Ending") {
+                            list = _.map(value,function(num){ return parseInt(num.replace(/\D/g,'')) })
+                        } else {
+                            list = value
+                        }
+                    } else {
+                        if (currKey !== "Period Ending") {
+                            list = _.map(value,function(num){ return parseInt(num.replace(/\D/g,'')) })
+                        } else {
+                            list = value
+                        }
+                    }
+                    returnPiece[currKey] = list
+                })
+                //returnScoop.push(returnPiece)
+              })
+              cache.list = returnPiece
+              console.log(returnPiece)
+              return res.status(200).json(returnPiece)
           }, function (err){
               console.log("error")
               console.log(err)
@@ -174,7 +205,12 @@ module.exports = function (app) {
       deferred.resolve(cache.list)
     } else {
       Financial.find({}, function(err, stock) {
+        if (err) {
+            console.log(err)
+            deferred.reject(err)
+        }
         console.log('returned the list!')
+        console.log(stock)
         cache.list = stock
         deferred.resolve(cache.list)
       })
@@ -194,9 +230,13 @@ module.exports = function (app) {
       } else {
         getTheList().then(function(data){
           console.log('back in test list')
+          console.log(data)
+          if (data === undefined) {
+            return res.status(500).json('bad data')
+          }
           var tickers = data
           var listSize = tickers.length
-          console.log('length: ' + listSize)
+
           cache.testList = _.map(tickers, function(tick) {
             var maxLength = chance.integer({min: 1, max: 10})
             var comments = []
@@ -209,7 +249,10 @@ module.exports = function (app) {
             return { ticker: tick.symbol, name: tick.name, invested : chance.integer({min: 1, max: 250}),
                 comments : comments, buyFee : buyFee }
           })
+          console.log(cache.testList)
           return res.status(200).json(cache.testList)
+        }, function(err){
+          return res.status(500).json(err)
         })
       }
   })
@@ -225,6 +268,9 @@ module.exports = function (app) {
         }, function (err, snapshot) {
           console.log(err)
           console.log(snapshot)
+          if (snapshot === undefined) {
+            return res.status(500).json("Snapshot undefined")
+          }
           snapshot.meta = dbTick || {}
           return res.status(200).json(snapshot)
         })

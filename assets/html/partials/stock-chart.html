@@ -1,0 +1,29 @@
+<div layout-gt-sm="row" layout="column" style="margin: 10px 0;">
+	<span ng-repeat="(key, detail) in ctrl.company.stockUserDetails" style="margin-right: 30px;position:relative;">
+		<b>{{ detail.key }}</b> {{ detail.value }}
+		<md-icon hide show-gt-sm flex class="md-secondary icon ion-help-circled selectable" style="top: -11px; position: absolute; right: -25px;" ng-click="$root.alert(detail.desc)"></md-icon>
+	</span>
+</div>
+<div layout="column">
+	<div>
+		<span style="margin-bottom:5px;"><b>Current:</b> <span style="font-style: italic;font-weight: 400;">Shares</span> {{ ctrl.invested }}
+			/ <span style="font-style: italic;font-weight: 400;">Cost</span> ${{ ctrl.cost }}</span>
+		<md-button ng-click="ctrl.invested = 0;ctrl.invest(0);" style="min-width: 24px; height: 18px; background: rgba(232,232,0,.3); border: 1px solid #000;">
+			<md-icon flex class="md-secondary icon ion-refresh" style="vertical-align: top;"></md-icon>
+		</md-button>
+	</div>
+	<div layout="row">
+		<div class="tiny-wrapper" flex layout-gt-sm="column" layout="row" style="max-width: 32px; margin-right:10px;">
+			<md-button ng-click="ctrl.actions.plus = true" class="tiny background green">+</md-button>
+			<md-button ng-click="ctrl.actions.plus = false" class="tiny background red">-</md-button>
+		</div>
+		<md-button class="background large" ng-click="ctrl.invest(.25)" ng-class="{ 'green' : ctrl.actions.plus, 'red' : !ctrl.actions.plus  }">.25</md-button>
+		<md-button class="background large" ng-click="ctrl.invest(.5)" ng-class="{ 'green' : ctrl.actions.plus, 'red' : !ctrl.actions.plus  }">.50</md-button>
+		<md-button class="background large" ng-click="ctrl.invest(1)" ng-class="{ 'green' : ctrl.actions.plus, 'red' : !ctrl.actions.plus  }">1</md-button>
+	</div>
+</div>
+<div layout-gt-sm="row" layout="column" style="margin:10px 0">
+	<span ng-repeat="detail in ctrl.company.stockDetails" style="margin-right: 30px;">
+		<div style="font-size: small;"><b>{{ detail.key }}:</b> {{ detail.value }}</div>
+	</span>
+</div>

@@ -88,6 +88,29 @@ function ($http, $q)
     }
   }
 
+  self.getCompanyLedger = function (sym) {
+      if ('getCompanyLedger' in self.cache && sym in self.cache.getCompanyLedger) {
+          var deferred = $q.defer()
+          deferred.resolve(self.cache.getCompanyLedger[sym])
+          return deferred.promise
+      } else {
+          return $http({
+              url: '/stock/financials',
+              method: 'GET',
+              params: {
+                sym: sym
+              }
+          }).then(function (response) {
+              self.print(response)
+              if (!('getCompanyLedger' in self.cache)) {
+                  self.cache.getCompanyLedger = {}
+              }
+              self.cache.getCompanyLedger[sym] = response.data
+              return self.cache.getCompanyLedger[sym]
+          })
+      }
+  }
+
   self.convertHighcharts = function (data) {
     return _.map(data, function(points){
         return [ parseInt(moment(points.date).format("x")) , points.low, points.high ]
