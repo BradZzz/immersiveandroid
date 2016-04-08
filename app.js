@@ -18,7 +18,7 @@ var app           = module.exports = express()
 
 app.storage = require('node-persist')
 
-var TOKEN_SECRET = process.env.TOKEN_SECRET || 'dotdashdot-cast'
+var TOKEN_SECRET = process.env.TOKEN_SECRET
 
 mongoose.connect(process.env.MONGODB)
 
@@ -79,6 +79,7 @@ if (app.get('prod')) {
 }
 
 // setup routes
+require('./router/routes/ledger')(app)
 require('./router/routes/login')(app)
 require('./router/routes/stock')(app)
 require('./router/routes/views')(app)

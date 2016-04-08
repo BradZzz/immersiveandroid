@@ -87,7 +87,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
     nav : [
         { icon : 'ion-android-home', text : 'Home', click : function(){$state.go('home')} },
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
-        { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){console.log("clicked analytics")} },
+        { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){$state.go('analytics')} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
         { icon : 'ion-android-exit', text : 'Logout', click : function(){ $scope.loginRegister.logout() } },
     ],

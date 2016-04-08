@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var bcrypt   = require('bcrypt-nodejs');
+var bcrypt   = require('bcrypt-nodejs')
 
 var userSchema = new mongoose.Schema({
 
@@ -12,6 +12,7 @@ var userSchema = new mongoose.Schema({
   city:     { type: String },
   state:    { type: String },
   zip:      { type: Number },
+
   //misc shit that has to do with the user's account
   personal: [{ type: mongoose.Schema.Types.Mixed }],
 
@@ -33,12 +34,12 @@ var userSchema = new mongoose.Schema({
 //generating a hash
 userSchema.methods.generateHash = function(password) {
  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+}
 
 //checking if password is valid
 userSchema.methods.validPassword = function(password) {
  return bcrypt.compareSync(password, this.pass);
-};
+}
 
 //return formatted string for client
 userSchema.methods.clientUser = function() {
@@ -46,6 +47,6 @@ userSchema.methods.clientUser = function() {
     delete returned['token']
     delete returned['pass']
     return returned
-};
+}
 
 module.exports = mongoose.model('user', userSchema)

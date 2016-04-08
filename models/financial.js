@@ -1,6 +1,4 @@
 var mongoose = require('mongoose')
-var bcrypt   = require('bcrypt-nodejs')
-var Q         = require('q')
 
 var financeSchema = new mongoose.Schema({
  exchange:   { type: String, required: true },

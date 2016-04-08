@@ -59,10 +59,10 @@
 					<label>Password</label>
 					<input type="password" ng-model="loginRegister.logForm.password" ng-change="loginRegister.logForm.active = true">
 				</md-input-container>
-				<md-button style="width: 50%; margin: 0 auto;" layout-align="center center" class="md-margin"
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin"
 						   ng-class="{ 'active' : ctrl.logForm.active, 'md-raised' : loginRegister.isLoggingIn, 'color blue-sky': !loginRegister.isLoggingIn }"
 						   ng-click="loginRegister.login(loginRegister.logForm.username, loginRegister.logForm.password, 'local'); ctrl.logForm.active = false">Login</md-button>
-				<md-button style="width: 50%; margin: 0 auto;" layout-align="center center" class="md-margin"
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin"
 						   ng-class="{ 'active' : ctrl.logForm.active, 'md-raised' : !loginRegister.isLoggingIn, 'color blue-sky': loginRegister.isLoggingIn }"
 						   ng-click="loginRegister.register(loginRegister.logForm.username, loginRegister.logForm.password, 'local'); ctrl.logForm.active = false">Register</md-button>
 			</div>

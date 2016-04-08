@@ -51,6 +51,12 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     templateUrl: "/assets/html/home/profile.html",
     controller: "ProfileCtrl",
     data: { role: 1 }
+  }).state('analytics', {
+    url: "/analytics",
+    parent: 'site',
+    templateUrl: "/assets/html/home/analytics.html",
+    controller: "AnalyticsCtrl",
+    data: { role: 1 }
   })
 
   $locationProvider.html5Mode(true)

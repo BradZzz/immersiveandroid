@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('StockCtrl',
-['$scope', '$rootScope', '$state', '$stateParams', '$location', '$window', 'seQuotes',
-function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes)
+['$scope', '$rootScope', '$state', '$stateParams', '$location', '$window', '$mdDialog', 'seQuotes', 'seLedger',
+function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialog, seQuotes, seLedger)
 {
 
     /*
@@ -28,12 +28,10 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes
         cost : 0,
         invest : function (amount) {
             var timesy = this.actions.plus ? 1 : -1
-            this.invested += timesy * amount
-            if (this.invested < 0) {
-                this.invested = 0
-            }
 
-            this.cost = (this.ask * this.invested).toFixed(2)
+            this.cost += timesy * amount
+            if (this.cost < 0) { this.cost = 0 }
+            this.invested = (this.cost / this.ask).toFixed(2)
 
             if ( this.invested > 0 ) {
               this.company.stockUserDetails.invested.value = 1 + this.company.stockUserDetails.invested.cache
@@ -73,6 +71,35 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes
         data : [],
     }
 
+    $scope.modal = {
+        showConfirm : function(ev) {
+            var tContent = "Are you sure you want to purchase " + $scope.ctrl.invested + " shares of " +
+                $scope.ctrl.tickerAbbrv + " for $" + $scope.ctrl.cost + "?"
+
+            console.log(tContent)
+
+            var confirm = $mdDialog.confirm()
+              .title('Please confirm your purchase')
+              .content(tContent)
+              .ariaLabel('Purchase')
+              .targetEvent(ev)
+              .ok('Proceed')
+              .cancel('Cancel')
+
+            $mdDialog.show(confirm).then(function() {
+              console.log('purchasing')
+              seLedger.pending($scope.ctrl.tickerAbbrv, $scope.ctrl.cost, function(data){
+                console.log('purchased!')
+              }, function(err){
+                console.log(err)
+                console.log('error purchasing shit')
+              })
+            }, function() {
+              console.log('cancelled!')
+            })
+        }
+    }
+
     if ('ticker' in $stateParams) {
 
         $scope.ctrl.tickerAbbrv = $stateParams.ticker
@@ -85,6 +112,7 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, seQuotes
                 newMeta[key] = value
             }
            })
+           delete company.meta['_id']
            $scope.ctrl.company = {
             meta : company.meta,
             snapshot : newMeta,

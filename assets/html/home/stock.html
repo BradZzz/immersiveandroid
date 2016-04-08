@@ -1,12 +1,12 @@
 <div class="stock">
-	<md-card class="content">
-		<div style="margin: 10px 20px 0 20px;" layout="row" layout-align="space-between center">
+	<md-card class="content" ng-class="{'taller': !ctrl.chartTab}">
+		<div style="margin: 10px 20px 5px 20px;" layout="row" layout-align="space-between center">
 			<h3>{{ ctrl.company.name }} ({{ ctrl.company.abbr }})</h3>
-			<md-button ng-click="ctrl.chartTab = !ctrl.chartTab;" style="min-width: 24px; height: 18px; background: rgba(232,232,0,.3); border: 1px solid #000;">
+			<md-button class="background yellow" ng-click="ctrl.chartTab = !ctrl.chartTab;" style="min-width: 24px; height: 18px; border: 1px solid #000;">
 				<md-icon flex class="md-secondary icon ion-chevron-right" style="vertical-align: top;"></md-icon>
 			</md-button>
 		</div>
-		<md-content style="margin: 10px 20px 0 20px;" class="md-padding">
+		<md-content style="margin: 5px 20px 0 20px;">
 			<div ng-if="ctrl.chartTab" ng-include src="'assets/html/partials/stock-chart.html'"></div> 
 			<div ng-if="!ctrl.chartTab" ng-include src="'assets/html/partials/stock-info.html'"></div>
 			<div ng-class="{'remove': !ctrl.chartTab}" id="container" style="min-width: 310px; height: 315px; margin: 0 auto"></div>

@@ -22,7 +22,7 @@ function ($scope, $http, $rootScope, $state, $timeout, sePrincipal, seTheme, Upl
         saveClicked : function(user) {
           sePrincipal.update(user).then(function(resp){
             $scope.ctrl.user = resp
-            $scope.ctrl.active = false;
+            $scope.ctrl.active = false
             console.log($scope.ctrl.user)
           })
         },

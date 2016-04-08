@@ -11,9 +11,13 @@
 
 /* Button Colors */
 @red-trans:   rgba(176,28,48,.3);
+@red-dark-trans:   rgba(105,0,14,.3);
 @green-trans:   rgba(37,148,107,.3);
+@green-dark-trans:   rgba(3,99,63,.3);
 @green-dull-trans:   rgba(22,71,22,.3);
 @blue-sky-trans:   rgb(64,150,238,.3);
+@yellow-trans:   rgba(232,232,0,.3);
+@yellow-dark-trans:   rgba(144,144,0,.3);
 
 @white-full:   rgba(255,255,255,.8);
 @red-full:   rgba(207,23,84,.8);
@@ -73,9 +77,21 @@ html, body {
 .background {
     &.green {
         background: @green-trans !important;
+        &:hover {
+            background: @green-dark-trans !important;
+        }
     }
     &.red {
         background: @red-trans !important;
+        &:hover {
+            background: @red-dark-trans !important;
+        }
+    }
+    &.yellow {
+        background: @yellow-trans !important;
+        &:hover {
+            background: @yellow-dark-trans !important;
+        }
     }
 }
 
@@ -236,6 +252,9 @@ button.md-raised {
     .content {
         height:75vh;
         min-height : 620px;
+        &.taller {
+            height:88vh !important;
+        }
     }
     .large {
         border: 1px solid #000;
@@ -254,6 +273,13 @@ button.md-raised {
                 left: 30%;
             }
         }
+    }
+}
+
+.analytics {
+    .content {
+        position : relative;
+        height : 88vh;
     }
 }
 

@@ -54,8 +54,20 @@ body {
 .background.green {
   background: rgba(37, 148, 107, 0.3) !important;
 }
+.background.green:hover {
+  background: rgba(3, 99, 63, 0.3) !important;
+}
 .background.red {
   background: rgba(176, 28, 48, 0.3) !important;
+}
+.background.red:hover {
+  background: rgba(105, 0, 14, 0.3) !important;
+}
+.background.yellow {
+  background: rgba(232, 232, 0, 0.3) !important;
+}
+.background.yellow:hover {
+  background: rgba(144, 144, 0, 0.3) !important;
 }
 .color.red {
   color: rgba(207, 23, 84, 0.8) !important;
@@ -229,6 +241,9 @@ button.md-raised.active:hover {
 .stock .content {
   height: 75vh;
   min-height: 620px;
+}
+.stock .content.taller {
+  height: 88vh !important;
 }
 .stock .large {
   border: 1px solid #000;
