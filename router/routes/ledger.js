@@ -37,10 +37,11 @@ module.exports = function (app) {
 
   app.post('/ledger/pending', function(req, res) {
     var params = req.query || req.body
-    if ('cost' in params && 'sym' in params) {
+    if ('cost' in params && 'sym' in params && 'name' in params) {
       var pLedger = new pendingLedger();
       var id = req.user._id
 
+      pLedger.name = params.name
       pLedger.sym = params.sym
       pLedger.cost = params.cost
       pLedger.user = id

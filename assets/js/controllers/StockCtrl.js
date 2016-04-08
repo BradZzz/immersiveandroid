@@ -88,7 +88,7 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialo
 
             $mdDialog.show(confirm).then(function() {
               console.log('purchasing')
-              seLedger.pending($scope.ctrl.tickerAbbrv, $scope.ctrl.cost, function(data){
+              seLedger.submitPending($scope.ctrl.company.name, $scope.ctrl.tickerAbbrv, $scope.ctrl.cost, function(data){
                 console.log('purchased!')
               }, function(err){
                 console.log(err)

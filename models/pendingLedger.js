@@ -3,6 +3,7 @@ var bcrypt   = require('bcrypt-nodejs')
 
 var pendingLedgerSchema = new mongoose.Schema({
 
+ name:       { type: String },
  sym:        { type: String, required: true, index: true },
  cost:       { type: Number, required: true },
  user:       { type: String, required: true, index: true },

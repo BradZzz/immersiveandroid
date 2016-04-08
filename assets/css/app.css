@@ -145,6 +145,7 @@ button.md-raised.active:hover {
 }
 .center-vertical-parent {
   display: inline-flex;
+  align-items: center;
 }
 .center-vertical-parent.small {
   height: 60px;
@@ -262,6 +263,10 @@ button.md-raised.active:hover {
   position: absolute;
   bottom: -15%;
   left: 30%;
+}
+.analytics .content {
+  position: relative;
+  height: 88vh;
 }
 .profile .content {
   position: relative;

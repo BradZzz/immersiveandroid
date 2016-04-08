@@ -15,13 +15,14 @@ function ($http, $q, Flash)
     })
   }
 
-  self.submitPending = function (sym, cost, callback) {
+  self.submitPending = function (name, sym, cost, callback) {
     $http({
       url: '/ledger/pending',
       method: "POST",
       params: {
-          sym : sym,
-          cost : cost,
+        name : name,
+        sym : sym,
+        cost : cost,
       },
       headers: {
         'Content-Type': 'application/json'
