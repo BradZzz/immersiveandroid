@@ -33,7 +33,19 @@ module.exports = function (app) {
           return nEntry
         }))
     })
-  });
+  })
+
+  app.delete('/ledger/pending', function(req, res) {
+    var params = req.query || req.body
+    if ('sym' in params) {
+        pendingLedger.remove({ user : req.user._id, sym : params.sym }, function(err, deleted) {
+          if (err){
+            return res.status(500).json(err)
+          }
+          return res.status(200).json(deleted)
+        })
+    }
+  })
 
   app.post('/ledger/pending', function(req, res) {
     var params = req.query || req.body

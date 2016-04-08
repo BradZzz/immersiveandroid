@@ -5,6 +5,19 @@ function ($http, $q, Flash)
   var self = this
   self.logName = 'seLedger'
 
+  self.removePending = function (sym, callback) {
+    $http({
+      url: '/ledger/pending',
+      method: 'DELETE',
+      params: {
+        sym : sym,
+      },
+    }).then(function (res) {
+      console.log(res)
+      callback(res.data)
+    })
+  }
+
   self.getPending = function (callback) {
     $http({
       url: '/ledger/pending',

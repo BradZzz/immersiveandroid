@@ -1,14 +1,48 @@
 angular.module('ambrosia').controller('AnalyticsCtrl',
-['$scope', '$http', '$rootScope', '$state', '$timeout', '$q', 'sePrincipal', 'seLedger', 'seQuotes',
-function ($scope, $http, $rootScope, $state, $timeout, $q, sePrincipal, seLedger, seQuotes)
+['$scope', '$http', '$rootScope', '$state', '$timeout', '$q', '$mdDialog', 'sePrincipal', 'seLedger', 'seQuotes',
+function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, sePrincipal, seLedger, seQuotes)
 {
 
     $rootScope.loading = true
 
       $scope.ctrl = { 
         titlePending : 'Pending Transactions',
+        purchaseTime : moment().day(3).unix(),
         totalCost : 0,
         pending : [],
+    }
+
+    console.log(moment().unix())
+    console.log($scope.ctrl.purchaseTime)
+
+    $scope.modal = {
+        showConfirm : function(ev, index) {
+            var tContent = "Are you sure you want to delete your order with " + $scope.ctrl.pending[index].sym + "?"
+
+            console.log(tContent)
+
+            var confirm = $mdDialog.confirm()
+              .title('Please confirm pending deletion')
+              .content(tContent)
+              .ariaLabel('Delete')
+              .targetEvent(ev)
+              .ok('Delete')
+              .cancel('Cancel')
+
+            $mdDialog.show(confirm).then(function() {
+              console.log('deleting')
+              seLedger.removePending($scope.ctrl.pending[index].sym, function(deleted){
+                console.log('removed!')
+                $scope.ctrl.pending.splice(index,1)
+                updateChart($scope.ctrl.pending)
+              }, function(err){
+                console.log(err)
+                console.log('error purchasing shit')
+              })
+            }, function() {
+              console.log('cancelled!')
+            })
+        }
     }
 
     $scope.chartPending = {
@@ -27,24 +61,25 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, sePrincipal, seLedger
         }
     }
 
+    function updateChart(update){
+        $scope.ctrl.pending = update
+        var series = {
+          name: 'Stocks',
+          colorByPoint: true,
+          data: _.map($scope.ctrl.pending, function(data){
+            return { name : data.sym, y : data.cost }
+          })
+        }
+        $scope.chartPending['series'] = [series]
+        $('#container').highcharts($scope.chartPending)
+    }
+
       seLedger.getPending(function(response){ 
         console.log(response) 
 
         $rootScope.loading = false
 
-        $scope.ctrl.pending = response
-
-        var series = {
-          name: 'Stocks',
-          colorByPoint: true,
-          data: _.map(response, function(data){
-            return { name : data.sym, y : data.cost }
-          })
-        }
-
-        $scope.chartPending['series'] = [series]
-
-        $('#container').highcharts($scope.chartPending)
+        updateChart(response)
 
         var promises = []
         _.each(response, function(stock){

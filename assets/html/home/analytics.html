@@ -8,6 +8,7 @@
 		</div>
 		<div ng-class="{'remove': ctrl.pending.length < 1}" style="height:68vh" layout="column">
 			<div layout="row" class="center-vertical-parent center-horizontal" style="height:120px;">
+				<timer end-time="{{ ctrl.purchaseTime }}">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.</timer>
 				<span class="center-vertical" style="display:block"><b>Total Cost:</b> ${{ ctrl.totalCost }}</span>
 			</div>
 			<div layout-gt-sm="row" layout="column">
@@ -19,8 +20,8 @@
 					<md-subheader>Ledger</md-subheader>
 					<div layout="column" style="overflow-y: auto; overflow-x: hidden; height: 400px;">
 						<md-card class="center-vertical-parent" ng-repeat="data in ctrl.pending" layout="row" style="min-height: 80px">
-							<span flex="50" class="center-vertical md-margin" style="display:block; padding-left: 10px;"><b>{{ data['name'] }} </b> ({{data['sym']}})</span>
-							<div flex="50" class="center-vertical md-margin" layout="column" style="align-items: flex-start;">
+							<span flex="40" class="center-vertical md-margin" style="display:block; padding-left: 10px;"><b>{{ data.name }} </b> ({{ data.sym }})</span>
+							<div flex="40" class="center-vertical md-margin" layout="column" style="align-items: flex-start;">
 								<span><b>Ask:</b> ${{ data.info.ask }}
 									<span class="color" ng-class="{'green' : data.info.change > 0, 'red' : data.info.change < 0}">
 										({{ data.info.change.toFixed(2) }})
@@ -29,6 +30,9 @@
 								<span><b>Investing:</b> ${{ data.cost }}</span>
 								<span><b>Shares:</b> {{ (data.cost / data.info.ask).toFixed(2) }}</span>
 							</div>
+							<md-button flex="10" class="background red" ng-click="modal.showConfirm($event, $index)" style="min-width: 24px; height: 18px; border: 1px solid #000;">
+								<md-icon flex class="md-secondary icon ion-close" style="vertical-align: top;"></md-icon>
+							</md-button>
 						</md-card>
 					</div>
 				</div>
