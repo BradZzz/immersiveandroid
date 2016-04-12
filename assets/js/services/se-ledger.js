@@ -1,9 +1,10 @@
 angular.module('ambrosia').service('seLedger',
-['$http', '$q', 'Flash',
-function ($http, $q, Flash)
+['$http', '$q', '$rootScope', 'Flash',
+function ($http, $q, $rootScope, Flash)
 {
   var self = this
   self.logName = 'seLedger'
+  self.cache = {}
 
   self.removePending = function (sym, callback) {
     $http({
@@ -14,6 +15,7 @@ function ($http, $q, Flash)
       },
     }).then(function (res) {
       console.log(res)
+      delete self.cache['getCountList']
       callback(res.data)
     })
   }
@@ -44,6 +46,7 @@ function ($http, $q, Flash)
       console.log('Success!')
       console.log(res)
       Flash.create('success', 'Order Placed')
+      delete self.cache['getCountList']
       callback(res)
     }, function(err){
       console.log('Error!')
@@ -53,4 +56,22 @@ function ($http, $q, Flash)
     })
   }
 
-}]);
+  self.getCountList = function () {
+    if ('getCountList' in self.cache) {
+      var deferred = $q.defer()
+      deferred.resolve(self.cache.getCountList)
+      console.log(self.cache.getCountList)
+      return deferred.promise
+    } else {
+      return $http({
+        url: '/ledger/count',
+        method: 'GET',
+      }).then(function (response) {
+        console.log(response)
+        self.cache.getCountList = response.data
+        return self.cache.getCountList
+      })
+    }
+  }
+
+}])

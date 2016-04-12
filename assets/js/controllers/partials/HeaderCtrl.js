@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('HeaderCtrl',
-['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seTheme', 'sePrincipal', 'seAuthorization',
-function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTheme, sePrincipal, seAuthorization)
+['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seTheme', 'sePrincipal', 'seAuthorization', 'seLedger',
+function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTheme, sePrincipal, seAuthorization, seLedger)
 {
 
   //var id = Flash.create('success', message)
@@ -119,7 +119,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
       console.log('test list response: ', response)
       //var tickers = _.map(response, function(num){ return num.ticker + ' (' + num.name + ')' })
       //console.log('tickers: ', tickers)
-      $scope.ctrl.states = _.map( _.sortBy( response, function( tick ){ return tick }) , function (tick) {
+      $scope.ctrl.states = _.map( response , function (tick) {
          return {
            value: tick.ticker.toLowerCase(),
            display: tick.name + ' (' + tick.ticker + ')',

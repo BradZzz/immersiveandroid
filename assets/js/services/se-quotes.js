@@ -1,6 +1,6 @@
 angular.module('ambrosia').service('seQuotes',
-['$http', '$q',
-function ($http, $q)
+['$http', '$q', 'seLedger',
+function ($http, $q, seLedger)
 {
   var self = this
   self.logName = 'seQuotes'
@@ -66,22 +66,31 @@ function ($http, $q)
       }
   }*/
 
+  function replaceList(list){
+      return seLedger.getCountList().then(function(ledger){
+        self.cache.getPendingList = _.map(list, function(stock){
+            if (stock.ticker in ledger) {
+                return ledger[stock.ticker]
+            }
+            return stock
+        })
+        return self.cache.getPendingList
+      })
+  }
+
   self.getPendingList = function () {
       if ('getPendingList' in self.cache) {
-        var deferred = $q.defer()
-        deferred.resolve(self.cache.getPendingList)
-        console.log(self.cache.getPendingList)
-        return deferred.promise
+        //var deferred = $q.defer()
+        //deferred.resolve(self.cache.getPendingList)
+        return replaceList(self.cache.getPendingList)
+        //console.log(self.cache.getPendingList)
+        //return deferred.promise
       } else {
         return $http({
-          url: '/ledger/count',
+          url: '/stock/list',
           method: 'GET',
         }).then(function (response) {
-          console.log('getPendingList new')
-          self.print(response)
-          self.cache.getPendingList = response.data
-          console.log(self.cache.getPendingList)
-          return self.cache.getPendingList
+          return replaceList(response.data)
         })
       }
   }

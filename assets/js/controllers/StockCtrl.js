@@ -153,6 +153,9 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialo
                var transaction = companyList.buyFee
                var calc = function (transaction, invested) {
                  console.log("calc", transaction, invested, (parseFloat(transaction) / parseFloat(invested)).toFixed(2))
+                 if (invested <= 0) {
+                    return parseFloat(transaction).toFixed(2)
+                 }
                  return (parseFloat(transaction) / parseFloat(invested)).toFixed(2)
                }
                var adj = calc(transaction, invested)

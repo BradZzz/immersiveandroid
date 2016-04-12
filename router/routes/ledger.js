@@ -84,61 +84,30 @@ module.exports = function (app) {
   })
 
   app.get('/ledger/count', function(req, res) {
-    if ('count' in cache) {
-      console.log('returning cache')
-      return res.status(200).json(cache.count)
-    } else {
-        pendingLedger.aggregate(
-              { $match: { } },
-              { $group: { _id: { 'sym' : '$sym', 'name' : '$name' }, count: {$sum: 1} } },
-              { $sort: { count: -1 } }
-        ).exec(function(err, stock){
-            console.log(stock, err)
-            if (err) {
-              return res.status(500).json(err)
-            }
-            var ledger = {}
-            _.each(stock, function(entry){
-                var maxLength = chance.integer({min: 1, max: 10})
-                var comments = []
-                while (comments.length < maxLength) {
-                  comments.push({
-                    user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
-                    text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
-                  })
-                }
-                ledger[entry._id.sym] = { ticker: entry._id.sym, name: entry._id.name, invested : entry.count,
-                    comments : comments, buyFee : buyFee }
-            })
-            utils.getTheList().then(function(data){
-                console.log('returned data')
-                if (data === undefined) {
-                    return res.status(500).json('bad data')
-                }
-                var tickers = data
-                var listSize = tickers.length
+    pendingLedger.aggregate(
+          { $match: { } },
+          { $group: { _id: { 'sym' : '$sym', 'name' : '$name' }, count: {$sum: 1} } },
+          { $sort: { count: -1 } }
+    ).exec(function(err, stock){
+        console.log(stock, err)
+        if (err) {
+          return res.status(500).json(err)
+        }
+        var ledger = {}
 
-                cache.count = _.map(tickers, function(tick) {
-                  var found = {}
-                  if (tick.symbol in ledger) {
-                    found = ledger[tick.symbol]
-                  } else {
-                    var maxLength = chance.integer({min: 1, max: 10})
-                    var comments = []
-                    while (comments.length < maxLength) {
-                      comments.push({
-                        user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
-                        text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
-                      })
-                    }
-                    found = { ticker: tick.symbol, name: tick.name, invested : 0,
-                      comments : comments, buyFee : buyFee }
-                  }
-                  return found
-                })
-                return res.status(200).json(cache.count)
-            })
+        _.each(stock, function(entry){
+            var maxLength = chance.integer({min: 1, max: 10})
+            var comments = []
+            while (comments.length < maxLength) {
+              comments.push({
+                user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
+                text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
+              })
+            }
+            ledger[entry._id.sym] = { ticker: entry._id.sym, name: entry._id.name, invested : entry.count,
+                comments : comments, buyFee : buyFee }
         })
-    }
+        return res.status(200).json(ledger)
+    })
   })
 }

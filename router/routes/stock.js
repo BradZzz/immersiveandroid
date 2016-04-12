@@ -20,6 +20,7 @@ var mongoose = require('mongoose')
 
 var financeLib = require('../../lib/financials')
 var Financial = require('../../models/financial')
+var utils         = require('../../lib/utils')
 
 var buyFee = 4.95
 
@@ -201,29 +202,31 @@ module.exports = function (app) {
     })
   })*/
 
-  self.getTheList = function() {
-    var deferred = Q.defer()
-    if ('list' in cache) {
-      deferred.resolve(cache.list)
-    } else {
-      Financial.find({}, function(err, stock) {
-        if (err) {
-            console.log(err)
-            deferred.reject(err)
-        }
-        console.log('returned the list!')
-        console.log(stock)
-        cache.list = stock
-        deferred.resolve(cache.list)
-      })
-    }
-    return deferred.promise
-  }
-
   app.get('/stock/list', function(req, res) {
-    self.getTheList().then(function(data){
-      return res.status(200).json(data)
-    })
+    //if ('list' in cache) {
+    //    return res.status(200).json(cache.list)
+    //} else {
+        utils.getTheList().then(function(data){
+            console.log('returned data')
+            if (data === undefined) {
+                return res.status(500).json('bad data')
+            }
+            cache.list = _.map(data, function(tick) {
+              var found = {}
+              var maxLength = chance.integer({min: 1, max: 10})
+              var comments = []
+              while (comments.length < maxLength) {
+                  comments.push({
+                    user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
+                    text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
+                  })
+              }
+              console.log('adding', tick.symbol)
+              return { ticker: tick.symbol, name: tick.name, invested : 0, comments : comments, buyFee : buyFee }
+            })
+            return res.status(200).json(cache.list)
+        })
+    //}
   })
 
 //Record.find().distinct('sym', function (err, user_ids) { ... })
