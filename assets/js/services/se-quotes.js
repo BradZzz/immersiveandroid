@@ -72,18 +72,30 @@ function ($http, $q, seLedger)
       })
   }
 
+  function pendingList(){
+    if ('getPendingList' in self.cache) {
+      var deferred = $q.defer()
+      deferred.resolve(self.cache.getPendingList)
+      return deferred.promise
+    } else {
+      return $http({
+        url: '/stock/list',
+        method: 'GET',
+      }).then(function (response) {
+        self.cache.getPendingList = response.data
+        return self.cache.getPendingList
+      })
+    }
+  }
+
   self.getPendingList = function () {
-      if ('getPendingList' in self.cache) {
-        return replaceList(self.cache.getPendingList)
-      } else {
-        return $http({
-          url: '/stock/list',
-          method: 'GET',
-        }).then(function (response) {
-          self.cache.getPendingList = response.data
-          return replaceList(self.cache.getPendingList)
-        })
-      }
+      return pendingList()
+  }
+
+  self.getBuyPendingList = function () {
+    return pendingList().then(function(data){
+      return replaceList(data)
+    })
   }
 
   self.getCompany = function (sym) {

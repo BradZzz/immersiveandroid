@@ -133,7 +133,8 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialo
              $scope.ctrl.company.info = company2
            })
            $scope.ctrl.refreshPending().then(function(resp){
-             seQuotes.getPendingList().then(function(list){
+             console.log('refresh', resp)
+             seQuotes.getBuyPendingList().then(function(list){
                console.log('finished')
                console.log(list)
                console.log(_.find(list, function(tick){ return tick.ticker == $scope.ctrl.tickerAbbrv }))

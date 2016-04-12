@@ -120,7 +120,7 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, $window, s
             console.log(results)
             var pending = []
 
-            seQuotes.getPendingList().then(function(list){
+            seQuotes.getBuyPendingList().then(function(list){
                _.each(list, function(tick){
                  var loc = _.find(results, function(entry){ return entry.sym === tick.ticker })
                  if (loc !== undefined) {

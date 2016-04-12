@@ -14,11 +14,8 @@ angular.module('ambrosia').controller('MainCtrl',
 
     seLedger.getCountList().then(function(list){
        list = _.map( list, function(entry){ return entry })
-       console.log(list)
        list = _.filter( list, function(entry){ return entry.invested > 0 })
-       console.log(list)
        list = _.sortBy( list, function(entry){ return -entry.invested }).splice(0,15)
-       console.log(list)
 
        var promises = []
 
