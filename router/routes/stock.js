@@ -27,6 +27,8 @@ var cache = {}
 
 module.exports = function (app) {
 
+  var self = this
+
   app.get('/stock', function (req, res){
     console.log(req.query)
     if ('sym' in req.query) {
@@ -199,7 +201,7 @@ module.exports = function (app) {
     })
   })*/
 
-  function getTheList() {
+  self.getTheList = function() {
     var deferred = Q.defer()
     if ('list' in cache) {
       deferred.resolve(cache.list)
@@ -219,7 +221,7 @@ module.exports = function (app) {
   }
 
   app.get('/stock/list', function(req, res) {
-    getTheList().then(function(data){
+    self.getTheList().then(function(data){
       return res.status(200).json(data)
     })
   })
@@ -229,7 +231,7 @@ module.exports = function (app) {
       if ('testList' in cache) {
           return res.status(200).json(cache.testList)
       } else {
-        getTheList().then(function(data){
+        self.getTheList().then(function(data){
           console.log('back in test list')
           console.log(data)
           if (data === undefined) {

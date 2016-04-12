@@ -21,6 +21,9 @@ angular.module('ambrosia').controller('MainCtrl',
 
            console.log(list)
 
+           list = _.filter( list, function(entry){ return entry.invested > 0} )
+           list = _.sortBy( list, function(entry){ return -entry.invested }).splice(0,15)
+
            var promises = []
            _.each(list, function(stock){
              promises.push(seQuotes.getCompany(stock.ticker).then(function(result){
