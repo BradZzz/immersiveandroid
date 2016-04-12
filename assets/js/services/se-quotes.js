@@ -44,7 +44,8 @@ function ($http, $q)
     }
   }
 
-  self.getTestList = function () {
+  //Only for demo
+  /*self.getTestList = function () {
       if ('getTestList' in self.cache) {
         console.log('getTestList cache')
         var deferred = $q.defer()
@@ -63,7 +64,27 @@ function ($http, $q)
           return self.cache.getTestList
         })
       }
-    }
+  }*/
+
+  self.getPendingList = function () {
+      if ('getPendingList' in self.cache) {
+        var deferred = $q.defer()
+        deferred.resolve(self.cache.getPendingList)
+        console.log(self.cache.getPendingList)
+        return deferred.promise
+      } else {
+        return $http({
+          url: '/ledger/count',
+          method: 'GET',
+        }).then(function (response) {
+          console.log('getPendingList new')
+          self.print(response)
+          self.cache.getPendingList = response.data
+          console.log(self.cache.getPendingList)
+          return self.cache.getPendingList
+        })
+      }
+  }
 
   self.getCompany = function (sym) {
     if ('getCompany' in self.cache && sym in self.cache.getCompany) {

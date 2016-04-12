@@ -1,18 +1,21 @@
 angular.module('ambrosia').controller('AnalyticsCtrl',
-['$scope', '$http', '$rootScope', '$state', '$timeout', '$q', '$mdDialog', 'sePrincipal', 'seLedger', 'seQuotes',
-function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, sePrincipal, seLedger, seQuotes)
+['$scope', '$http', '$rootScope', '$state', '$timeout', '$q', '$mdDialog', '$window', 'sePrincipal', 'seLedger', 'seQuotes',
+function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, $window, sePrincipal, seLedger, seQuotes)
 {
 
     $rootScope.loading = true
 
       $scope.ctrl = { 
+        bigChart : ($('#breakdown-container').width() >= 600),
         titlePending : 'Pending Transactions',
-        purchaseTime : moment().day(3).unix(),
+        purchaseTime : moment().day() > 3 ? moment().tz("America/Los_Angeles").add(1, 'weeks').day(3).endOf('day').format()
+            : moment().tz("America/Los_Angeles").day(3).endOf('day').format(),
         totalCost : 0,
+        totalUtility : 0,
         pending : [],
     }
 
-    console.log(moment().unix())
+    console.log(moment().unix() * 1000)
     console.log($scope.ctrl.purchaseTime)
 
     $scope.modal = {
@@ -53,13 +56,24 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, sePrincipa
         plotOptions: {
             pie: { allowPointSelect: true, cursor: 'pointer',
                 dataLabels: {
-                    enabled: true,
+                    enabled: ($('#breakdown-container').width() >= 600),
                     format: '<b>{point.name}</b>: ${point.y} ({point.percentage:.1f}%)',
                     style: { color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black' }
                 }
             }
         }
     }
+
+    angular.element($window).bind('resize', function () {
+        var big = ($('#breakdown-container').width() >= 600)
+        console.log('resize', $scope.ctrl.bigChart, big)
+        if (  $scope.ctrl.bigChart && !big ||   !$scope.ctrl.bigChart && big) {
+            console.log('refresh')
+            $scope.ctrl.bigChart = big
+            $scope.chartPending.plotOptions.pie.dataLabels.enabled = big
+            $('#breakdown-container').highcharts($scope.chartPending)
+        }
+    })
 
     function updateChart(update){
         $scope.ctrl.pending = update
@@ -71,15 +85,16 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, sePrincipa
           })
         }
         $scope.chartPending['series'] = [series]
-        $('#container').highcharts($scope.chartPending)
+        $('#breakdown-container').highcharts($scope.chartPending)
+
+        $scope.ctrl.totalUtility = parseFloat(_.reduce($scope.ctrl.pending,
+            function(memo, result){ return memo + result.totalFee }, 0).toFixed(2))
+          $scope.ctrl.totalCost = parseFloat(_.reduce($scope.ctrl.pending,
+            function(memo, result){ return memo + result.cost }, 0).toFixed(2))
     }
 
       seLedger.getPending(function(response){ 
         console.log(response) 
-
-        $rootScope.loading = false
-
-        updateChart(response)
 
         var promises = []
         _.each(response, function(stock){
@@ -102,11 +117,21 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, sePrincipa
           function(results){
             console.log("Finished!")
             console.log(results)
+            $scope.ctrl.pending = []
 
-              $scope.ctrl.totalCost = _.reduce(results, function(memo, result){ return memo + result.cost }, 0)
-
-            $scope.ctrl.pending = results
-
+            seQuotes.getPendingList().then(function(list){
+               _.each(list, function(tick){
+                 var loc = _.find(results, function(entry){ return entry.sym === tick.ticker })
+                 if (loc !== undefined) {
+                    loc.invested = tick.invested
+                    loc.buyFee = tick.buyFee
+                    loc.totalFee = parseFloat((parseFloat(loc.buyFee) / parseFloat(loc.invested)).toFixed(2))
+                    $scope.ctrl.pending.push(loc)
+                 }
+               })
+               updateChart($scope.ctrl.pending)
+               $rootScope.loading = false
+            })
           },function(err){
             console.log(err)
         })

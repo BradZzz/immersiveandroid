@@ -12,7 +12,7 @@ var fs   = require('fs')
 var Q    = require('q')
 var finance = require('yahoo-finance')
 var moment = require('moment')
-var Chance = require('chance'), chance = new Chance();
+var Chance = require('chance'), chance = new Chance()
 var _ = require('underscore')
 var request = require('request')
 var cheerio = require('cheerio')
@@ -224,6 +224,7 @@ module.exports = function (app) {
     })
   })
 
+//Record.find().distinct('sym', function (err, user_ids) { ... })
   app.get('/stock/testList', function(req, res) {
       if ('testList' in cache) {
           return res.status(200).json(cache.testList)

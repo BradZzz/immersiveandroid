@@ -1,7 +1,7 @@
 <div class="profile">
 	<md-card class="content">
 		<md-list-item layout="column" class="md-margin md-padding">
-			<md-list-item layout-gt-sm="row" layout="column" style="width: 50%;height: 300px;" class="profile-wrapper">
+			<md-list-item layout-gt-sm="row" layout="column" class="profile-wrapper">
 				<se-upload ng-disabled="!user" file="ctrl.user.photo" callback="ctrl.imageUploaded(path)" id="{{ ctrl.user._id }}" class="selectable" style="height: 160px;width: 160px;position:relative;"></se-upload>
 				<div offset="10" class="md-margin center-vertical-parent background-picker" layout="row"
 					 style="background-image: url('{{ ctrl.backgrounds[ctrl.user.background] }}');">

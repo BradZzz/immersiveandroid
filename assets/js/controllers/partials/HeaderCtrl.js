@@ -115,7 +115,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
   //    $scope.loginRegister.refresh()
   //})
 
-  seQuotes.getTestList().then(function(response){
+  seQuotes.getPendingList().then(function(response){
       console.log('test list response: ', response)
       //var tickers = _.map(response, function(num){ return num.ticker + ' (' + num.name + ')' })
       //console.log('tickers: ', tickers)

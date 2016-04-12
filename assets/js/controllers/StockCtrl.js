@@ -1,22 +1,7 @@
 angular.module('ambrosia').controller('StockCtrl',
-['$scope', '$rootScope', '$state', '$stateParams', '$location', '$window', '$mdDialog', 'seQuotes', 'seLedger',
-function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialog, seQuotes, seLedger)
+['$scope', '$rootScope', '$state', '$stateParams', '$location', '$window', '$mdDialog', '$q', 'seQuotes', 'seLedger',
+function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialog, $q, seQuotes, seLedger)
 {
-
-    /*
-
-    Total Current Assets
-    Total Assets
-    Total Current Liabilities
-    Total Liabilities
-    Total Stockholder Equity
-    Net Tangible Assets
-    Cash And Cash Equivalents
-    Short/Current Long Term Debt
-    Research Development
-    Selling General and Administrative
-
-    */
 
     $rootScope.loading = true
 
@@ -26,6 +11,24 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialo
         ask : 0,
         invested : 0,
         cost : 0,
+        refresh : function() {
+            var self = this
+            this.refreshPending().then(function(){
+              self.invest(0)
+            })
+        },
+        refreshPending : function() {
+            var deferred = $q.defer()
+            var self = this
+            seLedger.getPending(function(response){ 
+                var stock = _.find(response, function(tick){ return tick.sym === $stateParams.ticker })
+                if (stock != undefined) {
+                    self.cost = stock.cost
+                }
+                deferred.resolve(stock)
+            })
+            return deferred.promise
+        },
         invest : function (amount) {
             var timesy = this.actions.plus ? 1 : -1
 
@@ -90,9 +93,10 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialo
               console.log('purchasing')
               seLedger.submitPending($scope.ctrl.company.name, $scope.ctrl.tickerAbbrv, $scope.ctrl.cost, function(data){
                 console.log('purchased!')
+                $scope.ctrl.refreshPending()
               }, function(err){
                 console.log(err)
-                console.log('error purchasing shit')
+                console.log('error purchasing')
               })
             }, function() {
               console.log('cancelled!')
@@ -128,32 +132,41 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialo
            seQuotes.getCompanyLedger($scope.ctrl.tickerAbbrv).then(function(company2){
              $scope.ctrl.company.info = company2
            })
-           seQuotes.getTestList().then(function(list){
-              console.log('finished')
-              console.log(list)
-              console.log(_.find(list, function(tick){ return tick.ticker == $scope.ctrl.tickerAbbrv }))
-              var companyList = _.find(list, function(tick){ return tick.ticker == $scope.ctrl.tickerAbbrv })
-              console.log(companyList)
-              $scope.ctrl.company.comments = _.map(companyList.comments,
-                function(comment){ return {
-                    photo: $scope.ctrl.actions.commentUserBase + $scope.ctrl.actions.commentUsers[chance.integer({ min: 0, max: companyList.comments.length - 1 })],
-                    user: comment.user,
-                    text: comment.text,
-                }
-              })
-              var invested = companyList.invested
-              var transaction = companyList.buyFee
-              var calc = function (transaction, invested) {
-                console.log("calc", transaction, invested, (parseFloat(transaction) / parseFloat(invested)).toFixed(2))
-                return (parseFloat(transaction) / parseFloat(invested)).toFixed(2)
-              }
-              var adj = calc(transaction, invested)
-              $scope.ctrl.company.stockUserDetails = {
-                invested : { desc: 'The number of users investing in this stock', key : 'Users Invested:', value : invested, cache : invested },
-                transaction : { desc: 'The cost to normally purchase this stock', key : 'Transaction Price:', value : "$" + transaction, cache : transaction },
-                adj : { desc: 'The cost that you pay to purchase this stock', key : 'Adj. Transaction Price:', value : "$" + adj, cache : adj, calc : calc },
-              }
-              checkLoaded()
+           $scope.ctrl.refreshPending().then(function(resp){
+             seQuotes.getPendingList().then(function(list){
+               console.log('finished')
+               console.log(list)
+               console.log(_.find(list, function(tick){ return tick.ticker == $scope.ctrl.tickerAbbrv }))
+               var companyList = _.find(list, function(tick){ return tick.ticker == $scope.ctrl.tickerAbbrv })
+               console.log(companyList)
+               $scope.ctrl.company.comments = _.map(companyList.comments,
+                 function(comment){ return {
+                     photo: $scope.ctrl.actions.commentUserBase + $scope.ctrl.actions.commentUsers[chance.integer({ min: 0, max: companyList.comments.length - 1 })],
+                     user: comment.user,
+                     text: comment.text,
+                 }
+               })
+               var invested = companyList.invested
+               if ($scope.ctrl.cost > 0){
+                 invested -= 1
+               }
+               var transaction = companyList.buyFee
+               var calc = function (transaction, invested) {
+                 console.log("calc", transaction, invested, (parseFloat(transaction) / parseFloat(invested)).toFixed(2))
+                 return (parseFloat(transaction) / parseFloat(invested)).toFixed(2)
+               }
+               var adj = calc(transaction, invested)
+               $scope.ctrl.company.stockUserDetails = {
+                 invested : { desc: 'The number of users investing in this stock',
+                     key : 'Users Invested:', value : invested, cache : invested },
+                 transaction : { desc: 'The cost to normally purchase this stock',
+                     key : 'Transaction Price:', value : "$" + transaction, cache : transaction },
+                 adj : { desc: 'The cost that you pay to purchase this stock',
+                     key : 'Adj. Transaction Price:', value : "$" + adj, cache : adj, calc : calc },
+               }
+               $scope.ctrl.invest(0)
+               checkLoaded()
+             })
            })
         })
 

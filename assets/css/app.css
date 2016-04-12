@@ -159,6 +159,12 @@ button.md-raised.active:hover {
   .profile .content .profile-wrapper {
     width: 100% !important;
   }
+  .analytics .content {
+    height: 160vh !important;
+  }
+  .analytics .content .header-details-wrapper {
+    height: 150px !important;
+  }
 }
 @media screen and (max-width: 600px) {
   .header .nav-icons .nav-home {
@@ -171,7 +177,7 @@ button.md-raised.active:hover {
     margin-top: 10px;
   }
   .profile .content {
-    height: 125vh !important;
+    height: 115vh !important;
   }
   .profile .content .profile-avatar,
   .profile .content .profile-overlay {
@@ -190,15 +196,23 @@ button.md-raised.active:hover {
   .profile .content .footer.md-raised {
     margin: 5px auto 10px auto !important;
   }
+  .analytics .content #breakdown-container {
+    min-width: 350px !important;
+    max-width: 350px !important;
+  }
   .stock .content {
     height: 110vh !important;
   }
+  .stock .content .cost-wrapper {
+    align-items: flex-start !important;
+  }
   .stock .tiny-wrapper {
     padding-top: 3px;
-    max-width: 90px !important;
+    max-width: 50px !important;
   }
   .stock .tiny-wrapper .tiny {
     min-width: 32px !important;
+    max-width: 32px !important;
     min-height: 32px !important;
   }
   .stock .tiny-wrapper .tiny span {
@@ -207,10 +221,10 @@ button.md-raised.active:hover {
     left: 37% !important;
   }
   .stock .large {
-    max-width: 38px;
-    min-width: 38px;
-    max-height: 38px;
-    min-height: 38px;
+    max-width: 60px;
+    min-width: 60px;
+    max-height: 60px;
+    min-height: 60px;
   }
 }
 .flash-bar {
@@ -243,14 +257,20 @@ button.md-raised.active:hover {
   height: 75vh;
   min-height: 620px;
 }
+.stock .content .cost-wrapper {
+  align-items: center;
+}
 .stock .content.taller {
   height: 88vh !important;
 }
 .stock .large {
   border: 1px solid #000;
 }
+.stock .large.fill-frame {
+  height: 72px;
+}
 .stock .tiny-wrapper {
-  max-width: 32px;
+  max-width: 36px;
   margin-right: 10px;
 }
 .stock .tiny-wrapper .tiny {
@@ -268,10 +288,31 @@ button.md-raised.active:hover {
   position: relative;
   height: 88vh;
 }
+.analytics .content .header-details-wrapper {
+  height: 80px;
+}
+.analytics .content .header-details-wrapper div {
+  display: block;
+}
+.analytics .content .header-timer-wrapper {
+  height: 40px;
+}
+.analytics .content #breakdown-container {
+  border: 2px solid #000;
+  border-radius: 5px;
+  min-width: 600px;
+  height: height: 400px;
+  max-width: 600px;
+  margin: 0 auto 0 10px;
+}
 .profile .content {
   position: relative;
   height: 88vh;
   min-height: 620px;
+}
+.profile .content .profile-wrapper {
+  width: 50%;
+  max-height: 300px;
 }
 .profile .content .profile-avatar {
   border: 2px solid rgba(0, 0, 0, 0.8);

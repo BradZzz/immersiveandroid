@@ -2,7 +2,7 @@
 	<md-card class="content" ng-class="{'taller': !ctrl.chartTab}">
 		<div style="margin: 10px 20px 5px 20px;" layout="row" layout-align="space-between center">
 			<h3>{{ ctrl.company.name }} ({{ ctrl.company.abbr }})</h3>
-			<md-button class="background yellow" ng-click="ctrl.chartTab = !ctrl.chartTab;" style="min-width: 24px; height: 18px; border: 1px solid #000;">
+			<md-button hide show-gt-md class="background yellow" ng-click="ctrl.chartTab = !ctrl.chartTab;" style="min-width: 24px; height: 18px; border: 1px solid #000;">
 				<md-icon flex class="md-secondary icon ion-chevron-right" style="vertical-align: top;"></md-icon>
 			</md-button>
 		</div>

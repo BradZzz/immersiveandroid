@@ -154,6 +154,14 @@ button.md-raised {
             }
         }
     }
+    .analytics {
+        .content {
+            height : 160vh !important;
+            .header-details-wrapper {
+                height:150px !important;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -170,7 +178,7 @@ button.md-raised {
     }
     .profile {
         .content {
-            height : 125vh !important;
+            height : 115vh !important;
             .profile-avatar, .profile-overlay {
                 margin: 30px 0 0 24px !important;
             }
@@ -189,15 +197,27 @@ button.md-raised {
             }
         }
     }
+    .analytics {
+        .content {
+            #breakdown-container {
+                min-width: 350px !important;
+                max-width: 350px !important;
+            }
+        }
+    }
     .stock {
         .content {
             height:110vh !important;
+            .cost-wrapper {
+                align-items: flex-start !important;
+            }
         }
         .tiny-wrapper {
             padding-top: 3px;
-            max-width: 90px !important;
+            max-width: 50px !important;
             .tiny {
                 min-width: 32px !important;
+                max-width: 32px !important;
                 min-height: 32px !important;
                 span {
                     position: absolute !important;
@@ -207,10 +227,10 @@ button.md-raised {
             }
         }
         .large {
-            max-width: 38px;
-            min-width: 38px;
-            max-height: 38px;
-            min-height: 38px;
+            max-width: 60px;
+            min-width: 60px;
+            max-height: 60px;
+            min-height: 60px;
         }
     }
 }
@@ -253,15 +273,21 @@ button.md-raised {
     .content {
         height:75vh;
         min-height : 620px;
+        .cost-wrapper {
+            align-items: center;
+        }
         &.taller {
             height:88vh !important;
         }
     }
     .large {
         border: 1px solid #000;
+        &.fill-frame {
+            height: 72px;
+        }
     }
     .tiny-wrapper {
-        max-width: 32px;
+        max-width: 36px;
         margin-right:10px;
         .tiny {
             max-height: 28px;
@@ -281,6 +307,23 @@ button.md-raised {
     .content {
         position : relative;
         height : 88vh;
+        .header-details-wrapper {
+            height:80px;
+            div {
+                display: block;
+            }
+        }
+        .header-timer-wrapper {
+            height:40px;
+        }
+        #breakdown-container {
+            border: 2px solid #000;
+            border-radius: 5px;
+            min-width: 600px;
+            height: height: 400px;
+            max-width: 600px;
+            margin: 0 auto 0 10px;
+        }
     }
 }
 
@@ -289,6 +332,10 @@ button.md-raised {
         position : relative;
         height : 88vh;
         min-height : 620px;
+        .profile-wrapper {
+            width: 50%;
+            max-height: 300px;
+        }
         .profile-avatar {
             border : 2px solid @black-full;
             height:120px;
@@ -305,7 +352,6 @@ button.md-raised {
             margin: 30px 0 0 16px;
             border-radius: 50%;
             border: 2px solid rgba(0, 0, 0, 0.8);
-
             .transition(all, 0.5s);
             .icon {
                 padding-left:8px;
