@@ -68,29 +68,20 @@ function ($http, $q, seLedger)
 
   function replaceList(list){
       return seLedger.getCountList().then(function(ledger){
-        self.cache.getPendingList = _.map(list, function(stock){
-            if (stock.ticker in ledger) {
-                return ledger[stock.ticker]
-            }
-            return stock
-        })
-        return self.cache.getPendingList
+        return _.flatten([_.filter(list, function(stock){return !(stock.ticker in ledger)}), _.map(ledger)])
       })
   }
 
   self.getPendingList = function () {
       if ('getPendingList' in self.cache) {
-        //var deferred = $q.defer()
-        //deferred.resolve(self.cache.getPendingList)
         return replaceList(self.cache.getPendingList)
-        //console.log(self.cache.getPendingList)
-        //return deferred.promise
       } else {
         return $http({
           url: '/stock/list',
           method: 'GET',
         }).then(function (response) {
-          return replaceList(response.data)
+          self.cache.getPendingList = response.data
+          return replaceList(self.cache.getPendingList)
         })
       }
   }

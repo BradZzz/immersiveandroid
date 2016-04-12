@@ -76,6 +76,7 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, $window, s
     })
 
     function updateChart(update){
+        console.log('updating', update)
         $scope.ctrl.pending = update
         var series = {
           name: 'Stocks',
@@ -117,7 +118,7 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, $window, s
           function(results){
             console.log("Finished!")
             console.log(results)
-            $scope.ctrl.pending = []
+            var pending = []
 
             seQuotes.getPendingList().then(function(list){
                _.each(list, function(tick){
@@ -126,10 +127,11 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, $window, s
                     loc.invested = tick.invested
                     loc.buyFee = tick.buyFee
                     loc.totalFee = parseFloat((parseFloat(loc.buyFee) / parseFloat(loc.invested)).toFixed(2))
-                    $scope.ctrl.pending.push(loc)
+                    pending.push(loc)
+                    console.log('pushing', loc)
                  }
                })
-               updateChart($scope.ctrl.pending)
+               updateChart(pending)
                $rootScope.loading = false
             })
           },function(err){
