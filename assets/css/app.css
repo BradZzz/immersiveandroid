@@ -288,6 +288,12 @@ button.md-raised.active:hover {
   max-height: 20px;
   max-width: 50px;
 }
+.main .nav-title {
+  font-weight: bold;
+  border-bottom: 1px solid;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
 .main img {
   min-height: 400px;
   max-height: 400px;

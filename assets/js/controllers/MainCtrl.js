@@ -17,12 +17,17 @@ angular.module('ambrosia').controller('MainCtrl',
         paused : false,
         casting : false,
         seeking : false,
+        sticky : false,
+        newest : false,
+        ordered : false,
+        ordDirection : 1,
+        progress : 0,
+
         path : '',
         selected : null,
         channel : 0,
         allChannels : [$scope.sChannel],
         map : {},
-        progress : 0,
     }
 
     seMedia.getMedia().then(function(meta){
@@ -58,22 +63,40 @@ angular.module('ambrosia').controller('MainCtrl',
 
                 console.log('channel', channel, $scope.params.channel)
 
-                var iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
-                if ( $scope.params.selected !== null ) {
-                    var nSelection = _.indexOf(channel.shows, $scope.params.selected.imdbId)
-                    while (nSelection === iSelection) {
-                        iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
+                var selected = $scope.params.selected
+                if (!$scope.params.sticky || $scope.params.selected == null) {
+                    var iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
+                    if ( $scope.params.selected !== null ) {
+                        var nSelection = _.indexOf(channel.shows, $scope.params.selected.imdbId)
+                        while (nSelection === iSelection) {
+                            iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
+                        }
                     }
+                    selected = $scope.params.selected = $scope.params.map[channel.shows[iSelection]]
                 }
-                var selected = $scope.params.selected = $scope.params.map[channel.shows[iSelection]]
                 if (selected.episodes.length == 0) {
                     return selected.path
                 } else {
-                    return selected.episodes[chance.integer({min: 0, max: selected.episodes.length - 1})]
+                    if ($scope.params.newest) {
+                      return selected.episodes[selected.episodes.length - 1]
+                    } else if ($scope.params.ordered && $scope.params.path && _.contains(selected.episodes, $scope.params.path)) {
+                      var thisIndex = selected.episodes.indexOf($scope.params.path)
+                      if (thisIndex + $scope.params.ordDirection > selected.episodes.length - 1) {
+                        thisIndex = 0
+                      } else if (thisIndex + $scope.params.ordDirection < 0) {
+                        thisIndex = selected.episodes.length - 1
+                      } else {
+                        thisIndex += $scope.params.ordDirection
+                      }
+                      return selected.episodes[thisIndex]
+                    } else {
+                      return selected.episodes[chance.integer({min: 0, max: selected.episodes.length - 1})]
+                    }
                 }
               },
               prevM : function () {
                 console.log('prev')
+                $scope.params.ordDirection = -1
                 if ($scope.params.progress > 10) {
                     $scope.params.progress = 0
                     this.seekHelper(0)
@@ -84,6 +107,7 @@ angular.module('ambrosia').controller('MainCtrl',
               },
               nextM : function () {
                 console.log('next')
+                $scope.params.ordDirection = 1
                 this.loadMedia()
               },
               seekM : function () {
@@ -158,6 +182,7 @@ angular.module('ambrosia').controller('MainCtrl',
     })
     $scope.$on('finish', function () {
        console.log('on-finish')
+       $scope.params.ordDirection = 1
        $scope.ctrl.loadMedia()
     })
     $scope.$on('init', function () {

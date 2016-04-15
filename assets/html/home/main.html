@@ -3,16 +3,25 @@
 		<md-card style="height:90vh" layout="column">
 			<h3 style="text-align: center;">{{ params.allChannels[params.channel].name }}</h3>
 			<div layout="row">
-				<div flex="20" offset="10">
+				<div flex="25" offset="10">
 					<img ng-src="{{ params.selected.poster }}" class="border center-horizontal">
 				</div>
 				<div layout="row" flex>
-					<div class="center-horizontal" layout="column" layout-align="space-around center" style="margin : 0 11% 0 13%;">
-						<md-button flex class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
-						<md-button class="ion-arrow-up-b md-raised md-cornered" ng-click="ctrl.navC(1)"></md-button>
-						<md-button class="ion-arrow-down-b md-raised md-cornered" ng-click="ctrl.navC(-1)"></md-button>
+					<div layout="row" class="center-vertical">
+						<div layout="column" layout-align="center center" style="max-height: 250px; min-height: 250px;">
+							<span class="nav-title">Nav</span>
+							<md-button flex class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
+							<md-button class="ion-arrow-up-b md-raised md-cornered" ng-click="ctrl.navC(1)"></md-button>
+							<md-button class="ion-arrow-down-b md-raised md-cornered" ng-click="ctrl.navC(-1)"></md-button>
+						</div>
+						<div layout="column" layout-align="center center" style="margin: 0 20px 0 20px; padding-left: 20px; border-left: 1px solid gray;max-height: 250px; min-height: 250px;">
+							<span class="nav-title">Meta</span>
+							<md-button class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>
+							<md-button class="ion-ios-star md-raised md-cornered" ng-click="params.newest = !params.newest; params.ordered = false;" ng-class="{ 'active' : params.newest }"></md-button>
+							<md-button class="ion-ios-list md-raised md-cornered" ng-click="params.ordered = !params.ordered; params.newest = false;" ng-class="{ 'active' : params.ordered }"></md-button>
+						</div>
 					</div>
-					<div flex="50" layout="column" layout-fill style="margin: 0 20px;">
+					<div flex="50" layout="column" layout-fill style="margin: 0 20px; padding-top: 20px;">
 						<div class="center-vertical-parent" layout="row" style="font-weight:bold; margin: 20px 0 0 0;">
 							<div class="md-margin media-rating-wrapper" style="margin-right: 30px;">
 								<div class="media-rating-huebox"></div>
@@ -52,7 +61,7 @@
 					</div>
 				</div>
 			</div>
-			<md-slider-container style="height: 50px; width: 800px; margin: 0 auto;">
+			<md-slider-container style="height: 50px; width: 800px; margin: 20px auto 0 auto;">
 				<md-slider flex min="0" max="100" ng-model="params.progress" ng-mouseup="ctrl.seekM()"></md-slider>
 			</md-slider-container>
 			<div layout="row" class="center-horizontal">
