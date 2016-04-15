@@ -31,6 +31,54 @@ module.exports = function (app) {
       return res.status(200).json({ pre : process.env.MEDIA_PREFIX, post : process.env.MEDIA_POSTFIX })
     })
 
+    app.get('/cast/media/episode', function (req, res) {
+        console.log(req.query)
+        if ('name' in req.query && 'season' in req.query && 'episode' in req.query) {
+            var params = {
+                title: req.query.name.replace(/_/g, '+').capitalize(),
+                season: req.query.season,
+                episode: req.query.episode
+            }
+            omdbApi.get(params, function(err, data) {
+                if (err) {
+                  console.log(err)
+                  return res.status(500).json(err)
+                } else {
+                  return res.status(200).json(data)
+                }
+            })
+        } else {
+            return res.status(400).json("Request doesn't contain all necessary parameters")
+        }
+    })
+
+        function requestMeta(media) {
+            var deferred = Q.defer()
+            console.log(media)
+            var params = {
+                title: media.name.replace(/_/g, '+').capitalize(),
+                plot: 'short',
+                r: 'json',
+            }
+            omdbApi.get(params, function(err, data) {
+                if (err) {
+                  console.log(err)
+                  deferred.resolve(media)
+                } else {
+                  media.poster = data.Poster
+                  media.plot = data.Plot
+                  media.genre = data.Genre.replace(/\s/g, '').split(",")
+                  media.imdbRating = (data.imdbRating === "N/A" ? 0 : data.imdbRating)
+                  media.imdbId = data.imdbID
+                  media.year = data.Year
+                  media.runtime = data.Runtime
+                  media.rated = data.Rated
+                }
+                deferred.resolve(media)
+            })
+            return deferred.promise
+        }
+
     app.get('/cast/media', function (req, res) {
       Media.find({}).exec(function (err, media) {
         media = _.sortBy(media, 'name')

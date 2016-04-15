@@ -74,6 +74,11 @@ html, body {
     display : none !important;
 }
 
+.border {
+    border: 2px solid #000;
+    border-radius: 5px;
+}
+
 .background {
     &.green {
         background: @green-trans !important;
@@ -146,6 +151,28 @@ button.md-raised {
     align-items: center;
 }
 
+.media-rating-wrapper {
+    text-align: center;
+    border: 2px solid #000;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    height: 20px;
+    width: 24px;
+    margin-right: 20px;
+    .media-rating-huebox {
+        text-align: center;
+        border-radius: 5px;
+        height: 40px;
+        width: 44px;
+        left: 0px;
+        bottom: 0px;
+        position: absolute;
+        background: green;
+        opacity: .2;
+    }
+}
+
 @media screen and (max-width: 960px) {
     .profile {
         .content {
@@ -167,14 +194,6 @@ button.md-raised {
 @media screen and (max-width: 600px) {
     .header .nav-icons .nav-home {
         margin-right: 30px !important;
-    }
-    .main {
-        .stock-title {
-            font-size: 12px !important;
-        }
-        .dbl-wrapper .dbl-icon {
-            margin-top: 10px;
-        }
     }
     .profile {
         .content {
@@ -278,12 +297,16 @@ button.md-raised {
 }
 
 .main {
-    .dbl-wrapper {
-        align-items:center;
-        font-size:18px;
-        .dbl-icon {
-            text-align:center;
-        }
+    .sq-button {
+        max-height: 20px;
+        max-width: 50px;
+    }
+    img {
+        min-height: 400px;
+        max-height: 400px;
+        min-width: 300px;
+        max-width: 300px;
+        margin: 20px auto !important;
     }
 }
 
@@ -332,27 +355,6 @@ button.md-raised {
                 &:hover {
                   opacity : 1;
                 }
-            }
-        }
-        .media-rating-wrapper {
-            text-align: center;
-            border: 2px solid #000;
-            padding: 10px;
-            border-radius: 5px;
-            position: relative;
-            height: 20px;
-            width: 24px;
-            margin-right: 20px;
-            .media-rating-huebox {
-                text-align: center;
-                border-radius: 5px;
-                height: 40px;
-                width: 44px;
-                left: 0px;
-                bottom: 0px;
-                position: absolute;
-                background: green;
-                opacity: .2;
             }
         }
     }

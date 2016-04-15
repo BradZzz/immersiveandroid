@@ -27,11 +27,88 @@ function ($http, $q)
     return formattedMeta
   }
 
+  self.getConstructedChannels = function (meta) {
+    var channels = [
+        { name : "All Colors", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return file.type === 'tv' && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        },
+        { name : "The Cinema", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return file.type === 'movie' && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        },
+        { name : "Dane Cook", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return _.contains(file.genre, 'Comedy') && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        },
+        { name : "Action Ninja", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return _.contains(file.genre, 'Action') && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        },
+        { name : "Overly Dramatic", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return _.contains(file.genre, 'Drama') && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        },
+        { name : "Barely Animated", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return _.contains(file.genre, 'Animation') && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        },
+        { name : "00Jones", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return _.contains(file.genre, 'Adventure') && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        }
+    ]
+    return _.map(channels, function(channel) { return { name : channel.name, shows : channel.create(meta) } })
+  }
+
+  self.getEpisode = function (name, season, episode) {
+    return $http({
+      url: '/cast/media/episode',
+      method: 'GET',
+      params: {
+        name: name,
+        season: season,
+        episode: episode,
+      }
+    }).then(function (response) {
+      console.log(response)
+      return response.data
+    })
+  }
+
   self.getMediaStatic = function () {
     if ('getMediaStatic' in self.cache) {
       var deferred = $q.defer()
-        deferred.resolve(self.cache.getMediaStatic)
-        return deferred.promise
+      deferred.resolve(self.cache.getMediaStatic)
+      return deferred.promise
     } else {
       return $http({
         url: '/cast/media/static',

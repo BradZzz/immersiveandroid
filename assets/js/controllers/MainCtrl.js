@@ -5,19 +5,11 @@ angular.module('ambrosia').controller('MainCtrl',
     console.log('MainCtrl')
 
     $rootScope.loading = true
-    $rootScope.loading = false
-
-    /*
-     * TODO:
-     * Keep iterator going after end of show
-     * Keep sticky going on channel up
-     * make progress bar stop updating when progress selected from ui
-     */
 
     seSender.setup()
 
     $scope.sChannel = {
-        name : "Sample Channel",
+        name : "Loading Channels...",
         shows : ["tt0397306", "tt1486217", "tt1561755"]
     }
 
@@ -25,8 +17,10 @@ angular.module('ambrosia').controller('MainCtrl',
         paused : false,
         casting : false,
         seeking : false,
+        path : '',
         selected : null,
-        channel : $scope.sChannel,
+        channel : 0,
+        allChannels : [$scope.sChannel],
         map : {},
         progress : 0,
     }
@@ -39,28 +33,39 @@ angular.module('ambrosia').controller('MainCtrl',
         })
         console.log('formatted', $scope.params.map)
         seMedia.getMediaStatic().then(function(data){
+            if (meta) {
+                $scope.params.allChannels = seMedia.getConstructedChannels(meta)
+            }
+            console.log('channels', $scope.params.allChannels)
             $scope.params.pre = data.pre
             $scope.params.post = data.post
-
             $scope.ctrl = {
               init : function () {
+                $rootScope.loading = false
                 this.loadMedia()
               },
               loadMedia : function () {
                 var picked = this.pickMedia()
-                console.log('picked: ', picked)
                 $scope.params.progress = 0
+                $scope.params.path = picked
+                if ($scope.params.selected.type === 'tv') {
+                    $scope.params.selected.pFormatted = this.episodeFormatted($scope.params.path)
+                }
                 seSender.loadCustomMedia( $scope.params.pre + picked + $scope.params.post )
               },
               pickMedia : function () {
-                var iSelection = chance.integer({min: 0, max: $scope.params.channel.shows.length - 1})
-                if ($scope.params.selected !== null) {
-                    var nSelection = _.indexOf($scope.params.channel.shows, $scope.params.selected.imdbId)
+                var channel = $scope.params.allChannels[$scope.params.channel]
+
+                console.log('channel', channel, $scope.params.channel)
+
+                var iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
+                if ( $scope.params.selected !== null ) {
+                    var nSelection = _.indexOf(channel.shows, $scope.params.selected.imdbId)
                     while (nSelection === iSelection) {
-                        iSelection = chance.integer({min: 0, max: $scope.params.channel.shows.length - 1})
+                        iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
                     }
                 }
-                var selected = $scope.params.selected = $scope.params.map[$scope.params.channel.shows[iSelection]]
+                var selected = $scope.params.selected = $scope.params.map[channel.shows[iSelection]]
                 if (selected.episodes.length == 0) {
                     return selected.path
                 } else {
@@ -85,10 +90,6 @@ angular.module('ambrosia').controller('MainCtrl',
                 console.log('seek')
                 this.seekHelper($scope.params.progress)
               },
-              seekHelper : function (progress) {
-                $scope.params.seeking = true
-                seSender.seekMedia(progress)
-              },
               playM : function () {
                 if ($scope.params.paused) {
                   seSender.playMedia(false)
@@ -96,6 +97,32 @@ angular.module('ambrosia').controller('MainCtrl',
                   seSender.playMedia(true)
                 }
                 $scope.params.paused = !$scope.params.paused
+              },
+              navC : function (dir) {
+                if (dir + $scope.params.channel < 0) {
+                    $scope.params.allChannels.length - 1
+                } else if (dir + $scope.params.channel > $scope.params.allChannels.length - 1) {
+                    $scope.params.channel = 0
+                } else {
+                    $scope.params.channel = dir + $scope.params.channel
+                }
+                this.loadMedia()
+              },
+              episodeFormatted : function (path) {
+                var pFormatted = path.substring(path.substring(0, path.length -1).lastIndexOf('/') + 1, path.length -1 )
+                var season = pFormatted.substring(0, pFormatted.length - 2)
+                var episode = pFormatted.substring(pFormatted.length - 2, pFormatted.length)
+
+                console.log('episodeFormatted', pFormatted, season, episode)
+
+                seMedia.getEpisode($scope.params.selected.name, season, episode).then(function(result){
+                    $scope.params.selected.epMeta = result
+                })
+                return "Season: " + season + " Episode: " + episode
+              },
+              seekHelper : function (progress) {
+                $scope.params.seeking = true
+                seSender.seekMedia(progress)
               },
               toggleCast : function(){
                 console.log('toggle', $scope.params.casting)
@@ -107,6 +134,7 @@ angular.module('ambrosia').controller('MainCtrl',
                 $scope.params.casting = !$scope.params.casting
               }
             }
+            $scope.ctrl.init()
         })
     })
 
@@ -118,6 +146,7 @@ angular.module('ambrosia').controller('MainCtrl',
       console.log('on-retry')
     })
     $scope.$on('progress', function (scope, progress) {
+      console.log('progress', progress)
       if ($scope.params.seeking) {
         if ($scope.params.progress === progress) {
             $scope.params.seeking = false
@@ -125,6 +154,7 @@ angular.module('ambrosia').controller('MainCtrl',
       } else {
         $scope.params.progress = progress
       }
+      $scope.params.paused = false
     })
     $scope.$on('finish', function () {
        console.log('on-finish')
