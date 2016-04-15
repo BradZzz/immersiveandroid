@@ -69,6 +69,9 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     templateUrl: "/assets/html/home/localplayer.html",
     controller: "LocalPlayerCtrl",
     data: { role: 1 }
+  }).state('mpl', {
+    url: "/mpl",
+    templateUrl: "/assets/html/misc/mpl.html"
   })
 
   $locationProvider.html5Mode(true)

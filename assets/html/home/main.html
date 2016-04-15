@@ -1,36 +1,15 @@
 <div>
-	<div layout="row" class="main">
-		<md-list flex-gt-sm="80" flex="100" id="vertical-container" style="min-height:90vh;">
-			<md-card ng-repeat="page in ctrl.list" class="repeated-item selectable" flex layout="row" style="margin:10px;"
-					 md-on-demand ui-sref="stock({ticker: '{{ page.ticker }}'})">
-				<div flex-gt-sm="15" flex="20" layout-gt-sm="row" layout="column" class="dbl-wrapper">
-					<md-icon flex class="md-secondary icon ion-person-stalker dbl-icon"></md-icon>
-					<span class="dbl-text" flex>{{ page.invested }}</span>
-				</div>
-				<div flex="10" style="position:relative;min-width:80px;">
-					<img ng-src="assets/img/test/icon_placeholder.png" style="max-width:40px; max-height:40px; margin: 10px;" class="rounded"/>
-				</div>
-				<div flex-offset="10" flex-offset-gt-sm="5" flex-gt-sm="75" flex="60" class="center-vertical" style="position:relative;">
-					<div layout="column" style="width:100%;position:absolute;top:0;left:0;margin-top: 10px;">
-						<span flex class="stock-title"><b>{{ page.name }}</b><span flex hide show-gt-sm> ({{ page.ticker }}) </span></span>
-						<div layout="row" style="font-size:13px;font-style: italic;" >
-							<span hide-gt-sm style="margin-right: 10px;font-size:12px;"> ({{ page.ticker }}) </span>
-							<span style="margin-right: 10px;"><b>Ask: </b>{{ page.info.ask }}</span>
-							<span flex class="color" ng-class="{'green' : page.info.change > 0, 'red' : page.info.change < 0}"><b>({{ page.info.change.toFixed(2) }})</b></span>
-						</div>
-					</div>
-					<div layout="row" style="position:absolute;bottom:0;left:0;font-size: 12px;font-weight: bold;margin-bottom: 10px;">
-						<span style="margin-right:20px;">{{ page.comments.length }} Comments</span>
-						<span ng-repeat="link in ctrl.links" style="margin-right:20px;" hide show-gt-sm>{{ link }}</span>
-					</div>
-				</div>
-			</md-card>
-			<md-card ng-click="$root.alert('This will load more things!!!')" class="selectable color blue center-vertical" style="text-align:center;min-height: 40px; font-weight:bold;">
-				Load More
-			</md-card>
-		</md-list>
-		<md-card hide show-gt-sm flex-gt-sm="18" flex style="max-height:90vh; margin-top:18px;">
-
+	<div layout="column" class="main">
+		<md-button flex class="md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
+		<md-card style="height:90vh" layout="column">
+			<md-slider-container style="height: 50px; width: 98%;">
+				<md-slider flex min="0" max="100" ng-model="params.progress" ng-mouseup="ctrl.seekM()"></md-slider>
+			</md-slider-container>
+			<div layout="row">
+				<md-button class="cast-play md-fab md-raised ion-skip-backward" ng-click="ctrl.prevM()"></md-button>
+				<md-button class="cast-play md-fab md-raised" ng-click="ctrl.playM()" ng-class="{  'ion-pause' : params.paused, 'ion-arrow-right-b' : !params.paused }"></md-button>
+				<md-button class="cast-play md-fab md-raised ion-skip-forward" ng-click="ctrl.nextM()"></md-button>
+			</div>
 		</md-card>
 	</div>
 </div>

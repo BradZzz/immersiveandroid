@@ -27,6 +27,10 @@ String.prototype.capitalize = function() {
 
 module.exports = function (app) {
 
+    app.get('/cast/media/static', function (req, res) {
+      return res.status(200).json({ pre : process.env.MEDIA_PREFIX, post : process.env.MEDIA_POSTFIX })
+    })
+
     app.get('/cast/media', function (req, res) {
       Media.find({}).exec(function (err, media) {
         media = _.sortBy(media, 'name')

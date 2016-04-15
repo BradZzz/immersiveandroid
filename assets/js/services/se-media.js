@@ -27,6 +27,23 @@ function ($http, $q)
     return formattedMeta
   }
 
+  self.getMediaStatic = function () {
+    if ('getMediaStatic' in self.cache) {
+      var deferred = $q.defer()
+        deferred.resolve(self.cache.getMediaStatic)
+        return deferred.promise
+    } else {
+      return $http({
+        url: '/cast/media/static',
+        method: 'GET'
+      }).then(function (response) {
+        console.log(response)
+        self.cache.getMediaStatic = response.data
+        return response.data
+      })
+    }
+  }
+
   self.getMedia = function () {
     if ('getMedia' in self.cache) {
       var deferred = $q.defer()
