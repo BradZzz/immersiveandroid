@@ -1,15 +1,16 @@
 <div class="header" ng-if="loginRegister.loggedIn">
-	<md-content flex layout-padding class="top-nav" style="background-image: url('{{ ctrl.backgrounds[loginRegister.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
+	<md-content flex layout-padding class="top-nav" style="padding:0; background-image: url('{{ ctrl.backgrounds[loginRegister.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
+		<div style="position: absolute; width: 100%; height: 100%; background: lavender; opacity: .2;"></div>
 		<div class="md-primary" layout-gt-sm="row" layout="column">
 			<div flex-gt-sm="25" flex="100" flex-order-gt-sm="1" flex-order="1" class="selectable nav-icons" layout="row" layout-align="center center">
-				<span flex-gt-sm="50" flex="10" class="icon ion-android-home selectable nav-home" ui-sref="home"></span>
-				<span flex-gt-sm="50" flex="10" class="icon ion-person selectable nav-profile" ng-click="toggleRight()"></span>
+				<span flex-gt-sm="50" flex="10" class="icon ion-android-home selectable nav-home" ui-sref="home" style="z-index:1"></span>
+				<span flex-gt-sm="50" flex="10" class="icon ion-person selectable nav-profile" ng-click="toggleRight()" style="z-index:1"></span>
 				<span flex-gt-sm="0" flex="80"></span>
 			</div>
-			<div flex-gt-sm="50" flex="100" flex-order-gt-sm="2" flex-order="2">
-				<h3 style="text-align:center">Ambrosia</h3>
+			<div flex-gt-sm="50" flex="100" flex-order-gt-sm="2" flex-order="2" style="z-index:1">
+				<h3 style="text-align:center">Ark</h3>
 			</div>
-			<div flex-gt-sm="25" flex="100" flex-order-gt-sm="3" flex-order="3" style="position:relative;" class="selectable" layout="row">
+			<div flex-gt-sm="25" flex="100" flex-order-gt-sm="3" flex-order="3" style="z-index:1; position:relative;" class="selectable" layout="row">
 				<div hide show-gt-sm flex="10">
 					<span class="center-vertical-parent small"><i flex class="center-vertical icon ion-search"></i></span>
 				</div>
@@ -38,14 +39,25 @@
 				</md-content>
 			</div>
 		</div>
+		<div ng-show="$root.toState.name === 'media'" style="height:60px;text-align: center;" layout="row" class="nav-media-wrapper">
+			<div flex="50" style="position: relative" class="selectable nav-media" ng-click="$root.$broadcast('updateVType', { type : 'movie' })">
+				<div class="nav-background"></div>
+				<h3>Movies</h3>
+			</div>
+			<div flex="50" style="position: relative" class="selectable nav-media" ng-click="$root.$broadcast('updateVType', { type : 'tv' })">
+				<div class="nav-background"></div>
+				<h3>TV</h3>
+			</div>
+		</div>
 	</md-content>
 	<md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="left">
 		<md-toolbar layout="column" class="md-tall" style="background-image: url('{{ ctrl.backgrounds[loginRegister.test.background] }}');background-size: 100%;background-repeat: no-repeat;">
+			<div style="position: absolute; width: 100%; height: 100%; background: lavender; opacity: .2;"></div>
 			<md-list-item layout="row">
 				<img ng-src="{{ loginRegister.test.photo }}" class="md-avatar profile-avatar" style="height:60px;width:60px;margin-top:30px;"/>
 				<div class="md-list-item-text" layout="column" style="margin-top: 30px;">
-					<span>{{ loginRegister.test.name }}</span>
-					<span style="font-size: small;">{{ loginRegister.test.email }}</span>
+					<span style="font-weight:bold;">{{ loginRegister.test.name }}</span>
+					<span style="font-size: small;font-weight:bold;">{{ loginRegister.test.email }}</span>
 				</div>
 			</md-list-item>
 		</md-toolbar>

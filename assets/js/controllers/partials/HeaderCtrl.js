@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('HeaderCtrl',
-['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seTheme', 'sePrincipal', 'seAuthorization', 'seLedger',
-function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTheme, sePrincipal, seAuthorization, seLedger)
+['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seMedia', 'seTheme', 'sePrincipal', 'seAuthorization',
+function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seMedia, seTheme, sePrincipal, seAuthorization)
 {
   $scope.loginRegister = {
     isLoggingIn : true,
@@ -64,8 +64,9 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
         }
     },
     selectedItemChange : function (item) {
-        if (item && 'value' in item) {
-          $state.go('stock', { ticker: item.value.toUpperCase() })
+        if (item && 'value' in item && 'type' in item) {
+          console.log(item)
+          $state.go('media', { value: item.display, type: item.type })
         }
     },
     searchTextChange : function (text) {
@@ -105,15 +106,15 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
   //    $scope.loginRegister.refresh()
   //})
 
-  seQuotes.getPendingList().then(function(response){
-      //console.log('test list response: ', response)
-      $scope.ctrl.states = _.map( response , function (tick) {
+  seMedia.getMedia().then(function(response){
+      console.log('test list response: ', response)
+      $scope.ctrl.states = _.map( seMedia.getSearchFormatted(response) , function (meta) {
          return {
-           value: tick.ticker.toLowerCase(),
-           display: tick.name + ' (' + tick.ticker + ')',
+           value: meta.value.toLowerCase(),
+           display: meta.value,
+           type: meta.type
          }
       })
-      //console.log('states: ', $scope.ctrl.states)
   })
 
   $scope.toggleRight = buildToggler('left')

@@ -246,6 +246,24 @@ button.md-raised {
 }
 
 .header {
+    .nav-media-wrapper {
+        .transition(all, 0.5s);
+        .nav-background {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: gray;
+            opacity : 0;
+            &:hover {
+                opacity : .2;
+            }
+        }
+    }
+    .nav-media {
+        &:hover {
+            border: 1px solid #fff;
+        }
+    }
     md-content.top-nav {
         color: white !important;
     }
@@ -269,35 +287,72 @@ button.md-raised {
     }
 }
 
-.stock {
+.local-player {
+    border: 2px solid;
+    border-radius: 5px;
+    height: 90vh;
+    .videogular-container {
+    	width: 100%;
+    	height: 320px;
+    	margin: auto;
+    	overflow: hidden;
+    }
+}
+
+.media {
     .content {
-        height:75vh;
-        min-height : 620px;
-        .cost-wrapper {
-            align-items: center;
-        }
-        &.taller {
-            height:88vh !important;
-        }
-    }
-    .large {
-        border: 1px solid #000;
-        &.fill-frame {
-            height: 72px;
-        }
-    }
-    .tiny-wrapper {
-        max-width: 36px;
-        margin-right:10px;
-        .tiny {
-            max-height: 28px;
-            min-height: 28px;
-            min-width: 24px;
-            border: 1px solid #000;
-            span {
+        .media-image-wrapper {
+            position: relative;
+            min-height: 220px;
+            max-height: 220px;
+            min-width: 150px;
+            max-width: 150px;
+            .media-image {
+                width: 100%;
+                height: 100%;
+                border: 2px solid #000;
+                border-radius: 5px;
                 position: absolute;
-                bottom: -15%;
-                left: 30%;
+            }
+            .media-overlay {
+                .transition(all, 0.5s);
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                .media-overlay-background {
+                    background:gray;
+                    width: 100%;
+                    height:100%;
+                    border-radius: 5px;
+                    margin: 2px;
+                    position: absolute;
+                    opacity : .5;
+                }
+                opacity : 0;
+                &:hover {
+                  opacity : 1;
+                }
+            }
+        }
+        .media-rating-wrapper {
+            text-align: center;
+            border: 2px solid #000;
+            padding: 10px;
+            border-radius: 5px;
+            position: relative;
+            height: 20px;
+            width: 24px;
+            margin-right: 20px;
+            .media-rating-huebox {
+                text-align: center;
+                border-radius: 5px;
+                height: 40px;
+                width: 44px;
+                left: 0px;
+                bottom: 0px;
+                position: absolute;
+                background: green;
+                opacity: .2;
             }
         }
     }

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Ambrosia</title>
+  <title>Ark</title>
 
   <meta name="author"    content="DotDashDot">
   <meta name="copyright" content="DotDashDot 2015">
@@ -13,16 +13,16 @@
   <meta name="viewport"  content="user-scalable=no, width=device-width, minimum-scale=1.0, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable"       content="yes">
-  <meta name="application-name"             content="Ambrosia">
+  <meta name="application-name"             content="Ark">
 
-  <meta name="description"      content="Stock trading app for the next generation">
-  <meta name="keywords"         content="stock, social, trade, money">
+  <meta name="description"      content="Cutting Edge Media Platform">
+  <meta name="keywords"         content="chromecast, media, streaming, awesome">
   <meta name="fragment"         content="!">
 
-  <meta property="og:title"     content="Ambrosia">
-  <meta property="og:site_name" content="Ambrosia">
+  <meta property="og:title"     content="Ark">
+  <meta property="og:site_name" content="Ark">
   <meta property="og:type"      content="website">
-  <meta itemprop="name"         content="Ambrosia">
+  <meta itemprop="name"         content="Ark">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/icons/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/icons/apple-icon-60x60.png">
@@ -52,6 +52,7 @@
 <link rel="stylesheet" href="/assets/third-party/angular-loading-bar/build/loading-bar.css">
 <link rel="stylesheet" href="/assets/third-party/angular-material/angular-material.css">
 <link rel="stylesheet" href="/assets/third-party/angular-flash-alert/dist/angular-flash.css">
+<link rel="stylesheet" href="/assets/third-party/angular-material-icons/angular-material-icons.css">
 <!-- endbuild -->
 </head>
 
@@ -77,11 +78,19 @@
 <script src="/assets/third-party/angular-aria/angular-aria.js"></script>
 <script src="/assets/third-party/angular-bootstrap/ui-bootstrap.min.js"></script>
 <script src="/assets/third-party/angular-flash-alert/dist/angular-flash.js"></script>
+<script src="/assets/third-party/angular-material-icons/angular-material-icons.js"></script>
+<script src="/assets/third-party/angular-sanitize/angular-sanitize.js"></script>
 
 <script src="/assets/third-party/moment/min/moment.min.js"></script>
 <script src="/assets/third-party/moment/min/locales.min.js"></script>
 <script src="/assets/third-party/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
 <script src="/assets/third-party/humanize-duration/humanize-duration.js"></script>
+
+<script src="/assets/third-party/videogular/videogular.js"></script>
+<script src="/assets/third-party/videogular-controls/vg-controls.js"></script>
+<script src="/assets/third-party/videogular-overlay-play/vg-overlay-play.js"></script>
+<script src="/assets/third-party/videogular-poster/vg-poster.js"></script>
+<script src="/assets/third-party/videogular-buffering/vg-buffering.js"></script>
 
 <script src="/assets/third-party/chance/dist/chance.min.js"></script>
 <script src="/assets/third-party/underscore/underscore.js"></script>
@@ -95,15 +104,17 @@
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/controllers/RootCtrl.js"></script>
 <script src="/assets/js/controllers/MainCtrl.js"></script>
-<script src="/assets/js/controllers/StockCtrl.js"></script>
+<script src="/assets/js/controllers/MediaCtrl.js"></script>
 <script src="/assets/js/controllers/ProfileCtrl.js"></script>
 <script src="/assets/js/controllers/AnalyticsCtrl.js"></script>
+<script src="/assets/js/controllers/LocalPlayerCtrl.js"></script>
 <script src="/assets/js/controllers/partials/HeaderCtrl.js"></script>
 
 <script src="/assets/js/directives/se-upload.js"></script>
 <script src="/assets/js/directives/se-timer.js"></script>
 
 <script src="/assets/js/services/se-authorization.js"></script>
+<script src="/assets/js/services/se-media.js"></script>
 <script src="/assets/js/services/se-ledger.js"></script>
 <script src="/assets/js/services/se-principal.js"></script>
 <script src="/assets/js/services/se-quotes.js"></script>

@@ -8,6 +8,12 @@ var modules = [
   'ui.bootstrap',
   'ngFlash',
   'ngFileUpload',
+  'ngMdIcons',
+  'ngSanitize',
+  'com.2fdevs.videogular',
+  'com.2fdevs.videogular.plugins.controls',
+  'com.2fdevs.videogular.plugins.overlayplay',
+  'com.2fdevs.videogular.plugins.poster'
 ]
 
 var role = {
@@ -40,11 +46,11 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     url: "/login",
     templateUrl: "/assets/html/home/login.html",
     controller: "HeaderCtrl",
-  }).state('stock', {
-    url: "/stockui?ticker",
+  }).state('media', {
+    url: "/media?value&type",
     parent: 'site',
-    templateUrl: "/assets/html/home/stock.html",
-    controller: "StockCtrl",
+    templateUrl: "/assets/html/home/media.html",
+    controller: "MediaCtrl",
   }).state('profile', {
     url: "/profile",
     parent: 'site',
@@ -56,6 +62,12 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     parent: 'site',
     templateUrl: "/assets/html/home/analytics.html",
     controller: "AnalyticsCtrl",
+    data: { role: 1 }
+  }).state('localplayer', {
+    url: "/plocal?path",
+    parent: 'site',
+    templateUrl: "/assets/html/home/localplayer.html",
+    controller: "LocalPlayerCtrl",
     data: { role: 1 }
   })
 

@@ -23,7 +23,17 @@
     "ng-file-upload": "^12.0.4",
     "aws-sdk": "aws-sdk-js#^2.2.48",
     "moment-timezone": "^0.5.3",
-    "humanize-duration": "^3.7.0"
+    "humanize-duration": "^3.7.0",
+    "angular-material-icons": "^0.7.0",
+    "videogular": "^1.4.3",
+    "videogular-themes-default": "^1.4.3",
+    "videogular-controls": "^1.4.3",
+    "videogular-buffering": "^1.4.3",
+    "videogular-overlay-play": "^1.4.3",
+    "videogular-poster": "^1.4.3",
+    "videogular-ima-ads": "^1.4.3",
+    "videogular-angulartics": "^1.4.3",
+    "angular-sanitize": "^1.5.3"
   },
   "resolutions": {
     "angular": "~1.4.2"

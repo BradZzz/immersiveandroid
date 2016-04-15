@@ -235,6 +235,25 @@ button.md-raised.active:hover {
 .loading-bar {
   margin: 30vh auto 0 auto;
 }
+.header .nav-media-wrapper {
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+.header .nav-media-wrapper .nav-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: gray;
+  opacity: 0;
+}
+.header .nav-media-wrapper .nav-background:hover {
+  opacity: .2;
+}
+.header .nav-media:hover {
+  border: 1px solid #fff;
+}
 .header md-content.top-nav {
   color: white !important;
 }
@@ -253,36 +272,73 @@ button.md-raised.active:hover {
 .main .dbl-wrapper .dbl-icon {
   text-align: center;
 }
-.stock .content {
-  height: 75vh;
-  min-height: 620px;
+.local-player {
+  border: 2px solid;
+  border-radius: 5px;
+  height: 90vh;
 }
-.stock .content .cost-wrapper {
-  align-items: center;
+.local-player .videogular-container {
+  width: 100%;
+  height: 320px;
+  margin: auto;
+  overflow: hidden;
 }
-.stock .content.taller {
-  height: 88vh !important;
+.media .content .media-image-wrapper {
+  position: relative;
+  min-height: 220px;
+  max-height: 220px;
+  min-width: 150px;
+  max-width: 150px;
 }
-.stock .large {
-  border: 1px solid #000;
-}
-.stock .large.fill-frame {
-  height: 72px;
-}
-.stock .tiny-wrapper {
-  max-width: 36px;
-  margin-right: 10px;
-}
-.stock .tiny-wrapper .tiny {
-  max-height: 28px;
-  min-height: 28px;
-  min-width: 24px;
-  border: 1px solid #000;
-}
-.stock .tiny-wrapper .tiny span {
+.media .content .media-image-wrapper .media-image {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #000;
+  border-radius: 5px;
   position: absolute;
-  bottom: -15%;
-  left: 30%;
+}
+.media .content .media-image-wrapper .media-overlay {
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.media .content .media-image-wrapper .media-overlay .media-overlay-background {
+  background: gray;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  margin: 2px;
+  position: absolute;
+  opacity: .5;
+}
+.media .content .media-image-wrapper .media-overlay:hover {
+  opacity: 1;
+}
+.media .content .media-rating-wrapper {
+  text-align: center;
+  border: 2px solid #000;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  height: 20px;
+  width: 24px;
+  margin-right: 20px;
+}
+.media .content .media-rating-wrapper .media-rating-huebox {
+  text-align: center;
+  border-radius: 5px;
+  height: 40px;
+  width: 44px;
+  left: 0px;
+  bottom: 0px;
+  position: absolute;
+  background: green;
+  opacity: .2;
 }
 .analytics .content {
   position: relative;

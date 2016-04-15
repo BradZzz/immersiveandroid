@@ -1,18 +1,19 @@
 angular.module('ambrosia').controller('MainCtrl',
-['$scope', '$rootScope', '$q', 'seQuotes', 'seLedger',
- function ($scope, $rootScope, $q, seQuotes, seLedger)
+['$scope', '$rootScope', '$q',
+ function ($scope, $rootScope, $q)
 {
     console.log('MainCtrl')
 
     $rootScope.loading = true
+    $rootScope.loading = false
 
-    $scope.ctrl = {
+    /*$scope.ctrl = {
         size : 25,
         list : {},
         links : ['share', 'save', 'hide', 'report']
-    }
+    }*/
 
-    seLedger.getCountList().then(function(list){
+    /*seLedger.getCountList().then(function(list){
        list = _.map( list, function(entry){ return entry })
        list = _.filter( list, function(entry){ return entry.invested > 0 })
        list = _.sortBy( list, function(entry){ return -entry.invested }).splice(0,15)
@@ -44,5 +45,5 @@ angular.module('ambrosia').controller('MainCtrl',
          },function(err){
            console.log(err)
        })
-    })
+    })*/
 }])
