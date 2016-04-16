@@ -7,15 +7,15 @@
 					<img ng-src="{{ params.selected.poster }}" class="border center-horizontal">
 				</div>
 				<div layout="row" flex>
-					<div layout="row" class="center-vertical">
-						<div layout="column" layout-align="center center" style="max-height: 250px; min-height: 250px;">
-							<span class="nav-title">Nav</span>
+					<div layout="column" class="center-vertical" style="margin: 0 30px 0 10px; padding-left: 20px; ">
+						<div class="border background-parent" layout="column" layout-align="center center" style="max-height: 200px; min-height: 200px; margin-bottom: 20px;">
+							<div style="background:black; opacity: .2;"></div>
 							<md-button flex class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
 							<md-button class="ion-arrow-up-b md-raised md-cornered" ng-click="ctrl.navC(1)"></md-button>
 							<md-button class="ion-arrow-down-b md-raised md-cornered" ng-click="ctrl.navC(-1)"></md-button>
 						</div>
-						<div layout="column" layout-align="center center" style="margin: 0 20px 0 20px; padding-left: 20px; border-left: 1px solid gray;max-height: 250px; min-height: 250px;">
-							<span class="nav-title">Meta</span>
+						<div class="border background-parent" layout="column" layout-align="center center" style="max-height: 200px; min-height: 200px;">
+							<div style="background:black; opacity: .2;"></div>
 							<md-button class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>
 							<md-button class="ion-ios-star md-raised md-cornered" ng-click="params.newest = !params.newest; params.ordered = false;" ng-class="{ 'active' : params.newest }"></md-button>
 							<md-button class="ion-ios-list md-raised md-cornered" ng-click="params.ordered = !params.ordered; params.newest = false;" ng-class="{ 'active' : params.ordered }"></md-button>
@@ -34,12 +34,12 @@
 						</div>
 						<div layout="row" flex style="align-items: center; max-height: 80px;">
 							<div offset="5" layout="row" class="center-vertical md-margin" style="margin-left: 10px;align-items: center;">
-								<div layout="row"><ng-md-icon icon="group" class="md-margin"></ng-md-icon><span class="md-margin">{{ params.selected.rated }}</span></div>
-								<div layout="row"><ng-md-icon icon="av_timer" class="md-margin"></ng-md-icon><span class="md-margin">{{ params.selected.runtime }}</span></div>
-								<div layout="row"><ng-md-icon icon="date_range" class="md-margin"></ng-md-icon><span class="md-margin">{{ params.selected.year }}</span></div>
+								<div layout="row"><ng-md-icon icon="group" class="md-margin"></ng-md-icon><span class="md-margin" style="width: 50px;">{{ params.selected.rated }}</span></div>
+								<div layout="row"><ng-md-icon icon="av_timer" class="md-margin"></ng-md-icon><span class="md-margin" style="width: 50px;">{{ params.selected.runtime }}</span></div>
+								<div layout="row"><ng-md-icon icon="date_range" class="md-margin"></ng-md-icon><span class="md-margin" style="width: 50px;">{{ params.selected.year }}</span></div>
 								<div layout="row">
 									<ng-md-icon icon="style" class="md-margin center-vertical"></ng-md-icon>
-									<div layout="column">
+									<div layout="column" style="width: 50px;">
 										<span ng-repeat="genre in params.selected.genre">{{ genre }}</span>
 									</div>
 								</div>
@@ -55,7 +55,7 @@
 									</div>
 									<h3 flex class="md-margin">{{ params.selected.pFormatted }}</h3>
 								</div>
-								<span ng-show="params.selected.epMeta" flex class="md-margin"> {{ params.selected.epMeta.Plot }} </span>
+								<div ng-show="params.selected.epMeta" flex class="md-margin"> {{ params.selected.epMeta.Plot }} </div>
 							</div>
 						</div>
 					</div>
