@@ -125,7 +125,7 @@ angular.module('ambrosia').controller('MainCtrl',
               navC : function (dir) {
                 $scope.params.sticky = false
                 if (dir + $scope.params.channel < 0) {
-                    $scope.params.allChannels.length - 1
+                    $scope.params.channel = $scope.params.allChannels.length - 1
                 } else if (dir + $scope.params.channel > $scope.params.allChannels.length - 1) {
                     $scope.params.channel = 0
                 } else {

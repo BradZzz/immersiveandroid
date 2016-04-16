@@ -8,21 +8,18 @@
 				</div>
 				<div layout="row" flex>
 					<div layout="column" class="center-vertical" style="margin: 0 30px 0 10px; padding-left: 20px; ">
-						<div class="border background-parent" layout="column" layout-align="center center" style="max-height: 200px; min-height: 200px; margin-bottom: 20px;">
-							<div style="background:black; opacity: .2;"></div>
+						<div class="background-parent" layout="column" layout-align="center center" style="min-width:150px; max-width:150px; max-height: 400px; min-height: 400px; margin-bottom: 20px;">
+							<div style=""></div>
 							<md-button flex class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
 							<md-button class="ion-arrow-up-b md-raised md-cornered" ng-click="ctrl.navC(1)"></md-button>
-							<md-button class="ion-arrow-down-b md-raised md-cornered" ng-click="ctrl.navC(-1)"></md-button>
-						</div>
-						<div class="border background-parent" layout="column" layout-align="center center" style="max-height: 200px; min-height: 200px;">
-							<div style="background:black; opacity: .2;"></div>
-							<md-button class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>
+							<md-button class="ion-arrow-down-b md-raised md-cornered" ng-click="ctrl.navC(-1)" style="margin-bottom:50px;"></md-button>
+							<md-button aria-label="pin to show" class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>
 							<md-button class="ion-ios-star md-raised md-cornered" ng-click="params.newest = !params.newest; params.ordered = false;" ng-class="{ 'active' : params.newest }"></md-button>
 							<md-button class="ion-ios-list md-raised md-cornered" ng-click="params.ordered = !params.ordered; params.newest = false;" ng-class="{ 'active' : params.ordered }"></md-button>
 						</div>
 					</div>
 					<div flex="50" layout="column" layout-fill style="margin: 0 20px; padding-top: 20px;">
-						<div class="center-vertical-parent" layout="row" style="font-weight:bold; margin: 20px 0 0 0;">
+						<div class="center-vertical-parent" layout="row" style="font-weight:bold;">
 							<div class="md-margin media-rating-wrapper" style="margin-right: 30px;">
 								<div class="media-rating-huebox"></div>
 								<span>{{ params.selected.imdbRating }}</span>
