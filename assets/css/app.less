@@ -173,9 +173,26 @@ button.md-raised {
     }
 }
 
+.background-parent-first {
+    position : relative;
+    div {
+        .transition(all, 0.5s);
+        height: 100%;
+        width: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        &.fade {
+            &:hover {
+                opacity: .2 !important;
+            }
+        }
+    }
+}
+
 .background-parent {
     position : relative;
-    div:first-child {
+    div {
         height: 100%;
         width: 100%;
         display: block;
@@ -308,6 +325,11 @@ button.md-raised {
 }
 
 .main {
+    .parent {
+        &:hover {
+            opacity: .2;
+        }
+    }
     .sq-button {
         max-height: 20px;
         max-width: 50px;
@@ -318,12 +340,32 @@ button.md-raised {
         padding-bottom: 10px;
         margin-bottom: 20px;
     }
-    img {
+    .img-wrapper {
+        position: relative;
         min-height: 400px;
         max-height: 400px;
         min-width: 300px;
         max-width: 300px;
-        margin: 20px auto !important;
+        img {
+            position: absolute;
+            max-height: 100%;
+            max-width: 100%;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        .show-box {
+            .transition(opacity, 0.5s);
+            position: absolute;
+            max-height: 100%;
+            max-width: 100%;
+            min-width: 100%;
+            min-height: 100%;
+            opacity: 0;
+            &:hover {
+                background: black;
+                opacity: .5;
+            }
+        }
     }
 }
 

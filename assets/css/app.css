@@ -180,10 +180,27 @@ button.md-raised.active:hover {
   background: green;
   opacity: .2;
 }
+.background-parent-first {
+  position: relative;
+}
+.background-parent-first div {
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+}
+.background-parent-first div.fade:hover {
+  opacity: .2 !important;
+}
 .background-parent {
   position: relative;
 }
-.background-parent div:first-child {
+.background-parent div {
   height: 100%;
   width: 100%;
   display: block;
@@ -294,6 +311,9 @@ button.md-raised.active:hover {
 .header .profile-avatar {
   border: 1px solid rgba(225, 232, 235, 0.8);
 }
+.main .parent:hover {
+  opacity: .2;
+}
 .main .sq-button {
   max-height: 20px;
   max-width: 50px;
@@ -304,12 +324,35 @@ button.md-raised.active:hover {
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
-.main img {
+.main .img-wrapper {
+  position: relative;
   min-height: 400px;
   max-height: 400px;
   min-width: 300px;
   max-width: 300px;
-  margin: 20px auto !important;
+}
+.main .img-wrapper img {
+  position: absolute;
+  max-height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+.main .img-wrapper .show-box {
+  -webkit-transition: opacity 0.5s ease-out;
+  -moz-transition: opacity 0.5s ease-out;
+  -o-transition: opacity 0.5s ease-out;
+  transition: opacity 0.5s ease-out;
+  position: absolute;
+  max-height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0;
+}
+.main .img-wrapper .show-box:hover {
+  background: black;
+  opacity: .5;
 }
 .local-player {
   border: 2px solid;
