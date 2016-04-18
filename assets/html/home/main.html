@@ -6,29 +6,30 @@
 				<div class="border img-wrapper" offset="10">
 					<img ng-src="{{ params.selected.poster }}">
 					<div ng-click="params.flipped = !params.flipped" ng-show="!params.flipped" class="show-box selectable center-vertical">
-						<ng-md-icon size="52" icon="art_track" class="md-margin" style="fill: white"></ng-md-icon>
+						<ng-md-icon size="52" icon="add_to_queue" class="md-margin" style="fill: white"></ng-md-icon>
 					</div>
 					<md-content ng-show="params.flipped"
 								ng-class="{ 'show-box' : !params.flipped }" class="selectable" style="max-height: 400px;opacity: 1; background: white;">
 						<md-list flex>
-							<md-list-item style="background:white; color: black: height: 50px;" class="background-parent-first">
+							<md-list-item style="background:white; height: 60px;" class="background-parent-first">
+								<ng-md-icon icon="reply" class="md-margin center-vertical" style="padding-bottom: 6px;"></ng-md-icon>
 								<h3 class="md-margin">Back</h3>
 								<div class="selectable fade" style="background:black; opacity:0;left:0;" ng-click="params.flipped = !params.flipped"></div>
 							</md-list-item>
 							<md-list-item ng-repeat="show in params.allChannels[params.channel].shows" layout="row"
 										  style="background:white;padding-left: 0 !important;" class="background-parent-first">
-								<img flex="50" ng-src="{{ params.map[show].poster }}" class="md-margin md-avatar" style="min-width: 50px !important;
-    								max-height: 50px !important; min-height: 50px !important; max-width: 50px !important;position:relative;border: 1px solid;margin-left: 20px;"/>
+								<img flex="50" ng-src="{{ params.map[show].poster }}" class="md-avatar" style="min-width: 50px !important;
+    								max-height: 50px !important; min-height: 50px !important; max-width: 50px !important;position:relative;border: 1px solid;margin: 10px 20px;"/>
 								<span flex="50" class=" md-margin md-list-item-text" layout="column" style="position:relative;color:black;">
 									<h3>{{ params.map[show].name }}</h3>
 								</span>
-								<div class="selectable fade" style="background:black; opacity:0;left:0;" ng-click="ctrl.loadMedia(show)"></div>
+								<div class="selectable fade" style="background:black; opacity:0;left:0;" ng-click="ctrl.loadMedia(show); params.flipped = !params.flipped;"></div>
 							</md-list-item>
 						</md-list>
 					</md-content>
 				</div>
 				<div layout="row" flex>
-					<div layout="column" class="center-vertical" style="margin: 0 30px 0 10px; padding-left: 20px; ">
+					<div layout="row" class="center-vertical" style="margin: 0 30px 0 10px; padding-left: 20px; position: relative;">
 						<div class="background-parent" layout="column" layout-align="center center" style="min-width:150px; max-width:150px; max-height: 400px; min-height: 400px; margin-bottom: 20px;">
 							<div style=""></div>
 							<md-button flex class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
@@ -37,6 +38,9 @@
 							<md-button aria-label="pin to show" class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>
 							<md-button class="ion-ios-star md-raised md-cornered" ng-click="params.newest = !params.newest; params.ordered = false;" ng-class="{ 'active' : params.newest }"></md-button>
 							<md-button class="ion-ios-list md-raised md-cornered" ng-click="params.ordered = !params.ordered; params.newest = false;" ng-class="{ 'active' : params.ordered }"></md-button>
+						</div>
+						<div layout="column" style="margin-bottom: 15px;">
+							<md-button style="min-height: 18px; min-width: 42px; max-width: 42px;" ng-repeat="vol in params.volSettings" class="md-raised md-cornered" ng-click="ctrl.setV(vol)" ng-class="{ 'active' : params.volume >= vol }"></md-button>
 						</div>
 					</div>
 					<div flex="50" layout="column" layout-fill style="margin: 0 20px; padding-top: 20px;">

@@ -18,6 +18,8 @@ angular.module('ambrosia').controller('MainCtrl',
         flipped : false,
 
         /* for the cast player */
+        volSettings : [100,90,80,70,60,50,40,30,20,10,0],
+        volume : 80,
         paused : false,
         casting : false,
         seeking : false,
@@ -142,6 +144,11 @@ angular.module('ambrosia').controller('MainCtrl',
                     $scope.params.channel = dir + $scope.params.channel
                 }
                 this.loadMedia()
+              },
+              setV : function(vol){
+                console.log('volume', vol)
+                $scope.params.volume = vol
+                seSender.setReceiverVolume($scope.params.volume / 100, false)
               },
               episodeFormatted : function (path) {
                 var pFormatted = path.substring(path.substring(0, path.length -1).lastIndexOf('/') + 1, path.length -1 )
