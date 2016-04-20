@@ -1,6 +1,6 @@
 angular.module('ambrosia').service('seMedia',
-['$http', '$q',
-function ($http, $q)
+['$http', '$q', 'Flash',
+function ($http, $q, Flash)
 {
   var self = this
   self.logName = 'seMedia'
@@ -101,6 +101,22 @@ function ($http, $q)
     }).then(function (response) {
       console.log(response)
       return response.data
+    })
+  }
+
+  self.getMediaUpdate = function () {
+    return $http({
+      url: '/cast/update',
+      method: 'GET'
+    }).then(function (response) {
+      console.log(response)
+      Flash.create('success', 'Meta Updated')
+      return response.data
+    }, function(err){
+      console.log('Error!')
+      console.log(err)
+      Flash.create('danger', err.data.err)
+      callback(err)
     })
   }
 

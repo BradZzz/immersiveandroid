@@ -32,7 +32,8 @@
 					<div layout="row" class="center-vertical" style="margin: 0 30px 0 10px; padding-left: 20px; position: relative;">
 						<div class="background-parent" layout="column" layout-align="center center" style="min-width:150px; max-width:150px; max-height: 400px; min-height: 400px; margin-bottom: 20px;">
 							<div style=""></div>
-							<md-button flex class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
+							<md-button class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }" ng-click="ctrl.toggleCast()"></md-button>
+							<md-button class="md-raised md-cornered ion-refresh" ng-click="ctrl.rCast()"></md-button>
 							<md-button class="ion-arrow-up-b md-raised md-cornered" ng-click="ctrl.navC(1)"></md-button>
 							<md-button class="ion-arrow-down-b md-raised md-cornered" ng-click="ctrl.navC(-1)" style="margin-bottom:50px;"></md-button>
 							<md-button aria-label="pin to show" class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>

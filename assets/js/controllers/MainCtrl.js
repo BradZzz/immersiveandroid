@@ -86,6 +86,9 @@ angular.module('ambrosia').controller('MainCtrl',
                         selected = $scope.params.selected = $scope.params.map[channel.shows[iSelection]]
                     }
                 }
+
+                console.log('selected', selected)
+
                 if (selected.episodes.length == 0) {
                     return selected.path
                 } else {
@@ -145,6 +148,9 @@ angular.module('ambrosia').controller('MainCtrl',
                 }
                 this.loadMedia()
               },
+              rCast : function() {
+                seSender.getMediaUpdate()
+              },
               setV : function(vol){
                 console.log('volume', vol)
                 $scope.params.volume = vol
@@ -184,10 +190,6 @@ angular.module('ambrosia').controller('MainCtrl',
     $scope.$on('update', function (scope, media) {
       console.log('on-update')
     })
-    $scope.$on('retry', function () {
-      console.log('on-retry')
-      $scope.ctrl.loadMedia()
-    })
     $scope.$on('progress', function (scope, progress) {
       console.log('progress', progress, $scope.params.seeking)
       if ($scope.params.seeking) {
@@ -199,7 +201,12 @@ angular.module('ambrosia').controller('MainCtrl',
          $scope.params.progress = progress
         })
       }
-      $scope.params.paused = false
+      $scope.params.paused = true
+    })
+    $scope.$on('retry', function () {
+      console.log('on-retry')
+      $scope.params.ordDirection = 1
+      $scope.ctrl.loadMedia()
     })
     $scope.$on('finish', function () {
        console.log('on-finish')
