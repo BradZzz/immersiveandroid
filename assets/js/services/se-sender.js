@@ -1,4 +1,5 @@
-angular.module('ambrosia').service('seSender', function ($rootScope) {
+angular.module('ambrosia').service('seSender',
+['$rootScope', function ($rootScope) {
 
 	/**
 	 * CONSTANTS
@@ -1182,4 +1183,4 @@ angular.module('ambrosia').service('seSender', function ($rootScope) {
 	  }
 	}
 
-});
+}]);
