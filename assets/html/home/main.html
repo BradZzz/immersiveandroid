@@ -5,11 +5,11 @@
 			<div layout="row">
 				<div class="border img-wrapper" offset="10">
 					<img ng-src="{{ params.selected.poster }}">
-					<div ng-click="params.flipped = !params.flipped" ng-show="!params.flipped" class="show-box selectable center-vertical">
-						<ng-md-icon size="52" icon="add_to_queue" class="md-margin" style="fill: white"></ng-md-icon>
+					<div ng-click="params.flipped = !params.flipped" ng-hide="params.flipped" class="show-box selectable center-vertical animate-show">
+						<ng-md-icon size="52" icon="add_to_queue" style="fill: white"></ng-md-icon>
 					</div>
-					<md-content ng-show="params.flipped"
-								ng-class="{ 'show-box' : !params.flipped }" class="selectable" style="max-height: 400px;opacity: 1; background: white;">
+					<md-content ng-hide="!params.flipped"
+								ng-class="{ 'show-box' : !params.flipped }" class="selectable animate-show" style="max-height: 400px;opacity: 1; background: white;">
 						<md-list flex>
 							<md-list-item style="background:white; height: 60px;" class="background-parent-first">
 								<ng-md-icon icon="reply" class="md-margin center-vertical" style="padding-bottom: 6px;"></ng-md-icon>

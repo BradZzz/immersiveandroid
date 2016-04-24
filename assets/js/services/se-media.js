@@ -116,7 +116,7 @@ function ($http, $q, Flash)
       console.log('Error!')
       console.log(err)
       Flash.create('danger', err.data.err)
-      callback(err)
+      return err
     })
   }
 

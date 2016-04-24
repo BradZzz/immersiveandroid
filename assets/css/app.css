@@ -311,6 +311,13 @@ button.md-raised.active:hover {
 .header .profile-avatar {
   border: 1px solid rgba(225, 232, 235, 0.8);
 }
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+.animate-show.ng-hide {
+  opacity: 0;
+}
 .main .parent:hover {
   opacity: .2;
 }
