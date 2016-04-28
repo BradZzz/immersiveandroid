@@ -64,7 +64,8 @@ angular.module('ambrosia').controller('MainCtrl',
                     if ($scope.params.selected.type === 'tv') {
                         $scope.params.selected.pFormatted = this.episodeFormatted($scope.params.path)
                     }
-                    seSender.loadCustomMedia( $scope.params.pre + picked + $scope.params.post )
+                    console.log('parts', $scope.params.pre, picked, $scope.params.post)
+                    seSender.loadCustomMedia( ($scope.params.pre + picked + $scope.params.post).replace(/"/g, "") )
                   },
                   pickMedia : function (pick) {
                     var channel = $scope.params.allChannels[$scope.params.channel]
