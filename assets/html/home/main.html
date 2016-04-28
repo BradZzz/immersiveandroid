@@ -3,12 +3,12 @@
 		<md-card style="height:90vh" layout="column">
 			<h3 style="text-align: center;">{{ params.allChannels[params.channel].name }}</h3>
 			<div layout="row">
-				<div layout="column" offset="10">
+				<div layout="column" offset-gt-sm="10" offset="15">
 					<div flex hide-gt-sm layout="row" style="margin-bottom:10px">
-						<md-button style="min-width: 50px; max-width: 50px;" flex="20" class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }"
+						<md-button style="min-width: 50px; max-width: 50px; min-height: 50px; max-height: 50px;" flex="20" class="sq-button md-raised md-cornered" ng-class="{ 'ion-android-hand' : params.casting, 'ion-android-laptop' : !params.casting }"
 								   ng-click="ctrl.toggleCast()"></md-button>
-						<md-button style="min-width: 50px; max-width: 50px;" flex="20" class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>
-						<span offset="5" flex="45" style="text-align: center; margin: 8px 0 7px 0; font-weight: bold;">{{ params.selected.name }}</span>
+						<md-button style="min-width: 50px; max-width: 50px; min-height: 50px; max-height: 50px;" flex="20" class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky" ng-class="{ 'active' : params.sticky }"></md-button>
+						<span offset="5" flex="45" style="text-align: center; margin: 14px 0 7px 0; font-weight: bold;">{{ params.selected.name }}</span>
 					</div>
 					<div class="border img-wrapper" >
 						<img ng-src="{{ params.selected.poster }}">
