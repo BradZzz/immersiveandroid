@@ -84,14 +84,6 @@ function ($http, $q, Flash)
                     function(file){ return file.imdbId }
                 )
             }
-        },
-        { name : "Fantastic Adventure", create :
-            function (meta) {
-                return _.map(
-                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Fantasy') && 'imdbId' in file }),
-                    function(file){ return file.imdbId }
-                )
-            }
         }
     ]
     return _.map(channels, function(channel) { return { name : channel.name, shows : channel.create(meta) } })
