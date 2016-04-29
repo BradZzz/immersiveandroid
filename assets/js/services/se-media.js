@@ -48,7 +48,7 @@ function ($http, $q, Flash)
         { name : "Dane Cook", create :
             function (meta) {
                 return _.map(
-                    _.filter(meta, function(file){ return _.contains(file.genre, 'Comedy') && 'imdbId' in file }),
+                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Comedy') && 'imdbId' in file }),
                     function(file){ return file.imdbId }
                 )
             }
@@ -56,7 +56,7 @@ function ($http, $q, Flash)
         { name : "Action Ninja", create :
             function (meta) {
                 return _.map(
-                    _.filter(meta, function(file){ return _.contains(file.genre, 'Action') && 'imdbId' in file }),
+                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Action') && 'imdbId' in file }),
                     function(file){ return file.imdbId }
                 )
             }
@@ -64,7 +64,7 @@ function ($http, $q, Flash)
         { name : "Overly Dramatic", create :
             function (meta) {
                 return _.map(
-                    _.filter(meta, function(file){ return _.contains(file.genre, 'Drama') && 'imdbId' in file }),
+                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Drama') && 'imdbId' in file }),
                     function(file){ return file.imdbId }
                 )
             }
@@ -72,7 +72,7 @@ function ($http, $q, Flash)
         { name : "Barely Animated", create :
             function (meta) {
                 return _.map(
-                    _.filter(meta, function(file){ return _.contains(file.genre, 'Animation') && 'imdbId' in file }),
+                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Animation') && 'imdbId' in file }),
                     function(file){ return file.imdbId }
                 )
             }
@@ -80,7 +80,15 @@ function ($http, $q, Flash)
         { name : "00Jones", create :
             function (meta) {
                 return _.map(
-                    _.filter(meta, function(file){ return _.contains(file.genre, 'Adventure') && 'imdbId' in file }),
+                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Adventure') && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
+        },
+        { name : "Fantastic Adventure", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Fantasy') && 'imdbId' in file }),
                     function(file){ return file.imdbId }
                 )
             }
