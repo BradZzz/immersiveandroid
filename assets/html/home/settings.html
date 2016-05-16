@@ -1,0 +1,34 @@
+<div class="settings">
+	<md-card class="content" style="min-height: 90vh; position: relative;">
+		<md-content>
+			<div class="list-wrapper" layout-gt-md="row" layout="column"  layout-align="space-around center">
+				<div class="list-child" flex-gt-md="40" offset-gt-md="5" flex="90">
+					<md-subheader class="md-no-sticky">Selectable Shows</md-subheader>
+					<md-list class="border" style="height:250px; overflow-y: auto;">
+						<md-list-item class="selectable md-1-line" ng-repeat="met in ctrl.meta" layout="row" ng-click="ctrl.add($index)">
+							<img flex="50" ng-src="{{ met.poster }}" class="md-avatar" style="min-width: 50px !important;
+								max-height: 50px !important; min-height: 50px !important; max-width: 50px !important;position:relative;border: 1px solid;margin: 10px 20px;"/>
+							<span flex="50" class=" md-margin md-list-item-text" layout="column" style="position:relative;color:black;">
+								<h3>{{ met.name }}</h3>
+							</span>
+						</md-list-item>
+					</md-list>
+				</div>
+				<div class="list-child" flex-gt-md="40" offset-gt-md="10" flex="90">
+					<md-subheader class="md-no-sticky">Unselectable Shows</md-subheader>
+					<md-list class="border" style="height:250px; overflow-y: auto;">
+						<md-list-item class="selectable md-1-line" ng-repeat="met in ctrl.user.exclude" layout="row" ng-click="ctrl.remove($index)">
+							<img flex="50" ng-src="{{ met.poster }}" class="md-avatar" style="min-width: 50px !important;
+								max-height: 50px !important; min-height: 50px !important; max-width: 50px !important;position:relative;border: 1px solid;margin: 10px 20px;"/>
+							<span flex="50" class=" md-margin md-list-item-text" layout="column" style="position:relative;color:black;">
+								<h3>{{ met.name }}</h3>
+							</span>
+						</md-list-item>
+					</md-list>
+				</div>
+			</div>
+		</md-content>
+		<md-button style="position: relative; margin: 70px auto 20px auto;" layout-align="center center" class="md-raised footer md-margin" ng-class="{ 'active' : ctrl.active }"
+				   ng-click="ctrl.saveClicked(ctrl.user);">Save</md-button>
+	</md-card>
+</div>
