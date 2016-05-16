@@ -35,12 +35,11 @@ module.exports = function (app) {
         console.log(req.query)
         if ('name' in req.query && 'season' in req.query && 'episode' in req.query) {
             var params = {
-                title: req.query.name.replace(/_/g, '+').capitalize(),
+                title: req.query.name.replace(/_/g, ' ').capitalize(),
                 season: req.query.season,
                 episode: req.query.episode
             }
             omdbApi.get(params, function(err, data) {
-                console.log(data)
                 if (err) {
                   console.log(err)
                   return res.status(500).json(err)
@@ -48,6 +47,17 @@ module.exports = function (app) {
                   return res.status(200).json(data)
                 }
             })
+            /*var url = 'http://www.omdbapi.com/?t=' + params.title.replace(' ','%20') + "&Season=" + params.season + "&Episode=" + params.episode + '&r=json&v=1'
+            console.log(url)
+            request(url, function(error, response, html){
+                console.log(response.body)
+                if (error) {
+                  console.log(error)
+                  return res.status(500).json(err)
+                } else {
+                  return res.status(200).json(response.body)
+                }
+            })*/
         } else {
             return res.status(400).json("Request doesn't contain all necessary parameters")
         }

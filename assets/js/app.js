@@ -69,6 +69,12 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     templateUrl: "/assets/html/home/localplayer.html",
     controller: "LocalPlayerCtrl",
     data: { role: 1 }
+  }).state('settings', {
+    url: "/settings",
+    parent: 'site',
+    templateUrl: "/assets/html/home/settings.html",
+    controller: "SettingsCtrl",
+    data: { role: 1 }
   }).state('mpl', {
     url: "/mpl",
     templateUrl: "/assets/html/misc/mpl.html"

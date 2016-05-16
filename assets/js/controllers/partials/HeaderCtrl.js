@@ -79,7 +79,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seMedia, seThe
         { icon : 'ion-android-home', text : 'Home', click : function(){$state.go('home')} },
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){$state.go('analytics')} },
-        { icon : 'ion-ios-gear', text : 'Settings', click : function(){console.log("clicked settings")} },
+        { icon : 'ion-ios-gear', text : 'Settings', click : function(){$state.go('settings')} },
         { icon : 'ion-android-exit', text : 'Logout', click : function(){ $scope.loginRegister.logout() } },
     ],
     incBackground : function (offset) {

@@ -15,6 +15,7 @@ var userSchema = new mongoose.Schema({
 
   //misc shit that has to do with the user's account
   personal: [{ type: mongoose.Schema.Types.Mixed }],
+  exclude: [{ type: mongoose.Schema.Types.Mixed }],
 
   //profile fields
   photo:    { type: String, default: 'assets/img/test/test_logged_out.png' },

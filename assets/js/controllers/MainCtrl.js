@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('MainCtrl',
-['$scope', '$rootScope', '$q', 'seMedia', 'seSender',
- function ($scope, $rootScope, $q, seMedia, seSender)
+['$scope', '$rootScope', '$q', 'seMedia', 'seSender', 'sePrincipal',
+ function ($scope, $rootScope, $q, seMedia, seSender, sePrincipal)
 {
     console.log('MainCtrl')
 
@@ -8,12 +8,17 @@ angular.module('ambrosia').controller('MainCtrl',
 
     seSender.setup()
 
+    $scope.user = {}
+
     $scope.sChannel = {
         name : "Loading Channels...",
         shows : ["tt0397306", "tt1486217", "tt1561755"]
     }
 
     $scope.params = {
+        /* Shows to never play */
+        excludes : [],
+
         /* for the ui */
         flipped : false,
 
@@ -79,9 +84,12 @@ angular.module('ambrosia').controller('MainCtrl',
                     } else {
                         if (!$scope.params.sticky || $scope.params.selected == null) {
                             var iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
-                            if ( $scope.params.selected !== null ) {
+                            if ( $scope.params.selected !== null || checkExclude(channel, iSelection)) {
+                                if ($scope.params.selected === null) {
+                                    $scope.params.selected = $scope.params.map[channel.shows[iSelection]]
+                                }
                                 var nSelection = _.indexOf(channel.shows, $scope.params.selected.imdbId)
-                                while (nSelection === iSelection) {
+                                while (nSelection === iSelection || checkExclude(channel, iSelection)) {
                                     iSelection = chance.integer({min: 0, max: channel.shows.length - 1})
                                 }
                             }
@@ -171,6 +179,7 @@ angular.module('ambrosia').controller('MainCtrl',
                     console.log('episodeFormatted', pFormatted, season, episode)
 
                     seMedia.getEpisode($scope.params.selected.name, season, episode).then(function(result){
+                        console.log(result)
                         $scope.params.selected.epMeta = result
                     })
                     return "Season: " + season + " Episode: " + episode
@@ -194,7 +203,21 @@ angular.module('ambrosia').controller('MainCtrl',
         })
     }
 
-    load()
+    function checkExclude (channel, selected) {
+        /* return true if the exclude map contains the selection */
+        return $scope.params.excludes.indexOf($scope.params.map[channel.shows[selected]].imdbId) > -1
+    }
+
+    sePrincipal.identity().then( function(data){
+        $scope.user = data
+        if (!('exclude' in $scope.user)) {
+            $scope.user.exclude = []
+        }
+        $scope.params.excludes = _.map($scope.user.exclude, function(ex){
+            return ex.imdbId
+        })
+        load()
+    })
 
     //Receivers
     $scope.$on('update', function (scope, media) {
