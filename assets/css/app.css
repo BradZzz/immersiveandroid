@@ -219,6 +219,16 @@ button.md-raised.active:hover {
   }
 }
 @media screen and (max-width: 600px) {
+  .media .media-image-wrapper {
+    margin: 0 auto 20px auto;
+  }
+  .media .media-meta-wrapper {
+    margin: 0 !important;
+  }
+  .media .media-meta-wrapper .media-title {
+    text-align: center;
+    margin: 20px !important;
+  }
   .header .nav-icons .nav-home {
     margin-right: 30px !important;
   }
@@ -353,6 +363,13 @@ button.md-raised.active:hover {
   height: 320px;
   margin: auto;
   overflow: hidden;
+}
+.media .content .media-meta-wrapper {
+  margin: 0 20px;
+}
+.media .content .media-meta-wrapper .media-title {
+  font-weight: bold;
+  margin: 20px 0;
 }
 .media .content .media-image-wrapper {
   position: relative;

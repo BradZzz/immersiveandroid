@@ -1,7 +1,7 @@
 <div class="media">
 	<md-card ng-if="media.type === ctrl.viewType" class="content" ng-repeat="media in ctrl.meta track by $index">
-		<div layout="row">
-			<div class="md-margin media-image-wrapper">
+		<div layout-gt-sm="row" layout="column">
+			<div class="md-margin media-image-wrapper" flex-order-gt-sm="1" flex-order="2">
 				<img ng-src="{{ media.poster }}" class="media-image">
 				<div layout="column" class="media-overlay">
 					<div class="media-overlay-background"></div>
@@ -9,19 +9,19 @@
 					<ng-md-icon icon="cast" style="fill: white; z-index:0;" class="selectable"></ng-md-icon>
 				</div>
 			</div>
-			<div layout="column" layout-fill style="margin: 0 20px;">
-				<div style="font-weight:bold; margin: 20px 0;">
+			<div class="media-meta-wrapper" layout="column" layout-fill flex-order-gt-sm="2" flex-order="1">
+				<div class="media-title">
 					<span style="font-size: 32px;">{{ media.name }}</span>
 					<span style="margin-left:10px;">
 						(<a target="_blank" ng-href="http://www.imdb.com/title/{{ media.imdbId }}/">imdb</a>)
 					</span>
 				</div>
 				<div layout="row" flex style="align-items: center;">
-					<div class="md-margin media-rating-wrapper">
+					<div hide show-gt-sm class="md-margin media-rating-wrapper">
 						<div class="media-rating-huebox"></div>
 						<span>{{ media.imdbRating }}</span>
 					</div>
-					<md-input-container offset="5" flex="15" ng-if="media.episodes.length > 0" class="md-block">
+					<md-input-container offset-gt-sm="5" flex-gt-sm="15" ng-if="media.episodes.length > 0" class="md-block" style="margin: 0 auto;">
 						<label>Episode</label>
 						<md-select ng-model="media.sEpisode">
 							<md-option ng-repeat="episode in media.episodes" value="{{ episode }}" ng-selected="$last">
@@ -29,7 +29,7 @@
 							</md-option>
 						</md-select>
 					</md-input-container>
-					<div offset="5" flex="50" layout="row" class="center-vertical md-margin md-padding" style="margin-left: 10px;">
+					<div hide show-gt-sm offset="5" flex="50" layout="row" class="center-vertical md-margin md-padding" style="margin-left: 10px;">
 						<div flex="20"><ng-md-icon icon="group" class="md-margin"></ng-md-icon><span class="md-margin">{{ media.rated }}</span></div>
 						<div flex="25"><ng-md-icon icon="av_timer" class="md-margin"></ng-md-icon><span class="md-margin">{{ media.runtime }}</span></div>
 						<div flex="25"><ng-md-icon icon="date_range" class="md-margin"></ng-md-icon><span class="md-margin">{{ media.year }}</span></div>
@@ -41,7 +41,7 @@
 						</div>
 					</div>
 				</div>
-				<span flex>{{ media.plot }}</span>
+				<span hide show-gt-sm flex>{{ media.plot }}</span>
 			</div>
 		</div>
 	</md-card>

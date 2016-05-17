@@ -13,7 +13,8 @@ var Q        = require('q')
 var _        = require('underscore')
 var request  = require('request')
 var Media    = require('../../models/media')
-var omdbApi = require('omdb-client')
+var omdbApi  = require('omdb-client')
+var utils    = require('../../lib/utils')
 
 var AWS = require('aws-sdk')
 AWS.config.update({
@@ -44,7 +45,11 @@ module.exports = function (app) {
                   console.log(err)
                   return res.status(500).json(err)
                 } else {
-                  return res.status(200).json(data)
+                  if (utils.isJSON(data)) {
+                    return res.status(200).json(data)
+                  } else {
+                    return res.status(500).json({ data : data })
+                  }
                 }
             })
             /*var url = 'http://www.omdbapi.com/?t=' + params.title.replace(' ','%20') + "&Season=" + params.season + "&Episode=" + params.episode + '&r=json&v=1'

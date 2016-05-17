@@ -220,6 +220,18 @@ button.md-raised {
 }
 
 @media screen and (max-width: 600px) {
+    .media {
+        .media-image-wrapper {
+            margin: 0 auto 20px auto;
+        }
+        .media-meta-wrapper {
+            margin : 0 !important;
+            .media-title {
+                text-align : center;
+                margin : 20px !important;
+            }
+        }
+    }
     .header .nav-icons .nav-home {
         margin-right: 30px !important;
     }
@@ -368,6 +380,13 @@ button.md-raised {
 
 .media {
     .content {
+        .media-meta-wrapper {
+            margin: 0 20px;
+            .media-title {
+                font-weight:bold;
+                margin: 20px 0;
+            }
+        }
         .media-image-wrapper {
             position: relative;
             min-height: 220px;
