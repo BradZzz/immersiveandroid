@@ -84,6 +84,15 @@ function ($http, $q, Flash)
                     function(file){ return file.imdbId }
                 )
             }
+        },
+        { name : "Casual Cartoons", create :
+            function (meta) {
+                return _.map(
+                    _.filter(meta, function(file){ return file.type !== 'movie' && _.contains(file.genre, 'Animation') && !_.contains(file.genre, 'Horror')
+                        && (file.rated === "TV-Y7" || file.rated === "TV-PG") && 'imdbId' in file }),
+                    function(file){ return file.imdbId }
+                )
+            }
         }
     ]
     return _.map(channels, function(channel) { return { name : channel.name, shows : channel.create(meta) } })

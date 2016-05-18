@@ -1,6 +1,6 @@
 <div class="media">
 	<md-card ng-if="media.type === ctrl.viewType" class="content" ng-repeat="media in ctrl.meta track by $index">
-		<div layout-gt-sm="row" layout="column">
+		<div layout-gt-sm="row" layout="column" class="md-margin">
 			<div class="md-margin media-image-wrapper" flex-order-gt-sm="1" flex-order="2">
 				<img ng-src="{{ media.poster }}" class="media-image">
 				<div layout="column" class="media-overlay">
