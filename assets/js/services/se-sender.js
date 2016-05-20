@@ -895,6 +895,10 @@ angular.module('ambrosia').service('seSender',
           showCodeSnippet(code, 'receiver');
         }
 
+        this.getCurrentMedia = function(){
+            return currentMedia
+        }
+
         /**
          * callback on success for media commands
          * @param {string} info A message string

@@ -45,6 +45,8 @@ module.exports = function (app) {
                   console.log(err)
                   return res.status(500).json(err)
                 } else {
+                  console.log(data)
+                  console.log(utils.isJSON(data))
                   if (utils.isJSON(data)) {
                     return res.status(200).json(data)
                   } else {

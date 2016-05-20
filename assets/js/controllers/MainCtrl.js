@@ -60,6 +60,7 @@ angular.module('ambrosia').controller('MainCtrl',
           },
           playM : function () {
             seSenderHelper.ctrl.playM()
+            $scope.params.paused = seSenderHelper.params.paused
           },
           navC : function (dir) {
             seSenderHelper.ctrl.navC(dir)
@@ -79,6 +80,7 @@ angular.module('ambrosia').controller('MainCtrl',
           },
           toggleCast : function(){
             seSenderHelper.ctrl.toggleCast()
+            $scope.params.casting = seSenderHelper.params.casting
           },
           sticky : function(){
             seSenderHelper.params.sticky = $scope.params.sticky
