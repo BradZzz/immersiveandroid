@@ -70,7 +70,7 @@ module.exports = function (app) {
       console.log('printing ledger')
       console.log(pLedger)
 
-      pendingLedger.findOneAndUpdate({ sym : params.sym, user : req.user._id }, pLedger, {upsert:true,new:true}, function(err, ledger){
+      pendingLedger.findOneAndUpdate({ sym : params.sym, user : req.user._id }, pLedger, { upsert : true, new : true }, function(err, ledger){
         if (err) {
           console.log(err)
           return res.status(500).json(err)

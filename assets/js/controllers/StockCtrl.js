@@ -134,11 +134,10 @@ function ($scope, $rootScope, $state, $stateParams, $location, $window, $mdDialo
            })
            $scope.ctrl.refreshPending().then(function(resp){
              console.log('refresh', resp)
-             seQuotes.getBuyPendingList().then(function(list){
+             seQuotes.getPendingList($scope.ctrl.tickerAbbrv).then(function(list){
                console.log('finished')
                console.log(list)
-               console.log(_.find(list, function(tick){ return tick.ticker == $scope.ctrl.tickerAbbrv }))
-               var companyList = _.find(list, function(tick){ return tick.ticker == $scope.ctrl.tickerAbbrv })
+               var companyList = list
                console.log(companyList)
                $scope.ctrl.company.comments = _.map(companyList.comments,
                  function(comment){ return {

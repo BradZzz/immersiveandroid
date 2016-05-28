@@ -25,6 +25,7 @@ var utils         = require('../../lib/utils')
 var buyFee = 4.95
 
 var cache = {}
+cache.list = {}
 
 module.exports = function (app) {
 
@@ -202,31 +203,72 @@ module.exports = function (app) {
     })
   })*/
 
+  app.get('/stock/search', function(req, res) {
+    if ('contains' in req.query) {
+        var query = new RegExp(req.query.contains, 'i')
+
+        //query.name = { "$regex": req.query.contains, "$options": "i" }
+        //query.symbol = { "$regex": req.query.contains, "$options": "i" }
+
+        Financial.find({ $or : [ { 'name' : query }, { 'symbol' : query } ] }, function(err, result){
+            console.log(result)
+            console.log(err)
+            return res.status(200).json(result)
+        }).limit(10)
+    } else {
+        return res.status(400).json("Bad Request")
+    }
+  })
+
   app.get('/stock/list', function(req, res) {
-    //if ('list' in cache) {
-    //    return res.status(200).json(cache.list)
-    //} else {
-        utils.getTheList().then(function(data){
-            console.log('returned data')
-            if (data === undefined) {
+
+    if ('ticker' in req.query) {
+        /* This cache needs to be removed when a user adds a comment */
+        if ('list' in cache && req.query.ticker in cache.list) {
+            return res.status(200).json(cache.list[req.query.ticker])
+        } else {
+            /*utils.getTheList().then(function(data){
+                console.log('returned data')
+                if (data === undefined) {
+                    return res.status(500).json('bad data')
+                }
+                cache.list = _.map(data, function(tick) {
+                  var found = {}
+                  var maxLength = chance.integer({min: 1, max: 10})
+                  var comments = []
+                  while (comments.length < maxLength) {
+                      comments.push({
+                        user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
+                        text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
+                      })
+                  }
+                  console.log('adding', tick.symbol)
+                  return { ticker: tick.symbol, name: tick.name, invested : 0, comments : comments, buyFee : buyFee }
+                })
+                return res.status(200).json(cache.list)
+            })*/
+            Financial.find({ symbol : req.query.ticker }, function(err, stock) {
+              if (err || !stock) {
+                console.log(err)
+                console.log(stock)
                 return res.status(500).json('bad data')
-            }
-            cache.list = _.map(data, function(tick) {
+              }
               var found = {}
               var maxLength = chance.integer({min: 1, max: 10})
               var comments = []
               while (comments.length < maxLength) {
-                  comments.push({
-                    user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
-                    text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
-                  })
+                comments.push({
+                  user: chance.word({syllables: chance.integer({min: 1, max: 10})}),
+                  text: chance.paragraph({sentences: chance.integer({min: 1, max: 3})})
+                })
               }
-              console.log('adding', tick.symbol)
-              return { ticker: tick.symbol, name: tick.name, invested : 0, comments : comments, buyFee : buyFee }
+              cache.list[req.query.ticker] = { ticker: stock.symbol, name: stock.name, invested : 0, comments : comments, buyFee : buyFee }
+              return res.status(200).json(cache.list[req.query.ticker])
             })
-            return res.status(200).json(cache.list)
-        })
-    //}
+        }
+    } else {
+        return res.status(400).json("Bad Request")
+    }
   })
 
 //Record.find().distinct('sym', function (err, user_ids) { ... })

@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('HeaderCtrl',
-['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seQuotes', 'seTheme', 'sePrincipal', 'seAuthorization', 'seLedger',
-function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTheme, sePrincipal, seAuthorization, seLedger)
+['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', '$q', 'seQuotes', 'seTheme', 'sePrincipal', 'seAuthorization', 'seLedger',
+function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, $q, seQuotes, seTheme, sePrincipal, seAuthorization, seLedger)
 {
   $scope.loginRegister = {
     isLoggingIn : true,
@@ -54,16 +54,25 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
   $scope.ctrl = {
     simulateQuery : false,
     isDisabled : false,
-    states : [],
     querySearch : function (query) {
-        query = query.toLowerCase()
+        var self = this
+        console.log("query", query)
         if (query) {
-            return _.filter($scope.ctrl.states, function(tick){ return tick.display.toLowerCase().indexOf(query) > -1 }).splice(0, 10)
+            var deferred = $q.defer()
+            seQuotes.getSearchCompany(query.toLowerCase()).then(function(results){
+                deferred.resolve( _.map(results, function(result){ return {
+                      display : result.name + " (" + result.symbol + ")",
+                      value : result.symbol.toLowerCase()
+                  }
+                }))
+            })
+            return deferred.promise
         } else {
             return []
         }
     },
     selectedItemChange : function (item) {
+        console.log("Clicked : ", item)
         if (item && 'value' in item) {
           $state.go('stock', { ticker: item.value.toUpperCase() })
         }
@@ -100,21 +109,14 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seQuotes, seTh
     $scope.loginRegister.refresh()
   })
 
-  //This runs once when the user refreshes the browser
-  //seUser.recover(function(data){
-  //    $scope.loginRegister.refresh()
-  //})
-
-  seQuotes.getPendingList().then(function(response){
-      //console.log('test list response: ', response)
+  /*seQuotes.getPendingList().then(function(response){
       $scope.ctrl.states = _.map( response , function (tick) {
          return {
            value: tick.ticker.toLowerCase(),
            display: tick.name + ' (' + tick.ticker + ')',
          }
       })
-      //console.log('states: ', $scope.ctrl.states)
-  })
+  })*/
 
   $scope.toggleRight = buildToggler('left')
 

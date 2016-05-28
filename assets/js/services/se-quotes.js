@@ -27,23 +27,6 @@ function ($http, $q, seLedger)
     }
   }
 
-  self.getList = function () {
-    if ('getList' in self.cache) {
-      var deferred = $q.defer()
-      deferred.resolve(self.cache.getList)
-      return deferred.promise
-    } else {
-      return $http({
-        url: '/stock/list',
-        method: 'GET',
-      }).then(function (response) {
-        self.print(response)
-        self.cache.getList = response.data
-        return response.data
-      })
-    }
-  }
-
   //Only for demo
   /*self.getTestList = function () {
       if ('getTestList' in self.cache) {
@@ -68,34 +51,36 @@ function ($http, $q, seLedger)
 
   function replaceList(list){
       return seLedger.getCountList().then(function(ledger){
-        return _.flatten([_.filter(list, function(stock){return !(stock.ticker in ledger)}), _.map(ledger)])
+        console.log("ledger", ledger)
+        return _.map(list,function(stock){
+            console.log("comparing: ", stock.sym)
+            if (stock.sym in ledger) {
+                var meta = ledger[stock.sym]
+                stock.invested = meta.invested
+                stock.buyFee = meta.buyFee
+                stock.totalFee = parseFloat((parseFloat(meta.buyFee) / parseFloat(meta.invested)).toFixed(2))
+            }
+            return stock
+        })
       })
   }
 
-  function pendingList(){
-    if ('getPendingList' in self.cache) {
-      var deferred = $q.defer()
-      deferred.resolve(self.cache.getPendingList)
-      return deferred.promise
-    } else {
+  self.getPendingList = function (ticker) {
+      var params = {}
+      if (ticker) {
+        params.ticker = ticker
+      }
       return $http({
         url: '/stock/list',
         method: 'GET',
+        params: params
       }).then(function (response) {
-        self.cache.getPendingList = response.data
-        return self.cache.getPendingList
+        return response.data
       })
-    }
   }
 
-  self.getPendingList = function () {
-      return pendingList()
-  }
-
-  self.getBuyPendingList = function () {
-    return pendingList().then(function(data){
-      return replaceList(data)
-    })
+  self.getBuyPendingList = function (list) {
+    return replaceList(list)
   }
 
   self.getCompany = function (sym) {
@@ -119,6 +104,18 @@ function ($http, $q, seLedger)
             return response.data
         })
     }
+  }
+
+  self.getSearchCompany = function (contains) {
+      return $http({
+          url: '/stock/search',
+          method: 'GET',
+          params: {
+            contains: contains
+          }
+      }).then(function (response) {
+          return response.data
+      })
   }
 
   self.getCompanyLedger = function (sym) {

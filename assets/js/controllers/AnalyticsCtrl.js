@@ -118,10 +118,10 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, $window, s
           function(results){
             console.log("Finished!")
             console.log(results)
-            var pending = []
+            //var pending = []
 
-            seQuotes.getBuyPendingList().then(function(list){
-               _.each(list, function(tick){
+            seQuotes.getBuyPendingList(results).then(function(list){
+               /*_.each(list, function(tick){
                  var loc = _.find(results, function(entry){ return entry.sym === tick.ticker })
                  if (loc !== undefined) {
                     loc.invested = tick.invested
@@ -130,8 +130,9 @@ function ($scope, $http, $rootScope, $state, $timeout, $q, $mdDialog, $window, s
                     pending.push(loc)
                     console.log('pushing', loc)
                  }
-               })
-               updateChart(pending)
+               })*/
+               console.log("returned", list)
+               updateChart(list)
                $rootScope.loading = false
             })
           },function(err){
