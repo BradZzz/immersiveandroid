@@ -55,7 +55,7 @@ angular.module('ambrosia').service('seSenderHelper',
                          $rootScope.$broadcast('mediaSelected', self.params.selected)
                          var curr = seSender.getCurrentMedia()
                          console.log(curr)
-                         if (!curr) {
+                         if (!curr || curr === undefined) {
                             seSender.loadCustomMedia( (self.params.pre + picked + self.params.post).replace(/"/g, "") )
                          }
                        } else {
@@ -170,6 +170,9 @@ angular.module('ambrosia').service('seSenderHelper',
                        var pFormatted = path.substring(path.substring(0, path.length -1).lastIndexOf('/') + 1, path.length -1 )
                        var season = pFormatted.substring(0, pFormatted.length - 2)
                        var episode = pFormatted.substring(pFormatted.length - 2, pFormatted.length)
+                       seMedia.getMediaAnalytics(self.params.selected.name).then(function(result){
+                         console.log(result)
+                       })
                        seMedia.getEpisode(self.params.selected.name, season, episode).then(function(result){
                          console.log(result)
                          self.params.selected.epMeta = result

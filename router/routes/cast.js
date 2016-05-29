@@ -9,12 +9,12 @@ http://www.asx.com.au/asx/research/ASXListedCompanies.csv
 
 require('dotenv').load()
 
-var Q        = require('q')
-var _        = require('underscore')
-var request  = require('request')
-var Media    = require('../../models/media')
-var omdbApi  = require('omdb-client')
-var utils    = require('../../lib/utils')
+var Q           = require('q')
+var _           = require('underscore')
+var request     = require('request')
+var Media       = require('../../models/media')
+var omdbApi     = require('omdb-client')
+var utils       = require('../../lib/utils')
 
 var AWS = require('aws-sdk')
 AWS.config.update({
@@ -27,6 +27,63 @@ String.prototype.capitalize = function() {
 }
 
 module.exports = function (app) {
+
+    app.get('/cast/media/analytics', function (req, res) {
+      console.log(req.query)
+      if ('name' in req.query) {
+        var summaryUrl = "http://thetvdb.com/api/GetSeries.php?seriesname=" + req.query.name
+        utils.reqXMLJSON(summaryUrl).then(function(data, err){
+          console.log(data)
+          if ('seriesid' in data.Data.Series[0]) {
+            /* Update the database right here with id */
+            var seriesUrl = "http://thetvdb.com/api/" + process.env.TVDBAPI + "/series/" + data.Data.Series[0].seriesid[0] + "/all/en.xml"
+            utils.reqXMLJSON(seriesUrl).then(function(data, err){
+              return res.status(200).json(data)
+            })
+          } else {
+            return res.status(500).json({ err : "invalid json meta", data : data })
+          }
+        })
+      } else {
+        return res.status(400).json("Request doesn't contain all necessary parameters")
+      }
+    })
+
+    function getTVSummary(name){
+        var deferred = Q.defer()
+        var url = "http://thetvdb.com/api/GetSeries.php?seriesname=" + name
+        console.log("querying: " + url)
+        request(url, function(err, response, html){
+            if (err) {
+              deferred.resolve(err)
+            }
+            parseString(html, function (err, result) {
+              if (err) {
+                deferred.resolve(err)
+              }
+              deferred.resolve(result)
+            })
+        })
+        return deferred.promise
+    }
+
+    function getTVMeta(id){
+        var deferred = Q.defer()
+        var url = "http://thetvdb.com/api/" + process.env.TVDBAPI + "/series/" + id + "/all/en.xml"
+        console.log("querying: " + url)
+        request(url, function(err, response, html){
+            if (err) {
+              deferred.resolve(err)
+            }
+            parseString(html, function (err, result) {
+              if (err) {
+                deferred.resolve(err)
+              }
+              deferred.resolve(result)
+            })
+        })
+        return deferred.promise
+    }
 
     app.get('/cast/media/static', function (req, res) {
       return res.status(200).json({ pre : process.env.MEDIA_PREFIX, post : process.env.MEDIA_POSTFIX })

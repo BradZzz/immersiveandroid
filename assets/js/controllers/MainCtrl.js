@@ -82,15 +82,11 @@ angular.module('ambrosia').controller('MainCtrl',
             seSenderHelper.ctrl.toggleCast()
             $scope.params.casting = seSenderHelper.params.casting
           },
-          sticky : function(){
+          updateParams : function() {
             seSenderHelper.params.sticky = $scope.params.sticky
-          },
-          newest : function(){
             seSenderHelper.params.newest = $scope.params.newest
-          },
-          ordered : function(){
             seSenderHelper.params.ordered = $scope.params.ordered
-          },
+          }
         }
 
         $scope.params.allChannels = seSenderHelper.params.allChannels

@@ -44,9 +44,9 @@
 							<md-button class="md-raised md-cornered ion-refresh" ng-click="ctrl.rCast()"></md-button>
 							<md-button class="ion-arrow-up-b md-raised md-cornered" ng-click="ctrl.navC(1)"></md-button>
 							<md-button class="ion-arrow-down-b md-raised md-cornered" ng-click="ctrl.navC(-1)" style="margin-bottom:50px;"></md-button>
-							<md-button class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky; ctrl.sticky();" ng-class="{ 'active' : params.sticky }"></md-button>
-							<md-button class="ion-ios-star md-raised md-cornered" ng-click="params.newest = !params.newest; params.ordered = false; ctrl.newest();" ng-class="{ 'active' : params.newest }"></md-button>
-							<md-button class="ion-ios-list md-raised md-cornered" ng-click="params.ordered = !params.ordered; params.newest = false; ctrl.ordered();" ng-class="{ 'active' : params.ordered }"></md-button>
+							<md-button class="ion-pin md-raised md-cornered" ng-click="params.sticky = !params.sticky; ctrl.updateParams();" ng-class="{ 'active' : params.sticky }"></md-button>
+							<md-button class="ion-ios-star md-raised md-cornered" ng-click="params.newest = !params.newest; params.ordered = false; ctrl.updateParams();" ng-class="{ 'active' : params.newest }"></md-button>
+							<md-button class="ion-ios-list md-raised md-cornered" ng-click="params.ordered = !params.ordered; params.newest = false; ctrl.updateParams();" ng-class="{ 'active' : params.ordered }"></md-button>
 						</div>
 						<div layout="column" style="margin-bottom: 15px;">
 							<md-button style="min-height: 18px; min-width: 42px; max-width: 42px;" ng-repeat="vol in params.volSettings" class="md-raised md-cornered" ng-click="ctrl.setV(vol)" ng-class="{ 'active' : params.volume >= vol }"></md-button>

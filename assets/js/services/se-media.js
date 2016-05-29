@@ -98,6 +98,19 @@ function ($http, $q, Flash)
     return _.map(channels, function(channel) { return { name : channel.name, shows : channel.create(meta) } })
   }
 
+  self.getMediaAnalytics = function (name) {
+    return $http({
+      url: '/cast/media/analytics',
+      method: 'GET',
+      params: {
+        name: name,
+      }
+    }).then(function (response) {
+      console.log(response)
+      return response.data
+    })
+  }
+
   self.getEpisode = function (name, season, episode) {
     return $http({
       url: '/cast/media/episode',
