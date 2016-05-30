@@ -51,12 +51,13 @@ angular.module('ambrosia').service('seSenderHelper',
                    self.ctrl = {
                      init : function () {
                        console.log("loading...")
-                       if (self.params.selected != null) {
+                       if (self.params.selected != null && self.params.path) {
                          $rootScope.$broadcast('mediaSelected', self.params.selected)
                          var curr = seSender.getCurrentMedia()
                          console.log(curr)
-                         if (!curr || curr === undefined) {
-                            seSender.loadCustomMedia( (self.params.pre + picked + self.params.post).replace(/"/g, "") )
+                         if (!curr) {
+                            console.log("loading: ", self.params)
+                            seSender.loadCustomMedia( (self.params.pre + self.params.path + self.params.post).replace(/"/g, "") )
                          }
                        } else {
                          this.loadMedia()
