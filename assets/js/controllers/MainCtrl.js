@@ -128,12 +128,12 @@ angular.module('ambrosia').controller('MainCtrl',
     $scope.$on('retry', function () {
       console.log('on-retry')
       $scope.params.ordDirection = 1
-      $scope.ctrl.loadMedia()
+      $scope.ctrl.nextM()
     })
     $scope.$on('finish', function () {
        console.log('on-finish')
        $scope.params.ordDirection = 1
-       $scope.ctrl.loadMedia()
+       $scope.ctrl.nextM()
     })
     $scope.$on('init', function () {
         console.log('init')
