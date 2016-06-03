@@ -31,7 +31,9 @@ module.exports = function (app) {
   app.post('/register', function(req, res) {
     var body = req.body
     var instance = new User();
-    if ( 'email' in body && 'pass' in body && 'type' in body ) {
+    //console.log(req.user)
+    //Check to make sure the user can register other users and the body has the right keys included...
+    if ( 'user' in req && req.user.role >= 4 && 'email' in body && 'pass' in body && 'type' in body ) {
       instance.email = instance.name = body.email
       instance.pass = instance.generateHash(body.pass)
       instance.type = body.type

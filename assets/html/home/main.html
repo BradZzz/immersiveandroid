@@ -23,7 +23,7 @@
 									<h3 class="md-margin">Back</h3>
 									<div class="selectable fade" style="background:black; opacity:0;left:0;" ng-click="params.flipped = !params.flipped"></div>
 								</md-list-item>
-								<md-list-item ng-repeat="show in params.allChannels[params.channel].shows" layout="row"
+								<md-list-item ng-repeat="show in params.allChannels[params.channel].shows track by $index" layout="row"
 											  style="background:white;padding-left: 0 !important;" class="background-parent-first">
 									<img flex="50" ng-src="{{ params.map[show].poster }}" class="md-avatar" style="min-width: 50px !important;
 										max-height: 50px !important; min-height: 50px !important; max-width: 50px !important;position:relative;border: 1px solid;margin: 10px 20px;"/>

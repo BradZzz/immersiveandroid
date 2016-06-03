@@ -1,6 +1,21 @@
 <div class="settings">
 	<md-card class="content" style="min-height: 90vh; position: relative;">
 		<md-content>
+
+			<div ng-if="ctrl.user.role >= 4" layout="column" style="width: 80%; margin: 0 auto;" offset="10">
+				<md-input-container class="md-block">
+					<label>Email</label>
+					<input ng-model="register.form.username" ng-change="register.active = true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Password</label>
+					<input type="password" ng-model="register.form.password" ng-change="register.active = true">
+				</md-input-container>
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin md-raised color blue-sky"
+						   ng-class="{ 'active' : register.active }"
+						   ng-click="register.submit(register.form.username, register.form.password, 'local'); register.active = false">Register</md-button>
+			</div>
+
 			<div class="list-wrapper" layout-gt-md="row" layout="column"  layout-align="space-around center">
 				<div class="list-child" flex-gt-md="40" offset-gt-md="5" flex="90">
 					<md-subheader class="md-no-sticky">Selectable Shows</md-subheader>

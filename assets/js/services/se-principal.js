@@ -66,11 +66,12 @@ function ($q, $http, $rootScope, Flash)
          }
        }).then(function(res) {
          var data = res.data.user
-         _identity = data
-         _authenticated = true
+         //_identity = data
+         //_authenticated = true
          Flash.create('success', 'User Registered')
          $rootScope.$broadcast('update')
-         deferred.resolve(_identity)
+         //deferred.resolve(_identity)
+         deferred.resolve(data)
        }, function(err){
          console.log('Error!')
          console.log(err)

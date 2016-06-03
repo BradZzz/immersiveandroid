@@ -5,6 +5,14 @@ function ($scope, $http, $rootScope, seMedia, sePrincipal)
 
     $rootScope.loading = true
 
+    $scope.register = {
+        active : false,
+        submit : function () {
+            console.log(arguments)
+            sePrincipal.register.apply(this, arguments).then($scope.loginRegister.refresh())
+        }
+    }
+
     $scope.ctrl = {
         active : false,
         getMedia : function () {
