@@ -1,6 +1,6 @@
 # Immersive Android
 
-** What you need to know **
+**What you need to know**
 
 - git
 - NodeJS
@@ -11,7 +11,7 @@
 ** What you need to run **
 
 - This repo
-- .env file. Email ** BradZ (mauvemoonman@gmail.com) ** for a copy
+- .env file. Email **BradZ (mauvemoonman@gmail.com)** for a copy
 
 ## How to run
 
@@ -22,5 +22,5 @@
 ## Remember...
 
 - Always create a new branch and merge into master when you are making changes
-- Let ** BradZ (mauvemoonman@gmail.com) ** know when you need a push. He will push to production for you in a flash!
+- Let **BradZ (mauvemoonman@gmail.com)** know when you need a push. He will push to production for you in a flash!
 
