@@ -28,7 +28,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seMedia, seThe
     loginSpecial : function () {
         sePrincipal.login.apply(this, arguments).then( function(data) {
             console.log(data)
-            $state.go('home')
+            $state.go('main')
         }, function (err) {
             console.log(err)
         })
@@ -76,7 +76,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seMedia, seThe
       alert("Sorry! You'll need to create a Constituion for " + state + " first!");
     },
     nav : [
-        { icon : 'ion-android-home', text : 'Home', click : function(){$state.go('home')} },
+        { icon : 'ion-android-home', text : 'Home', click : function(){$state.go('main')} },
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){$state.go('analytics')} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){$state.go('settings')} },

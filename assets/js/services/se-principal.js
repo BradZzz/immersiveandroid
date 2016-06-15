@@ -107,6 +107,31 @@ function ($q, $http, $rootScope, Flash)
       })
       return deferred.promise
     },
+    updatePassword: function (oldP, newP, newPB) {
+      var deferred = $q.defer()
+      $http({
+        url: '/updateUserPassword',
+        method: "POST",
+        params: {
+          oldP : oldP,
+          newP : newP
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function(res) {
+        console.log(res)
+        Flash.create('success', 'Password Updated')
+        $rootScope.$broadcast('update')
+        deferred.resolve(res.data)
+      }, function(err){
+        console.log('Error!')
+        console.log(err)
+        Flash.create('danger', err.data.err)
+        deferred.reject(err)
+      })
+      return deferred.promise
+    },
     update: function (user) {
       var deferred = $q.defer()
       $http({
@@ -127,10 +152,10 @@ function ($q, $http, $rootScope, Flash)
         $rootScope.$broadcast('update')
         deferred.resolve(_identity)
       }, function(err){
-          console.log('Error!')
-          console.log(err)
-          Flash.create('danger', err.data.err)
-          deferred.reject(err)
+        console.log('Error!')
+         console.log(err)
+         Flash.create('danger', err.data.err)
+         deferred.reject(err)
       })
       return deferred.promise
     },
@@ -155,13 +180,9 @@ function ($q, $http, $rootScope, Flash)
       }
       //Check if the identity is in the service
       if (angular.isDefined(_identity) && _identity != null) {
-        console.log('isDefined')
-        console.log(_identity)
         deferred.resolve(_identity)
       //Check to see if the identity is in the local storage
       } else if (storageIndex in localStorage) {
-        console.log('storageIndex')
-        console.log(_identity)
         _identity = angular.fromJson(localStorage.getItem(storageIndex))
         self.authenticate(_identity)
         deferred.resolve(_identity)
@@ -174,8 +195,6 @@ function ($q, $http, $rootScope, Flash)
           var data = res.data.user
           _identity = data
           _authenticated = true
-          console.log('http')
-          console.log(_identity)
           $rootScope.$broadcast('update')
           deferred.resolve(_identity)
         }, function(err){

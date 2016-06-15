@@ -64,6 +64,31 @@ module.exports = function (app) {
     }
   })
 
+  app.post('/updateUserPassword', hopAuth, function(req, res) {
+    var body = req.query || req.body
+
+    //Make sure that the user is currently logged in before we let them change their password
+    if ( 'user' in req && 'oldP' in body && 'newP' in body ) {
+        //Check to make sure the old password is valid
+        if (req.user.validPassword(body.oldP)) {
+
+            var user = JSON.parse(JSON.stringify(req.user))
+            user.pass = req.user.generateHash(body.newP)
+
+            User.findOneAndUpdate({ email : user.email }, { $set: user }, {upsert:true,new:true}, function(err, user){
+              if (err) {
+                console.log(err)
+                return res.status(500).json({ err : err })
+              } else {
+                return res.status(200).json({ user : user })
+              }
+            })
+        } else {
+            return res.status(400).json({ err : "Old password is incorrect" })
+        }
+    }
+  })
+
   app.post('/updateUser', hopAuth, function(req, res) {
       var params = req.query || req.body
       delete params['_id']

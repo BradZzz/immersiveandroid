@@ -39,6 +39,10 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     }
   }).state('home', {
     url: "/",
+    templateUrl: "/assets/html/home/home.html",
+    controller: "HomeCtrl",
+  }).state('main', {
+    url: "/index",
     parent: 'site',
     templateUrl: "/assets/html/home/main.html",
     controller: "MainCtrl",

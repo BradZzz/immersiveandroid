@@ -1,8 +1,8 @@
 <div class="settings">
-	<md-card class="content" style="min-height: 90vh; position: relative;">
-		<md-content>
-
-			<div ng-if="ctrl.user.role >= 4" layout="column" style="width: 80%; margin: 0 auto;" offset="10">
+	<md-content class="content" style="min-height: 90vh; position: relative;">
+		<md-card ng-if="ctrl.user.role >= 4">
+			<md-subheader class="md-no-sticky">Register Users</md-subheader>
+			<div layout="column" style="width: 80%; margin: 0 auto;" offset="10">
 				<md-input-container class="md-block">
 					<label>Email</label>
 					<input ng-model="register.form.username" ng-change="register.active = true">
@@ -15,35 +15,26 @@
 						   ng-class="{ 'active' : register.active }"
 						   ng-click="register.submit(register.form.username, register.form.password, 'local'); register.active = false">Register</md-button>
 			</div>
-
-			<div class="list-wrapper" layout-gt-md="row" layout="column"  layout-align="space-around center">
-				<div class="list-child" flex-gt-md="40" offset-gt-md="5" flex="90">
-					<md-subheader class="md-no-sticky">Selectable Shows</md-subheader>
-					<md-list class="border" style="height:250px; overflow-y: auto;">
-						<md-list-item class="selectable md-1-line" ng-repeat="met in ctrl.meta" layout="row" ng-click="ctrl.add($index)">
-							<img flex="50" ng-src="{{ met.poster }}" class="md-avatar" style="min-width: 50px !important;
-								max-height: 50px !important; min-height: 50px !important; max-width: 50px !important;position:relative;border: 1px solid;margin: 10px 20px;"/>
-							<span flex="50" class=" md-margin md-list-item-text" layout="column" style="position:relative;color:black;">
-								<h3>{{ met.name }}</h3>
-							</span>
-						</md-list-item>
-					</md-list>
-				</div>
-				<div class="list-child" flex-gt-md="40" offset-gt-md="10" flex="90">
-					<md-subheader class="md-no-sticky">Unselectable Shows</md-subheader>
-					<md-list class="border" style="height:250px; overflow-y: auto;">
-						<md-list-item class="selectable md-1-line" ng-repeat="met in ctrl.user.exclude" layout="row" ng-click="ctrl.remove($index)">
-							<img flex="50" ng-src="{{ met.poster }}" class="md-avatar" style="min-width: 50px !important;
-								max-height: 50px !important; min-height: 50px !important; max-width: 50px !important;position:relative;border: 1px solid;margin: 10px 20px;"/>
-							<span flex="50" class=" md-margin md-list-item-text" layout="column" style="position:relative;color:black;">
-								<h3>{{ met.name }}</h3>
-							</span>
-						</md-list-item>
-					</md-list>
-				</div>
+		</md-card>
+		<md-card>
+			<md-subheader class="md-no-sticky">Change Password</md-subheader>
+			<div layout="column" style="width: 80%; margin: 0 auto;" offset="10">
+				<md-input-container class="md-block">
+					<label>Old Password</label>
+					<input type="password" ng-model="password.form.oldPassword" ng-change="password.active = true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>New Password</label>
+					<input type="password" ng-model="password.form.newPassword" ng-change="password.active = true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Confirm Password</label>
+					<input type="password" ng-model="password.form.newPasswordb" ng-change="password.active = true">
+				</md-input-container>
+				<md-button style="width: 50%; margin-left:25%;" layout-align="center center" class="md-margin md-raised color blue-sky"
+						   ng-class="{ 'active' : password.active }"
+						   ng-click="password.submit(password.form.oldPassword, password.form.newPassword, password.form.newPasswordb); password.active = false">Change</md-button>
 			</div>
-		</md-content>
-		<md-button style="position: relative; margin: 70px auto 20px auto;" layout-align="center center" class="md-raised footer md-margin" ng-class="{ 'active' : ctrl.active }"
-				   ng-click="ctrl.saveClicked(ctrl.user);">Save</md-button>
-	</md-card>
+		</md-card>
+	</md-content>
 </div>
