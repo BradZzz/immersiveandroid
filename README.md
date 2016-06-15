@@ -1,6 +1,6 @@
 # Immersive Android
 
-**What you need to know**
+**Prerequisite Knowledge**
 
 - git
 - NodeJS
@@ -8,7 +8,7 @@
 - Gulp
 - Bower
 
-** What you need to run **
+**What you need to run**
 
 - This repo
 - .env file. Email **BradZ (mauvemoonman@gmail.com)** for a copy
