@@ -12,12 +12,13 @@
 
 - This repo
 - .env file. Email **BradZ (mauvemoonman@gmail.com)** for a copy
+- a login for the student portal. Email **BradZ (mauvemoonman@gmail.com)** for a key
 
 ## How to run
 
 - type "npm install" in the terminal at your project root folder
 - type "npm start" in the terminal at your project root folder
-- navigate to localhost:3000 in your browser
+- navigate to **localhost:3000** in your browser
 
 ## Remember...
 
