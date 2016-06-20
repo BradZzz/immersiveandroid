@@ -44,9 +44,8 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     controller: "MainCtrl",
   }).state('home', {
      url: "/curr",
-     templateUrl: "/assets/html/home/home.html",
      controller: ['$window', function ($window) {
-         $window.location.href = "https://www.gitbook.com/book/bradzzz/android-sea/details";
+         $window.location.href = "https://bradzzz.gitbooks.io/android-sea/content/";
      }],
   }).state('login', {
     url: "/login",
