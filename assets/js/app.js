@@ -37,15 +37,17 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     resolve: {
       authorize: ['seAuthorization', function(seAuthorization) { return seAuthorization.authorize() } ]
     }
-  }).state('home', {
-    url: "/",
-    templateUrl: "/assets/html/home/home.html",
-    controller: "HomeCtrl",
   }).state('main', {
-    url: "/index",
+    url: "/",
     parent: 'site',
     templateUrl: "/assets/html/home/main.html",
     controller: "MainCtrl",
+  }).state('home', {
+     url: "/curr",
+     templateUrl: "/assets/html/home/home.html",
+     controller: ['$window', function ($window) {
+         $window.location.href = "https://www.gitbook.com/book/bradzzz/android-sea/details";
+     }],
   }).state('login', {
     url: "/login",
     templateUrl: "/assets/html/home/login.html",
