@@ -70,6 +70,8 @@ module.exports = function (app) {
             return res.status(400).json({ err: 'No user exists with that CodeWarsID' })
           }
         })
+      } else {
+        return res.status(400).json({ err: 'No username in params' })
       }
     })
 
@@ -105,6 +107,8 @@ module.exports = function (app) {
             return res.status(400).json({ err: 'No user exists with that CodeWarsID' })
           }
         })
+      } else {
+        return res.status(400).json({ err: 'No username in params' })
       }
     })
 }
