@@ -1,9 +1,52 @@
 <div>
 	<div layout="column" class="main">
-		<md-content>
-			<md-card class="md-margin" style="height:88vh;">
-				<div style="border: 2px solid; border-radius: 5px; height: 50px; width: 50px; margin: 0 auto;"></div>
-				{{ ctrl.codewars }}
+		<md-content style="height:92vh; overflow-y:auto;">
+			<md-card ng-show="!ctrl.isEmpty(ctrl.codewars)" class="md-margin md-padding" style="height:250px;" layout="column">
+				<div ng-style="ctrl.codewars.logoStyle" style="border: 2px solid; border-radius: 5px; height: 50px; width: 50px; margin: 0 auto 20px auto;" class="center-vertical-parent">
+					<span class="center-horizontal center-vertical" style="font-weight: bold;">{{ ctrl.codewars.ranks.overall.rank }}</span>
+				</div>
+				<div layout="column" layout-gt-sm="row" style="width:100%">
+					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Username:</b> {{ ctrl.codewars.username }}</span>
+					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Name: </b> {{ ctrl.codewars.name }}</span>
+				</div>
+				<div layout="column" layout-gt-sm="row" style="width:100%">
+					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Honor: </b> {{ ctrl.codewars.honor }}</span>
+					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Score: </b> {{ ctrl.codewars.ranks.overall.score }}</span>
+				</div>
+			</md-card>
+			<md-card flex ng-if="ctrl.user.role < 4">
+				<md-list flex style="height:150px; overflow-y: none;" class="md-margin md-padding">
+					<md-subheader class="md-no-sticky" style="margin-bottom: 10px;">Class Resources:</md-subheader>
+					<md-list-item class="md-1-line" ng-repeat="item in ctrl.links.class" ng-click="null" style="width: 250px; margin: 0 auto;">
+						<a href='{{ item.link }}' target="_blank">{{ item.name }}</a>
+					</md-list-item>
+				</md-list>
+			</md-card>
+			<div layout="column" layout-gt-sm="row" ng-if="ctrl.user.role >= 4">
+				<md-card flex="100" flex-gt-sm="50">
+					<md-list flex style="height:150px; overflow-y: none;" class="md-margin md-padding">
+						<md-subheader class="md-no-sticky" style="margin-bottom: 10px;">Class Resources:</md-subheader>
+						<md-list-item class="md-1-line" ng-repeat="item in ctrl.links.class" ng-click="null" style="width: 250px; margin: 0 auto;">
+							<a href='{{ item.link }}' target="_blank">{{ item.name }}</a>
+						</md-list-item>
+					</md-list>
+				</md-card>
+				<md-card flex="100" flex-gt-sm="50">
+					<md-list flex style="height:150px; overflow-y: none;" class="md-margin md-padding">
+						<md-subheader class="md-no-sticky" style="margin-bottom: 10px;">Instructor Resources:</md-subheader>
+						<md-list-item class="md-1-line" ng-repeat="item in ctrl.links.instructor" ng-click="null" style="width: 250px; margin: 0 auto;">
+							<a href='{{ item.link }}' target="_blank">{{ item.name }}</a>
+						</md-list-item>
+					</md-list>
+				</md-card>
+			</div>
+			<md-card style="padding-bottom:30px;">
+				<md-list flex style="height:250px; overflow-y: none;" class="md-margin md-padding">
+					<md-subheader class="md-no-sticky" style="margin-bottom: 20px;">Student Resources:</md-subheader>
+					<md-list-item class="md-1-line" ng-repeat="item in ctrl.links.student" ng-click="null" style="width: 350px; margin: 0 auto;">
+						<a href='{{ item.link }}' target="_blank">{{ item.name }}</a>
+					</md-list-item>
+				</md-list>
 			</md-card>
 		</md-content>
 	</div>

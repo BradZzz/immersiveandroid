@@ -12,7 +12,9 @@ var userSchema = new mongoose.Schema({
   city:     { type: String },
   state:    { type: String },
   zip:      { type: Number },
+
   codeID:   { type: String },
+  codeMeta: [{ type: mongoose.Schema.Types.Mixed }],
 
   homework: [{ type: mongoose.Schema.Types.Mixed }],
   projects: [{ type: mongoose.Schema.Types.Mixed }],
