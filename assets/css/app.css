@@ -252,6 +252,9 @@ button.md-raised.active:hover {
   .profile .content .footer.md-raised {
     margin: 5px auto 10px auto !important;
   }
+  .main .codewars-header {
+    width: 100% !important;
+  }
   .main .cast-play.md-fab {
     min-width: 40px !important;
     max-width: 40px !important;
@@ -309,6 +312,9 @@ button.md-raised.active:hover {
 }
 .animate-show.ng-hide {
   opacity: 0;
+}
+.main .codewars-header {
+  width: 60%;
 }
 .main .parent:hover {
   opacity: .2;

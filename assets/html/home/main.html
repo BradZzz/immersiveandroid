@@ -1,15 +1,15 @@
 <div>
 	<div layout="column" class="main">
 		<md-content style="height:92vh; overflow-y:auto;">
-			<md-card ng-show="!ctrl.isEmpty(ctrl.codewars)" class="md-margin md-padding" style="height:250px;" layout="column">
-				<div ng-style="ctrl.codewars.logoStyle" style="border: 2px solid; border-radius: 5px; height: 50px; width: 50px; margin: 0 auto 20px auto;" class="center-vertical-parent">
+			<md-card ng-show="!ctrl.isEmpty(ctrl.codewars)" class="md-margin md-padding codewars-header" style="height:220px; margin: 10px auto;" layout="column">
+				<div ng-style="ctrl.codewars.logoStyle" style="border: 2px solid; border-radius: 5px; height: 50px; width: 50px; margin: 10px auto;" class="center-vertical-parent">
 					<span class="center-horizontal center-vertical" style="font-weight: bold;">{{ ctrl.codewars.ranks.overall.rank }}</span>
 				</div>
 				<div layout="column" layout-gt-sm="row" style="width:100%">
 					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Username:</b> {{ ctrl.codewars.username }}</span>
 					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Name: </b> {{ ctrl.codewars.name }}</span>
 				</div>
-				<div layout="column" layout-gt-sm="row" style="width:100%">
+				<div layout="column" layout-gt-sm="row" style="width:100%; margin: 30px 0;">
 					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Honor: </b> {{ ctrl.codewars.honor }}</span>
 					<span flex="100" flex-gt-sm="50" class="md-margin center-horizontal"><b>Score: </b> {{ ctrl.codewars.ranks.overall.score }}</span>
 				</div>
