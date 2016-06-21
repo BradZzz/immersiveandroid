@@ -41,6 +41,7 @@ module.exports = function (app) {
   app.get('/third/codewar/callback', function(req, res) {
       var params = req.query || req.body
 
+      console.log('get')
       console.log('Received callback!')
       console.log(params)
 
@@ -71,5 +72,39 @@ module.exports = function (app) {
         })
       }
     })
+
+    app.post('/third/codewar/callback', function(req, res) {
+      var params = req.query || req.body
+
+      console.log('post')
+      console.log('Received callback!')
+      console.log(params)
+
+      if ('username' in params) {
+        //If the username is in the params, check to see if the username attributed to a user on the server
+        User.findOne({
+          'codeID': params.username,
+        }, function(err, user) {
+          if (err) {
+            return res.status(500).json({ err: err })
+          }
+          if (user) {
+            User.findOneAndUpdate(
+                {'codeID': params.username},
+                {$push: {codeMeta: req.body}},
+                {safe: true, upsert: true},
+                function(err, user) {
+                    if (err) {
+                        return res.status(500).json({ err: err })
+                    } else {
+                        return res.status(200).json({ status : 'success' })
+                    }
+                }
+            )
+          } else {
+            return res.status(400).json({ err: 'No user exists with that CodeWarsID' })
+          }
+        })
+      }
 
 }
