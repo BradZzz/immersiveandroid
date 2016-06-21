@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('HeaderCtrl',
-['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', 'seMedia', 'seTheme', 'sePrincipal', 'seAuthorization',
-function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seMedia, seTheme, sePrincipal, seAuthorization)
+['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', '$window', 'seMedia', 'seTheme', 'sePrincipal', 'seAuthorization',
+function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, $window, seMedia, seTheme, sePrincipal, seAuthorization)
 {
   $scope.loginRegister = {
     isLoggingIn : true,
