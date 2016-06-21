@@ -2,7 +2,7 @@
 	<md-card class="content">
 		<md-list-item layout="column" class="md-margin md-padding">
 			<md-list-item layout-gt-sm="row" layout="column" class="profile-wrapper">
-				<se-upload ng-disabled="!user" file="ctrl.user.photo" callback="ctrl.imageUploaded(path)" id="{{ ctrl.user._id }}" class="selectable" style="height: 160px;width: 160px;position:relative;"></se-upload>
+				<se-upload ngf-max-size="20MB"  ng-disabled="!user" file="ctrl.user.photo" callback="ctrl.imageUploaded(path)" id="{{ ctrl.user._id }}" class="selectable" style="height: 160px;width: 160px;position:relative;"></se-upload>
 				<div offset="10" class="md-margin center-vertical-parent background-picker" layout="row"
 					 style="background-image: url('{{ ctrl.backgrounds[ctrl.user.background] }}');">
 					<span flex="50" class="icon ion-arrow-left-b selectable center-vertical" ng-click="ctrl.active = true; ctrl.incBackground(-1)"></span>

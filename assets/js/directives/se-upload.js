@@ -24,6 +24,14 @@ angular.module('ambrosia').directive('seUpload', ['$rootScope', function ($rootS
         scope.upload = function (file, invalid) {
 
           if(file) {
+
+            console.log(file)
+
+            //var myString = "this.is.my.file.txt"
+            //var ext = file.name.substring(file.name.lastIndexOf(".")+1))
+
+            //creds.img_path = 'ambrosia/profile_img/' + scope.id + ext
+
             AWS.config.update({ accessKeyId: creds.access_key, secretAccessKey: creds.secret_key })
             AWS.config.region = creds.region
 
