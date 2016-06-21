@@ -80,6 +80,9 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, seMedia, seThe
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){$state.go('analytics')} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){$state.go('settings')} },
+        { icon : 'ion-android-contacts', text : 'Feedback', click : function(){ $window.location.href =
+            "https://docs.google.com/a/generalassemb.ly/forms/d/1ARX9BR3SV-60kOjAHZ0Sah3PBC9khGUmtD70i4iogYU/viewform" }
+        },
         { icon : 'ion-android-exit', text : 'Logout', click : function(){ $scope.loginRegister.logout() } },
     ],
     incBackground : function (offset) {
