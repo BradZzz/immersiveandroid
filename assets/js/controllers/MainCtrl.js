@@ -15,7 +15,10 @@ angular.module('ambrosia').controller('MainCtrl',
                 {name : 'Curriculum', link : '/curr'}
             ],
             instructor : [
-                {name : 'Course Tracker', link : 'https://docs.google.com/a/generalassemb.ly/spreadsheets/d/1HjYtpOPn7P4iZ4U8krICe94uyDZFzlHMJpCoe1Q7Hos/edit?usp=sharing'}
+                {name : 'Course Tracker', link : 'https://docs.google.com/a/generalassemb.ly/spreadsheets/d/1HjYtpOPn7P4iZ4U8krICe94uyDZFzlHMJpCoe1Q7Hos/edit?usp=sharing'},
+                {name : 'GitBooks Repo', link : 'https://github.com/BradZzz/adi-mudkipz'},
+                {name : 'Web Site Repo', link : 'https://github.com/BradZzz/immersiveandroid'},
+                {name : 'Course Materials Repo', link : 'https://github.com/generalassembly-studio/ADI-course-materials'}
             ],
             student : [
                 {name : 'Java 8 Pocket Guide', link : 'https://drive.google.com/a/generalassemb.ly/file/d/0B5fuaRbOMsNyakZ1dmdaOGNUTGM/view?usp=sharing'},
