@@ -18,7 +18,7 @@ function ($q, $http, $rootScope, Flash)
     fake : true,
   }
 
-  var storageIndex = "hopShares.identity"
+  var storageIndex = "hopShares.identity";
 
   return {
     isIdentityResolved: function() {
@@ -46,7 +46,10 @@ function ($q, $http, $rootScope, Flash)
       _authenticated = identity != null
 
       if (identity) {
+        console.log("setting local storage", identity);
+        debugger
         localStorage.setItem(storageIndex, angular.toJson(identity))
+        self.authenticate(_identity)
       } else {
         localStorage.removeItem(storageIndex)
       }
@@ -99,6 +102,11 @@ function ($q, $http, $rootScope, Flash)
         _identity = data
         _authenticated = true
         $rootScope.$broadcast('update')
+
+        console.log("setting local storage", _identity);
+        debugger
+        localStorage.setItem(storageIndex, angular.toJson(_identity))
+
         deferred.resolve(_identity)
       }, function(err){
         console.log('Error!')
@@ -183,6 +191,8 @@ function ($q, $http, $rootScope, Flash)
         deferred.resolve(_identity)
       //Check to see if the identity is in the local storage
       } else if (storageIndex in localStorage) {
+        console.log("authenticate", identity);
+        debugger
         _identity = angular.fromJson(localStorage.getItem(storageIndex))
         self.authenticate(_identity)
         deferred.resolve(_identity)
