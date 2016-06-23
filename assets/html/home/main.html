@@ -41,7 +41,15 @@
 				</md-card>
 			</div>
 			<md-card style="padding-bottom:30px;">
-				<md-list flex style="height:250px; overflow-y: none;" class="md-margin md-padding">
+				<md-list flex class="md-margin md-padding">
+					<md-subheader class="md-no-sticky" style="margin-bottom: 20px;">Pre-Work:</md-subheader>
+					<md-list-item class="md-1-line" ng-repeat="item in ctrl.links.prework" ng-click="null" style="width: 350px; margin: 0 auto;">
+						<a href='{{ item.link }}' target="_blank">{{ item.name }}</a>
+					</md-list-item>
+				</md-list>
+			</md-card>
+			<md-card style="padding-bottom:30px;">
+				<md-list flex class="md-margin md-padding">
 					<md-subheader class="md-no-sticky" style="margin-bottom: 20px;">Student Resources:</md-subheader>
 					<md-list-item class="md-1-line" ng-repeat="item in ctrl.links.student" ng-click="null" style="width: 350px; margin: 0 auto;">
 						<a href='{{ item.link }}' target="_blank">{{ item.name }}</a>
