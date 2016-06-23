@@ -12,7 +12,8 @@ angular.module('ambrosia').controller('MainCtrl',
         user : {},
         links : {
             class : [
-                {name : 'Curriculum', link : '/curr'}
+                {name : 'Curriculum', link : '/curr'},
+                {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'}
             ],
             instructor : [
                 {name : 'Course Tracker', link : 'https://docs.google.com/a/generalassemb.ly/spreadsheets/d/1HjYtpOPn7P4iZ4U8krICe94uyDZFzlHMJpCoe1Q7Hos/edit?usp=sharing'},
