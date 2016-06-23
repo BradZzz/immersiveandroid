@@ -18,7 +18,7 @@ angular.module('ambrosia').controller('MainCtrl',
                 {name : 'Course Tracker', link : 'https://docs.google.com/a/generalassemb.ly/spreadsheets/d/1HjYtpOPn7P4iZ4U8krICe94uyDZFzlHMJpCoe1Q7Hos/edit?usp=sharing'},
                 {name : 'GitBooks Repo', link : 'https://github.com/BradZzz/adi-mudkipz'},
                 {name : 'Web Site Repo', link : 'https://github.com/BradZzz/immersiveandroid'},
-                {name : 'Course Materials Repo', link : 'https://github.com/generalassembly-studio/ADI-course-materials'}
+                {name : 'Course Materials Repo', link : 'https://github.com/WDI-SEA/ADI-course-materials'}
             ],
             prework: [
                 {name : 'Learn the Command Line (3 hours)', link : 'https://www.codecademy.com/learn/learn-the-command-line'},
