@@ -50,11 +50,11 @@ angular.module('ambrosia').controller('AttendanceCtrl',
                 formatted = moment({ years: thisWeek.years(), months: thisWeek.months(), date: thisWeek.date(), hours: now.hours(), minutes: now.minutes(), seconds: now.seconds() })
             }
 
-
-
             sePrincipal.markAtt(student.email, formatted).then(function(res){
                 student.attendance.push({ signer: student.email, date : formatted })
                 $scope.ctrl.organizeAtt(student)
+            }, function (err){
+                console.log(err)
             })
         }
       },
@@ -67,22 +67,6 @@ angular.module('ambrosia').controller('AttendanceCtrl',
         }
 
         return -1
-
-        /*var search = moment(this.start).add(this.currentWeek, 'weeks').add(day, 'days')
-        var myDate = _.find(student.attendance,function(att){
-            var thisAtt = moment(att.date)
-            return thisAtt.years() === search.years() && thisAtt.months() === search.months() && thisAtt.date() === search.date()
-        })
-
-        if (myDate === undefined) {
-          return -1
-        } else {
-            if (moment(myDate.date).hours() < 9 || (moment(myDate.date).hours() === 9 && moment(myDate.date).minutes() <= 15)) {
-                return 1
-            } else {
-                return 0
-            }
-        }*/
       },
       organizeAtt: function (student) {
         student.attendenceFormatted = {}

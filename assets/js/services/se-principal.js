@@ -70,6 +70,11 @@ function ($q, $http, $rootScope, Flash)
         $rootScope.$broadcast('update')
         console.log(res)
         return res.data
+      }, function(err){
+        console.log('Error!')
+        console.log(err)
+        Flash.create('danger', err)
+        deferred.reject(err)
       })
     },
     authenticate: function(identity) {
