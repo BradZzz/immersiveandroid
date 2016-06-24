@@ -12,13 +12,20 @@ angular.module('ambrosia').controller('MainCtrl',
         user : {},
         links : {
             class : [
-                {name : 'Curriculum', link : '/curr'}
+                {name : 'Curriculum', link : '/curr'},
+                {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'}
             ],
             instructor : [
                 {name : 'Course Tracker', link : 'https://docs.google.com/a/generalassemb.ly/spreadsheets/d/1HjYtpOPn7P4iZ4U8krICe94uyDZFzlHMJpCoe1Q7Hos/edit?usp=sharing'},
                 {name : 'GitBooks Repo', link : 'https://github.com/BradZzz/adi-mudkipz'},
                 {name : 'Web Site Repo', link : 'https://github.com/BradZzz/immersiveandroid'},
-                {name : 'Course Materials Repo', link : 'https://github.com/generalassembly-studio/ADI-course-materials'}
+                {name : 'Course Materials Repo', link : 'https://github.com/WDI-SEA/ADI-course-materials'}
+            ],
+            prework: [
+                {name : 'Learn the Command Line (3 hours)', link : 'https://www.codecademy.com/learn/learn-the-command-line'},
+                {name : 'Learn Git (15 minutes)', link : 'https://try.github.io/levels/1/challenges/1'},
+                {name : 'Learn Java (complete sections 1 through 4)', link : 'https://www.codecademy.com/learn/learn-java'},
+                {name : 'XML Video (18 minutes)', link : 'https://vimeo.com/9764458'},
             ],
             student : [
                 {name : 'Java 8 Pocket Guide', link : 'https://drive.google.com/a/generalassemb.ly/file/d/0B5fuaRbOMsNyakZ1dmdaOGNUTGM/view?usp=sharing'},
