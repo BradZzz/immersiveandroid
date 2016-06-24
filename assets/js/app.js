@@ -80,6 +80,11 @@ function ($locationProvider, $stateProvider, $urlRouterProvider) {
     templateUrl: "/assets/html/home/settings.html",
     controller: "SettingsCtrl",
     data: { role: 1 }
+  }).state('attendance', {
+    url: "/attendance",
+    parent: 'site',
+    templateUrl: "/assets/html/home/attendance.html",
+    controller: "AttendanceCtrl",
   }).state('mpl', {
     url: "/mpl",
     templateUrl: "/assets/html/misc/mpl.html"

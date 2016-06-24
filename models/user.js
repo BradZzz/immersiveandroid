@@ -16,8 +16,9 @@ var userSchema = new mongoose.Schema({
   codeID:   { type: String },
   codeMeta: [{ type: mongoose.Schema.Types.Mixed }],
 
-  homework: [{ type: mongoose.Schema.Types.Mixed }],
-  projects: [{ type: mongoose.Schema.Types.Mixed }],
+  attendance: [{ type: mongoose.Schema.Types.Mixed }],
+  homework:   [{ type: mongoose.Schema.Types.Mixed }],
+  projects:   [{ type: mongoose.Schema.Types.Mixed }],
 
   //profile fields
   photo:    { type: String, default: 'assets/img/test/test_logged_out.png' },
@@ -49,6 +50,22 @@ userSchema.methods.clientUser = function() {
     var returned = JSON.parse(JSON.stringify(this))
     delete returned['token']
     delete returned['pass']
+    return returned
+}
+
+userSchema.methods.publicUser = function() {
+    var returned = JSON.parse(JSON.stringify(this))
+    delete returned['token']
+    delete returned['pass']
+    delete returned['type']
+    delete returned['gender']
+    delete returned['address1']
+    delete returned['address2']
+    delete returned['city']
+    delete returned['state']
+    delete returned['zip']
+    delete returned['photo']
+    delete returned['background']
     return returned
 }
 

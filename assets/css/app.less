@@ -79,6 +79,10 @@ html, body {
     border-radius: 5px;
 }
 
+.border-square {
+    border: 2px solid #000;
+}
+
 .background {
     &.green {
         background: @green-trans !important;
@@ -324,6 +328,28 @@ button.md-raised {
   opacity: 0;
 }
 
+.attendance {
+    .nav-left {
+        border: 1px solid;
+        & button:hover {
+            background: @grey-full !important;
+        }
+    }
+    .nav-right {
+        .attendance {
+            &:hover {
+                background: @red-trans;
+            }
+            &.selected {
+                background: @green-full;
+            }
+            &.tardy {
+                background: @red-full !important;
+            }
+        }
+    }
+}
+
 .main {
     .codewars-header {
         width: 60%;
@@ -384,6 +410,25 @@ button.md-raised {
     }
 }
 
+.media-overlay {
+    .transition(all, 0.5s);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .media-overlay-background {
+        background:gray;
+        width: 100%;
+        height:100%;
+        margin: 0;
+        position: absolute;
+        opacity : .5;
+    }
+    opacity : 0;
+    &:hover {
+      opacity : 1;
+    }
+}
+
 .media {
     .content {
         .media-meta-wrapper {
@@ -405,25 +450,6 @@ button.md-raised {
                 border: 2px solid #000;
                 border-radius: 5px;
                 position: absolute;
-            }
-            .media-overlay {
-                .transition(all, 0.5s);
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                .media-overlay-background {
-                    background:gray;
-                    width: 100%;
-                    height:100%;
-                    border-radius: 5px;
-                    margin: 2px;
-                    position: absolute;
-                    opacity : .5;
-                }
-                opacity : 0;
-                &:hover {
-                  opacity : 1;
-                }
             }
         }
     }

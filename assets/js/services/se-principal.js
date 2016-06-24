@@ -41,6 +41,37 @@ function ($q, $http, $rootScope, Flash)
       }
       return true
     },
+    userList: function() {
+      return $http({
+        url: '/user/list',
+        method: "GET",
+        data: {},
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function(res) {
+        console.log(res)
+        return res.data
+      })
+    },
+    markAtt: function(email, markDate) {
+      return $http({
+        url: '/user/markAtt',
+        method: "POST",
+        data: {
+            email : email,
+            date : markDate,
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function(res) {
+        Flash.create('success', 'Attendance Marked')
+        $rootScope.$broadcast('update')
+        console.log(res)
+        return res.data
+      })
+    },
     authenticate: function(identity) {
       _identity = identity
       _authenticated = identity != null
