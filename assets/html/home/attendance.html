@@ -1,0 +1,55 @@
+<div>
+	<div layout="row" class="attendance">
+		<md-content flex style="height:92vh" layout="row" style="overflow-y:none;">
+			<md-card flex="25" style="overflow-y:auto;">
+				<md-list flex>
+					<md-subheader class="md-no-sticky">Class Week</md-subheader>
+					<md-list-item class="nav-left selectable" ng-repeat="item in ctrl.counter(ctrl.weeks) track by $index" ng-click="ctrl.nav($index)" style="margin:8px;">
+						<h3>Week: {{$index+1}}</h3>
+					</md-list-item>
+				</md-list>
+			</md-card>
+			<md-card flex="72" class="nav-right">
+				<div layout="row" style="text-align:center" class="md-margin">
+					<div flex="16" layout="column" class="md-padding border-square">
+						<span><b>Week: {{ctrl.currentWeek + 1}}</b></span>
+					</div>
+					<div flex="16" ng-repeat="day in ctrl.currentData" layout="column" class="border-square center-vertical">
+						<span><b>{{ day.name }}</b></span>
+						<span>{{ day.date }}</span>
+					</div>
+				</div>
+
+				<div layout="row" style="text-align:center; margin:0 10px" ng-repeat="student in ctrl.students track by $index">
+					<div flex="16" layout="column" class="md-padding border-square">
+						<span><b>{{ student.name.substring(0, 12) }}</b></span>
+					</div>
+					<div style="position:relative;" flex="16" ng-class="{'selected' : ctrl.hasAtt(student, $index) === 1, 'tardy' : ctrl.hasAtt(student, $index) === 0}"
+						 ng-repeat="marks in ctrl.counter(5) track by $index" layout="column" class="attendance border-square">
+						<div layout="row" class="media-overlay" ng-if="ctrl.hasAtt(student, $index) === -1 && ctrl.user.role >= 4">
+							<div class="media-overlay-background"></div>
+							<ng-md-icon icon="face" style="fill: white; z-index:0;" class="selectable" ng-click="ctrl.markAtt(student, $index, 1)"></ng-md-icon>
+							<ng-md-icon icon="query_builder" style="fill: white; z-index:0;" class="selectable" ng-click="ctrl.markAtt(student, $index, 0)"></ng-md-icon>
+						</div>
+					</div>
+				</div>
+
+				<div layout="row" style="text-align:center" style="margin:15px 8px">
+
+					<span flex="16" class="" ></span>
+					<div flex="16" class="selected attendance border-square center-vertical" >
+						<span><b>Present</b></span>
+					</div>
+					<div flex="16" class="tardy attendance border-square center-vertical" >
+						<span><b>Tardy</b></span>
+					</div>
+					<div flex="16" class="border-square center-vertical" >
+						<span><b>Not Present / Future Date</b></span>
+					</div>
+					<span flex="16" class="" ></span>
+					<span flex="16" class="" ></span>
+				</div>
+			</md-card>
+		</md-content>
+	</div>
+</div>
