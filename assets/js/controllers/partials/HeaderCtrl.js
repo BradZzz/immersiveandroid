@@ -78,6 +78,7 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, $window, seMed
     nav : [
         { icon : 'ion-android-home', text : 'Home', click : function(){$state.go('main')} },
         { icon : 'ion-folder', text : 'Profile', click : function(){$state.go('profile')} },
+        { icon : 'ion-android-calendar', text : 'Attendance', click : function(){$state.go('attendance')} },
         { icon : 'ion-ios-pulse-strong', text : 'Analytics', click : function(){$state.go('analytics')} },
         { icon : 'ion-ios-gear', text : 'Settings', click : function(){$state.go('settings')} },
         { icon : 'ion-android-contacts', text : 'Feedback', click : function(){

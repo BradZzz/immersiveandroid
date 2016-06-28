@@ -28,9 +28,47 @@ module.exports = function (app) {
     return res.status(200).json({ user : req.user })
   })
 
+  app.get('/user/list', hopAuth, function(req, res){
+    User.find({}, function(err, users) {
+        if (err) {
+            return res.status(500).json({ err: err })
+        } else {
+            return res.status(200).json(_.map(users, function(user){
+                return user.publicUser()
+            }))
+        }
+    })
+  })
+
+  //Att == Attendance
+  app.post('/user/markAtt', hopAuth, function(req, res){
+    var body = req.body
+    if ( 'user' in req && req.user.role >= 4 && 'email' in body && 'date' in body ) {
+
+        console.log(req.user)
+        console.log(body)
+
+        User.findOneAndUpdate(
+            {'email': body.email},
+            {$push: { attendance : {signer: req.user.email, date: body.date }}},
+            {safe: true, upsert: true},
+            function(err, user) {
+                console.log(err)
+                if (err) {
+                    return res.status(500).json({ err: err })
+                } else {
+                    return res.status(200).json({ status : 'success' })
+                }
+            }
+        )
+    } else {
+       return res.status(400).json("Bad Request")
+    }
+  })
+
   app.post('/register', function(req, res) {
     var body = req.body
-    var instance = new User();
+    var instance = new User()
     //console.log(req.user)
     //Check to make sure the user can register other users and the body has the right keys included...
     if ( 'user' in req && req.user.role >= 4 && 'email' in body && 'pass' in body && 'type' in body ) {
@@ -50,10 +88,10 @@ module.exports = function (app) {
             if (err) {
               return res.status(500).json({ err: err })
             }
-            req.login(person, function(err) {
-              if (err) { return next(err) }
+            //req.login(person, function(err) {
+            //  if (err) { return next(err) }
               return res.status(200).json({ user: new User(person).clientUser(), status: 'Registration successful!' })
-            })
+            //})
           })
         } else {
           return res.status(400).json({ err: 'User already exists' })
@@ -109,9 +147,9 @@ module.exports = function (app) {
 
   function hopAuth(req, res, next) {
     if (req.user) {
-        next();
+        next()
     } else {
-        return res.status(400).json("Bad Request");
+        return res.status(400).json("Bad Request")
     }
   }
 
@@ -121,7 +159,7 @@ module.exports = function (app) {
         'email': username,
       }, function(err, user) {
         if (err) {
-          return done(err);
+          return done(err)
         }
         if (!user) {
           return done(null, false);
@@ -143,12 +181,12 @@ module.exports = function (app) {
   })
 
   passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.id)
   })
 
   passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
-      done(err, user);
+      done(err, user)
     });
   })
 }
