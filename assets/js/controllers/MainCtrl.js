@@ -14,7 +14,7 @@ angular.module('ambrosia').controller('MainCtrl',
         user : {},
         links : {
             class : [
-                {name : 'Trello Schedules', link : 'https://immersiveandroid.com/'},
+                {name : 'Trello Schedules', link : 'https://trello.com/adi01sea'},
                 {name : 'Curriculum', link : 'https://bradzzz.gitbooks.io/android-sea/content/01_intro/'},
                 {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'}
             ],
