@@ -31,6 +31,7 @@ angular.module('ambrosia').controller('MainCtrl',
                 {name : 'XML Video (18 minutes)', link : 'https://vimeo.com/9764458'},
             ],
             student : [
+                {name : 'Clean Android Coid', link : 'https://medium.com/android-news/keep-your-droid-clean-activities-and-fragments-da1799fe1e7a#.irzx6o2lr'},
                 {name : 'Java 8 Pocket Guide', link : 'https://drive.google.com/a/generalassemb.ly/file/d/0B5fuaRbOMsNyakZ1dmdaOGNUTGM/view?usp=sharing'},
                 {name : 'Java in a nutshell', link : 'https://drive.google.com/a/generalassemb.ly/file/d/0B5fuaRbOMsNyZllheVo4T2RqLWM/view?usp=sharing'},
                 {name : 'Head First Android Development', link : 'https://drive.google.com/a/generalassemb.ly/file/d/0B5fuaRbOMsNySlluYUI0T0dsX1E/view?usp=sharing'},
