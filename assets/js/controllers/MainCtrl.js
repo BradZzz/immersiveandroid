@@ -12,7 +12,8 @@ angular.module('ambrosia').controller('MainCtrl',
         user : {},
         links : {
             class : [
-                {name : 'Curriculum', link : '/curr'},
+                {name : 'Trello Schedules', link : 'https://immersiveandroid.com/'},
+                {name : 'Curriculum', link : 'https://bradzzz.gitbooks.io/android-sea/content/01_intro/'},
                 {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'}
             ],
             instructor : [
