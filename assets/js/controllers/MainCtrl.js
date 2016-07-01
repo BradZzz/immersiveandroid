@@ -16,7 +16,8 @@ angular.module('ambrosia').controller('MainCtrl',
             class : [
                 {name : 'Trello Schedules', link : 'https://trello.com/adi01sea'},
                 {name : 'Curriculum', link : 'https://bradzzz.gitbooks.io/android-sea/content/01_intro/'},
-                {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'}
+                {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'},
+                {name: 'App Ideas Repo', link: 'https://github.com/ga-students/adi-sea-01-app-ideas'}
             ],
             instructor : [
                 {name : 'Course Tracker', link : 'https://docs.google.com/a/generalassemb.ly/spreadsheets/d/1HjYtpOPn7P4iZ4U8krICe94uyDZFzlHMJpCoe1Q7Hos/edit?usp=sharing'},
