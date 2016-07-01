@@ -38,6 +38,15 @@ angular.module('ambrosia').controller('MainCtrl',
                 {name : 'Code Path Android', link : 'https://guides.codepath.com/android'},
             ],
         },
+        githubUsernames: [
+          "Baron-Severin",
+          "duffin22",
+          "mgkang0206",
+          "don93",
+          "Rcureton",
+          "bradzzz",
+          "geluso"
+        ],
         isEmpty : function(object) { return Object.getOwnPropertyNames($scope.ctrl.codewars).length == 0 },
         refresh : function () {
             sePrincipal.identity().then( function(data){
