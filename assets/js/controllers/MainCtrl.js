@@ -24,7 +24,7 @@ angular.module('ambrosia').controller('MainCtrl',
                 {name : 'GitBooks Repo', link : 'https://github.com/BradZzz/adi-mudkipz'},
                 {name : 'Web Site Repo', link : 'https://github.com/BradZzz/immersiveandroid'},
                 {name : 'Course Materials Repo', link : 'https://github.com/WDI-SEA/ADI-course-materials'},
-                {name : 'GitHub Repo Licensing', link : 'https://generalassembly.atlassian.net/wiki/pages/viewpage.action?spaceKey=LEGAL&title=Github+Content+Licensing+Guide'},
+                {name : 'https://github.com/ga-students/adi-sea-license-template', link : 'https://github.com/ga-students/adi-sea-license-template'},
             ],
             prework: [
                 {name : 'Learn the Command Line (3 hours)', link : 'https://www.codecademy.com/learn/learn-the-command-line'},
