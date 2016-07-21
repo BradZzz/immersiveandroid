@@ -16,13 +16,15 @@ angular.module('ambrosia').controller('MainCtrl',
             class : [
                 {name : 'Trello Schedules', link : 'https://trello.com/adi01sea'},
                 {name : 'Curriculum', link : 'https://bradzzz.gitbooks.io/android-sea/content/01_intro/'},
-                {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'}
+                {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/adi-sea-01/'},
+                {name: 'App Ideas Repo', link: 'https://github.com/ga-students/adi-sea-01-app-ideas'}
             ],
             instructor : [
                 {name : 'Course Tracker', link : 'https://docs.google.com/a/generalassemb.ly/spreadsheets/d/1HjYtpOPn7P4iZ4U8krICe94uyDZFzlHMJpCoe1Q7Hos/edit?usp=sharing'},
                 {name : 'GitBooks Repo', link : 'https://github.com/BradZzz/adi-mudkipz'},
                 {name : 'Web Site Repo', link : 'https://github.com/BradZzz/immersiveandroid'},
-                {name : 'Course Materials Repo', link : 'https://github.com/WDI-SEA/ADI-course-materials'}
+                {name : 'Course Materials Repo', link : 'https://github.com/WDI-SEA/ADI-course-materials'},
+                {name : 'https://github.com/ga-students/adi-sea-license-template', link : 'https://github.com/ga-students/adi-sea-license-template'},
             ],
             prework: [
                 {name : 'Learn the Command Line (3 hours)', link : 'https://www.codecademy.com/learn/learn-the-command-line'},
