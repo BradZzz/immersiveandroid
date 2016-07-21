@@ -7,7 +7,9 @@ function ($rootScope, $state, sePrincipal)
       return sePrincipal.identity()
         .then(function(data) {
           var isAuthenticated = sePrincipal.isAuthenticated()
+          console.log("Authenticating")
           console.log(isAuthenticated)
+          console.log(sePrincipal)
           //Take this out in production...
           if (!isAuthenticated) {
             $state.go('login')

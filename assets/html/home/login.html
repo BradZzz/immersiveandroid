@@ -1,6 +1,6 @@
 <div>
 	<md-content ng-controller="LeftCtrl" layout-padding style="height:100vh;padding-top: 200px;">
-		<div layout="column" style="max-width: 40%; margin: 0 auto;" offset="10">
+		<form ng-submit="loginRegister.loginSpecial(loginRegister.logForm.username, loginRegister.logForm.password,'local'); ctrl.logForm.active = false" layout="column" style="max-width: 40%; margin: 0 auto;" offset="10">
 			<md-input-container class="md-block">
 				<label>Email</label>
 				<input ng-model="loginRegister.logForm.username" ng-change="loginRegister.logForm.active = true">
@@ -11,6 +11,6 @@
 			</md-input-container>
 			<md-button style="width: 25%; margin: 0 auto;" layout-align="center center" class="md-margin md-raised active"
 					   ng-click="loginRegister.loginSpecial(loginRegister.logForm.username, loginRegister.logForm.password,'local'); ctrl.logForm.active = false">Login</md-button>
-		</div>
+		</form>
 	</md-content>
 </div>
