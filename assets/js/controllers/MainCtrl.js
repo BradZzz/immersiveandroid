@@ -6,8 +6,6 @@ angular.module('ambrosia').controller('MainCtrl',
 
     $rootScope.loading = true
 
-    //Hey!!!!
-
     $scope.ctrl = {
         codewars : {},
         projectSize : 4,
