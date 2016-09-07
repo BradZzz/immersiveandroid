@@ -1,4 +1,4 @@
-# Immersive Android
+# Immersive DSI
 
 **Prerequisite Knowledge**
 
