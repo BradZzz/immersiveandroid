@@ -12,7 +12,7 @@ angular.module('ambrosia').controller('AttendanceCtrl',
       //This is the length of the class
       weeks : 12,
       //This is when the class starts
-      start : moment("06/27/16", "MM/DD/YYYY"),
+      start : moment("10/03/16", "MM/DD/YYYY"),
       currentWeek : 0,
       currentData : {},
       students : [],
