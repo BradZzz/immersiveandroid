@@ -12,7 +12,7 @@ angular.module('ambrosia').controller('MainCtrl',
         user : {},
         links : {
             class : [
-                {name : 'Trello Schedules', link : 'https://trello.com/b/XFMsS2o7/dsi-01-sea'},
+                {name : 'Trello Schedules', link : 'https://trello.com/b/xXgCmjx4/lesson-planning'},
                 {name : 'Curriculum', link : 'https://bradzzz.gitbooks.io/ga-seattle-dsi/content/'},
                 {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/dsi-sea-01/'}
             ],
