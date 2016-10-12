@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('SettingsCtrl',
-['$scope', '$http', '$rootScope', 'seMedia', 'sePrincipal', 'Flash',
-function ($scope, $http, $rootScope, seMedia, sePrincipal, Flash)
+['$scope', '$http', '$rootScope', 'sePrincipal', 'Flash',
+function ($scope, $http, $rootScope, sePrincipal, Flash)
 {
 
     $rootScope.loading = true

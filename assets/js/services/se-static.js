@@ -199,7 +199,7 @@ function ($http)
         trackBorderColor: '#404043'
      },
 
-     // special colors for some of the
+     // special colors for some of the charts
      legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
      background2: '#505053',
      dataLabelsColor: '#B0B0B3',

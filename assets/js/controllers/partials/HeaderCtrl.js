@@ -1,6 +1,6 @@
 angular.module('ambrosia').controller('HeaderCtrl',
-['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', '$window', 'seMedia', 'seTheme', 'sePrincipal', 'seAuthorization',
-function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, $window, seMedia, seTheme, sePrincipal, seAuthorization)
+['$scope', '$state', '$rootScope', '$timeout', '$mdSidenav', '$log', '$window', 'seTheme', 'sePrincipal', 'seAuthorization',
+function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, $window, seTheme, sePrincipal, seAuthorization)
 {
   $scope.loginRegister = {
     isLoggingIn : true,
@@ -110,22 +110,6 @@ function ($scope, $state, $rootScope, $timeout, $mdSidenav, $log, $window, seMed
   $scope.$on('update', function () {
     console.log('update!')
     $scope.loginRegister.refresh()
-  })
-
-  //This runs once when the user refreshes the browser
-  //seUser.recover(function(data){
-  //    $scope.loginRegister.refresh()
-  //})
-
-  seMedia.getMedia().then(function(response){
-      console.log('test list response: ', response)
-      $scope.ctrl.states = _.map( seMedia.getSearchFormatted(response) , function (meta) {
-         return {
-           value: meta.value.toLowerCase(),
-           display: meta.value,
-           type: meta.type
-         }
-      })
   })
 
   $scope.toggleRight = buildToggler('left')

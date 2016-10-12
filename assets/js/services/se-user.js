@@ -18,19 +18,6 @@ function ($http, $rootScope, Flash)
       background : 7,
   }
 
-  /*self.user = {
-      photo : 'assets/img/test/test_user.png',
-      name : 'Geoff Test',
-      email : 'geoffrey.test@gmail.com',
-      gender : 'M',
-      address1 : '1201 Awesome Ave',
-      address2 : '#108',
-      city : 'Beverly Hills',
-      state : 'CA',
-      zip : 90210,
-      background : 7,
-  }*/
-
   self.register = function (username, password, type, callback) {
 
        console.log('logging in...')
