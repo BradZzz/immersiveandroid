@@ -13,8 +13,8 @@ angular.module('ambrosia').controller('MainCtrl',
         links : {
             class : [
                 {name : 'Trello Schedules', link : 'https://trello.com/b/xXgCmjx4/lesson-planning'},
-                {name : 'Curriculum', link : 'https://bradzzz.gitbooks.io/ga-seattle-dsi/content/'},
-                {name: 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/dsi-sea-01/'}
+                {name : 'Curriculum', link : 'https://bradzzz.gitbooks.io/ga-dsi-seattle/content/'},
+                {name : 'Class Slack Channel', link: 'https://ga-students.slack.com/messages/dsi-sea-01/'}
             ],
             instructor : [
                 {name : 'Course Tracker', link : 'https://docs.google.com/spreadsheets/u/2/d/1EVxQbIVQadiZBJMej44ck78ZJhH385nqphUJnYJMalg/edit?usp=drive_web'},
